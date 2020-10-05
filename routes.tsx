@@ -2,8 +2,8 @@ import React from 'react'
 import { NavigationContainer, Route } from '@react-navigation/native';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 import { useContext } from 'react';
-import Home from './src/pages/Home';
-import Login from './src/pages/Login';
+import Home from './src/pages/Home/Home';
+import Login from './src/pages/login/Login';
 import AuthContext, { AuthProvider } from './src/providers/AuthProvider';
 const AppStack = createStackNavigator()
 

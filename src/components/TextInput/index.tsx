@@ -8,12 +8,13 @@ interface TextInputCustom {
     value: string
     onTextChangeFunc: Function
     security?: boolean
+    icon?: string
 }
 
-const TextInputCustom: React.FC<TextInputCustom> = ({ title, value, onTextChangeFunc, security }) => {
+const TextInputCustom: React.FC<TextInputCustom> = ({ title, value, onTextChangeFunc, security, icon }) => {
     return (
         <View style={styles.containerTextInput}>
-            <Icon style={{ marginEnd: 10 }} name="key" size={25} color="#FFC633" />
+            <Icon style={{ marginEnd: 10 }} name={icon ? icon : "circle"} size={25} color="#FFC633" />
             <TextInput
                 style={styles.text}
                 placeholderTextColor={'rgba(255, 255, 255, 0.5)'}
@@ -34,16 +35,15 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         backgroundColor: 'rgba(255, 255, 255, 0.09)',
         borderRadius: 20,
-        marginBottom: 70,
-        width: '90%',
+        width: '100%',
         alignSelf: 'center',
         paddingHorizontal: 24,
         fontSize: 16,
     },
 
-    text:{
+    text: {
         color: 'white',
-        width:'90%'
+        width: '95%'
     }
 })
 export default TextInputCustom
