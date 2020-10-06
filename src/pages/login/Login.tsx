@@ -4,11 +4,16 @@ import { RectButton, TouchableOpacity } from 'react-native-gesture-handler'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInput from '../../components/TextInput'
 import logoApp from '../../../assets/logo.png'
+import { useNavigation } from '@react-navigation/native'
 
 const Login = () => {
+    const navigate = useNavigation()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    function goToCreateAccount() {
+        navigate.navigate('CreateAccount')
+    }
     function teste() {
         console.log(password);
     }
@@ -35,7 +40,7 @@ const Login = () => {
                     <Icon style={{ marginStart: 10 }} name={"arrow-right"} size={22} color="#FFC633" />
                 </RectButton>
             </View>
-            <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonCreateAccount]} onPress={() => { }}>
+            <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonCreateAccount]} onPress={goToCreateAccount}>
                 <Text style={styles.textButtonLogin}>Create account</Text>
                 <Icon style={{ marginStart: 10 }} name={"user-plus"} size={22} color="#FFC633" />
             </RectButton>
@@ -61,7 +66,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#222B4A',
         alignItems: 'center',
         padding: 30,
-        marginTop:20,
+        marginTop: 20,
         marginHorizontal: 25,
         borderRadius: 25,
         borderColor: '#E9585E',
@@ -96,7 +101,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'row',
         marginHorizontal: 40,
-        marginVertical:20,
+        marginVertical: 20,
         paddingVertical: 15
     },
 
@@ -108,7 +113,7 @@ const styles = StyleSheet.create({
     containerForgotPassword: {
         flexDirection: 'row',
         padding: 5,
-        marginTop:20
+        marginTop: 20
     }
 
 

@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start',
         backgroundColor: 'rgba(255, 255, 255, 0.09)',
-        borderRadius: 20,
+        borderRadius: 10,
         width: '100%',
         alignSelf: 'center',
         paddingHorizontal: 24,
