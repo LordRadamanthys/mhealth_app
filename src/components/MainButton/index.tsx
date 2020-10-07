@@ -5,7 +5,7 @@ import examsIcon from '../../assets/images/exams.png'
 import gymIcon from '../../assets/images/gym.png'
 import vaccinesIcon from '../../assets/images/mask.png'
 import medicinesIcon from '../../assets/images/medicines.png'
-interface ButtonHomeInterface {
+interface MainButtonInterface {
     text: string
     image: string
     action: Function
@@ -13,7 +13,7 @@ interface ButtonHomeInterface {
 
 
 
-const ButtonHome: React.FC<ButtonHomeInterface> = ({ text, image, action, children }) => {
+const MainButton: React.FC<MainButtonInterface> = ({ text, image, action, children }) => {
 
     function selectImage(name: string) {
         switch (name) {
@@ -36,40 +36,55 @@ const ButtonHome: React.FC<ButtonHomeInterface> = ({ text, image, action, childr
     return (
 
         <View style={styles.border}>
-            <RectButton style={styles.container} activeOpacity={0.9} rippleColor={'#FFC633'} onPress={()=>action()} >
-                <Text style={styles.text}>{text}</Text>
-                <Image source={selectImage(image)} style={{ width: 90, height: 70 }} resizeMode="contain" />
+            <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.recentActvities} onPress={() => action()}>
+                <View style={styles.textsRecentActivities}>
+                    <Text style={styles.textRecentActivitiesCard}>test te st ets te st ets e ts te </Text>
+                </View>
+                <Image source={examsIcon} style={styles.image} />
             </RectButton>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        // paddingVertical: 30,
-        paddingHorizontal: 20,
-        maxWidth: 200,
-        width: 140,
-        height: 150,
-        flexDirection: 'column',
-        alignItems: 'center',
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: '#E9585E',
 
-    },
 
     border: {
         borderRadius: 10,
         borderWidth: 1,
         borderColor: '#E9585E',
-        marginHorizontal: 20
     },
-    text: {
-        color: '#D8DFFD',
+
+
+    recentActivitiesContainer: {
+        flexDirection: 'column',
+        marginTop: 20
+    },
+
+    recentActvities: {
+
+        flexDirection: 'row',
+        paddingHorizontal: 20,
+        paddingVertical: 20,
+        justifyContent: 'space-between',
+        borderRadius: 15
+    },
+
+    textsRecentActivities: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        maxWidth: '70%',
+    },
+
+    textRecentActivitiesCard: {
         fontSize: 16,
-        marginVertical: 20
+        color: '#D8DFFD',
+    },
+    image: {
+        marginStart: 10,
+        width: 60,
+        height: 60
     },
 })
 
-export default ButtonHome
+export default MainButton

@@ -6,7 +6,13 @@ import HeaderHome from '../../components/HeaderHome'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import examsIcon from '../../assets/images/exams.png'
 import ButtonHome from '../../components/ButtonsHome'
+import { useNavigation } from '@react-navigation/native'
 const Home = () => {
+    const navigate = useNavigation()
+    function goTo() {
+        navigate.navigate('Exams')
+    }
+
     return (
         <View style={styles.container}>
             <HeaderHome />
@@ -16,7 +22,7 @@ const Home = () => {
             <View style={styles.main}>
 
                 <View style={styles.recentActivitiesContainer}>
-                    <Text style={[styles.text,{fontSize:19}]}>Recent Activity</Text>
+                    <Text style={[styles.text, { fontSize: 19 }]}>Recent Activity</Text>
                     <TouchableOpacity style={styles.recentActvities}>
                         <View style={styles.textsRecentActivities}>
                             <Text style={[styles.text, styles.textRecentActivitiesCard]}>test te st ets te st ets e ts te </Text>
@@ -27,7 +33,7 @@ const Home = () => {
 
 
                 <View style={styles.mainButtons}>
-                    <ButtonHome text="Exams" action={() => { }} image="exams" />
+                    <ButtonHome text="Exams" action={goTo} image="exams" />
                     <ButtonHome text="Gyn" action={() => { }} image="gym" />
                 </View>
                 <View style={styles.mainButtons}>
@@ -52,7 +58,7 @@ const styles = StyleSheet.create({
 
     containerInputSearch: {
         marginHorizontal: 20,
-        marginTop:20
+        marginTop: 20
     },
 
     main: {
@@ -63,7 +69,7 @@ const styles = StyleSheet.create({
 
     recentActivitiesContainer: {
         flexDirection: 'column',
-        marginTop:20
+        marginTop: 20
     },
 
     recentActvities: {

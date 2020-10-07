@@ -9,10 +9,11 @@ interface HeaderInterface {
     itemCenter?: any
     textCenter?: string
     itemRight?: any
+    itemRightDisabled?: boolean
     funcItemRight?: Function
 }
 
-const Header: React.FC<HeaderInterface> = ({ itemCenter, itemRight, funcItemRight, children }) => {
+const Header: React.FC<HeaderInterface> = ({ itemCenter, textCenter, itemRight, funcItemRight, itemRightDisabled, children }) => {
     const navigate = useNavigation()
     function goBack() {
         navigate.goBack()
@@ -20,14 +21,14 @@ const Header: React.FC<HeaderInterface> = ({ itemCenter, itemRight, funcItemRigh
     return (
         <View style={styles.header}>
             <TouchableOpacity style={{ padding: 10 }} onPress={goBack}>
-                <Icon style={{ marginStart: 10 }} name={"chevron-left"} size={40} color="#FFC633" />
+                <Icon style={{ marginStart: 5 }} name={"chevron-left"} size={40} color="#FFC633" />
             </TouchableOpacity>
             <View style={styles.containerItemCenter}>
-                <Text style={styles.titleHeader}>{itemCenter}</Text>
+                <Text style={styles.titleHeader}>{itemCenter ? itemCenter : textCenter}</Text>
             </View>
-            <View style={styles.containerItemRight}>
+            <TouchableOpacity disabled={itemRightDisabled} style={styles.containerItemRight}>
                 {itemRight}
-            </View>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
 
     titleHeader: {
         color: '#fff',
-        marginStart:10,
+        marginStart: 10,
         fontSize: 24
     },
 
@@ -54,6 +55,6 @@ const styles = StyleSheet.create({
     },
 
     containerItemRight: {
-        marginEnd: 15
+        marginEnd: 20
     }
 })

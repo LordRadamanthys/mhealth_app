@@ -6,6 +6,8 @@ import Home from './src/pages/Home/Home';
 import Login from './src/pages/login/Login';
 import AuthContext, { AuthProvider } from './src/providers/AuthProvider';
 import CreateAccount from './src/pages/CreateAccount';
+import Exams from './src/pages/Exams';
+import Exam from './src/pages/Exams/exam';
 const AppStack = createStackNavigator()
 
 const Routes = () => {
@@ -18,7 +20,10 @@ const Routes = () => {
                     headerMode="none">
                     <AppStack.Screen name='Login' component={Login} />
                     <AppStack.Screen name='CreateAccount' component={CreateAccount} />
+
                     <AppStack.Screen name='Home' component={Home} />
+                    <AppStack.Screen name='Exams' component={Exams} />
+                    <AppStack.Screen name='Exam' component={Exam} />
                 </AppStack.Navigator>
             </NavigationContainer>
             :
