@@ -4,7 +4,7 @@ import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
 import HeaderHome from '../../components/HeaderHome'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import examsIcon from '../../assets/images/relatorio_medico.png'
+import examsIcon from '../../assets/images/exams.png'
 import ButtonHome from '../../components/ButtonsHome'
 const Home = () => {
     return (
@@ -16,7 +16,7 @@ const Home = () => {
             <View style={styles.main}>
 
                 <View style={styles.recentActivitiesContainer}>
-                    <Text style={styles.text}>Recent Activity</Text>
+                    <Text style={[styles.text,{fontSize:19}]}>Recent Activity</Text>
                     <TouchableOpacity style={styles.recentActvities}>
                         <View style={styles.textsRecentActivities}>
                             <Text style={[styles.text, styles.textRecentActivitiesCard]}>test te st ets te st ets e ts te </Text>
@@ -24,15 +24,18 @@ const Home = () => {
                         <Image source={examsIcon} style={styles.image} />
                     </TouchableOpacity>
                 </View>
+
+
                 <View style={styles.mainButtons}>
-                    <ButtonHome text="teste" action={() => { }} image="s" />
-                    <ButtonHome text="teste" action={() => { }} image="s" />
+                    <ButtonHome text="Exams" action={() => { }} image="exams" />
+                    <ButtonHome text="Gyn" action={() => { }} image="gym" />
                 </View>
                 <View style={styles.mainButtons}>
-                    <ButtonHome text="teste" action={() => { }} image="s" />
-                    <ButtonHome text="teste" action={() => { }} image="s" />
+                    <ButtonHome text="Vaccines" action={() => { }} image="vaccines" />
+                    <ButtonHome text="Medicines" action={() => { }} image="medicines" />
                 </View>
-                
+
+
             </View>
         </View>
     )
@@ -48,16 +51,19 @@ const styles = StyleSheet.create({
     },
 
     containerInputSearch: {
-        marginHorizontal: 20
+        marginHorizontal: 20,
+        marginTop:20
     },
 
     main: {
-        margin: 30,
+        marginVertical: 0,
         padding: 5,
+        alignItems: 'center',
     },
 
     recentActivitiesContainer: {
-        flexDirection: 'column'
+        flexDirection: 'column',
+        marginTop:20
     },
 
     recentActvities: {
@@ -66,9 +72,9 @@ const styles = StyleSheet.create({
         marginTop: 10,
         flexDirection: 'row',
         paddingHorizontal: 20,
-        paddingVertical: 20,
+        paddingVertical: 30,
         justifyContent: 'space-between',
-        borderRadius: 25
+        borderRadius: 15
     },
 
     textsRecentActivities: {
@@ -90,11 +96,10 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60
     },
-    mainButtons:{
-        flexDirection:'row',
-        justifyContent:'space-between',
-        alignContent:'space-between',
-        margin:20,
-        maxWidth:300
+    mainButtons: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 30,
+        maxWidth: 400,
     }
 })

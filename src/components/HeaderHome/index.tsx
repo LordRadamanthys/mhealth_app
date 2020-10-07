@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     },
 
     titleHeader: {
-        color: '#fff',
+        color: '#D8DFFD',
         marginStart: 20,
         marginEnd: 50,
         fontSize: 21
