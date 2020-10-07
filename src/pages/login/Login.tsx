@@ -14,8 +14,8 @@ const Login = () => {
     function goToCreateAccount() {
         navigate.navigate('CreateAccount')
     }
-    function teste() {
-        console.log(password);
+    function goToLogin() {
+        navigate.navigate('Home')
     }
 
     return (
@@ -35,7 +35,7 @@ const Login = () => {
                     <Text style={styles.forgotPassword}>Forgot password</Text>
                     <Icon style={{ marginEnd: 10 }} name={"help-circle"} size={22} color="#FFC633" />
                 </TouchableOpacity>
-                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonLogin} onPress={teste}>
+                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonLogin} onPress={goToLogin}>
                     <Text style={styles.textButtonLogin}>Login</Text>
                     <Icon style={{ marginStart: 10 }} name={"arrow-right"} size={22} color="#FFC633" />
                 </RectButton>

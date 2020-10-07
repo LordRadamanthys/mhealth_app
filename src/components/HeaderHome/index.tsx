@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import logoApp from '../../../assets/logo.png'
 import { useNavigation } from '@react-navigation/native'
 import { Feather as Icon } from '@expo/vector-icons'
-interface HeaderInterface {
+interface HeaderHomeInterface {
 
     itemCenter?: any
     textCenter?: string
@@ -12,45 +12,45 @@ interface HeaderInterface {
     funcItemRight?: Function
 }
 
-const Header: React.FC<HeaderInterface> = ({ itemCenter, itemRight, funcItemRight, children }) => {
+const HeaderHome: React.FC<HeaderHomeInterface> = ({ itemCenter, itemRight, funcItemRight, children }) => {
     const navigate = useNavigation()
-    function goBack() {
+    function openSettings() {
         navigate.goBack()
     }
     return (
         <View style={styles.header}>
-            <TouchableOpacity style={{ padding: 10 }} onPress={goBack}>
-                <Icon style={{ marginStart: 10 }} name={"chevron-left"} size={40} color="#FFC633" />
-            </TouchableOpacity>
             <View style={styles.containerItemCenter}>
-                <Text style={styles.titleHeader}>{itemCenter}</Text>
+                <Text style={styles.titleHeader}>Hi, what do you want to do?</Text>
             </View>
-            <View style={styles.containerItemRight}>
-                {itemRight}
-            </View>
+            <TouchableOpacity style={{ padding: 10 }} onPress={openSettings}>
+                <Icon style={{ marginEnd: 10 }} name={"settings"} size={35} color="#FFC633" />
+            </TouchableOpacity>
         </View>
     )
 }
 
-export default Header
+export default HeaderHome
 const styles = StyleSheet.create({
 
     header: {
+        marginTop:20,
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
+        maxHeight: 200,
         height: 100
     },
 
     titleHeader: {
         color: '#fff',
-        marginStart:10,
-        fontSize: 24
+        marginStart: 20,
+        marginEnd: 50,
+        fontSize: 21
     },
 
     containerItemCenter: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'flex-start'
     },
 
     containerItemRight: {

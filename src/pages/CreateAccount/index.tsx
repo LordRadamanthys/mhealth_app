@@ -25,7 +25,7 @@ const CreateAccount = () => {
 
     return (
         <View style={styles.container}>
-            <Header  itemCenter={'teste'} itemRight={<Image style={{ width: 80, height: 170 }}  source={logoApp} resizeMode='contain' />}/>
+            <Header  itemCenter={'M'} itemRight={<Image style={{ width: 80, height: 170 }}  source={logoApp} resizeMode='contain' />}/>
 
             <ScrollView>
                 <View style={styles.createContainer}>
