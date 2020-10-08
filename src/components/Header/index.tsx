@@ -20,8 +20,8 @@ const Header: React.FC<HeaderInterface> = ({ itemCenter, textCenter, itemRight, 
     }
     return (
         <View style={styles.header}>
-            <TouchableOpacity style={{ padding: 10 }} onPress={goBack}>
-                <Icon style={{ marginStart: 5 }} name={"chevron-left"} size={40} color="#FFC633" />
+            <TouchableOpacity style={{ marginStart: 20, }} onPress={goBack}>
+                <Icon name={"chevron-left"} size={40} color="#FFC633" />
             </TouchableOpacity>
             <View style={styles.containerItemCenter}>
                 <Text style={styles.titleHeader}>{itemCenter ? itemCenter : textCenter}</Text>
@@ -40,21 +40,21 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
-        height: 100
+        height: 100,
+        
     },
 
     titleHeader: {
         color: '#fff',
-        marginStart: 10,
+        marginStart: 0,
         fontSize: 24
     },
 
     containerItemCenter: {
-        flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
     },
 
     containerItemRight: {
-        marginEnd: 20
+        marginEnd: 20,
     }
 })

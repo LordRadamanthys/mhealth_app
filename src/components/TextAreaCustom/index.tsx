@@ -11,7 +11,7 @@ interface TextInputCustom {
     icon?: string
 }
 
-const TextInputCustom: React.FC<TextInputCustom> = ({ title, value, onTextChangeFunc, security, icon }) => {
+const TextAreaCustom: React.FC<TextInputCustom> = ({ title, value, onTextChangeFunc, security, icon }) => {
     return (
         <View style={styles.containerTextInput}>
             <Icon style={{ marginEnd: 10 }} name={icon ? icon : ""} size={20} color="#FFC633" />
@@ -19,6 +19,8 @@ const TextInputCustom: React.FC<TextInputCustom> = ({ title, value, onTextChange
                 style={styles.text}
                 placeholderTextColor={'rgba(255, 255, 255, 0.5)'}
                 placeholder={title}
+                multiline={true}
+                numberOfLines={5}
                 secureTextEntry={security}
                 value={value}
                 onChangeText={(props) => onTextChangeFunc(props)} />
@@ -30,13 +32,11 @@ const TextInputCustom: React.FC<TextInputCustom> = ({ title, value, onTextChange
 const styles = StyleSheet.create({
     containerTextInput: {
         flexDirection: 'row',
-        height: 50,
         alignItems: 'center',
         justifyContent: 'flex-start',
         backgroundColor: 'rgba(255, 255, 255, 0.09)',
         borderRadius: 10,
         width: '100%',
-        alignSelf: 'center',
         paddingHorizontal: 24,
         fontSize: 16,
     },
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
         width: '95%'
     }
 })
-export default TextInputCustom
+export default TextAreaCustom
