@@ -10,7 +10,7 @@ interface HeaderInterface {
     textCenter?: string
     itemRight?: any
     itemRightDisabled?: boolean
-    funcItemRight?: Function
+    funcItemRight():void 
 }
 
 const Header: React.FC<HeaderInterface> = ({ itemCenter, textCenter, itemRight, funcItemRight, itemRightDisabled, children }) => {
@@ -26,7 +26,7 @@ const Header: React.FC<HeaderInterface> = ({ itemCenter, textCenter, itemRight, 
             <View style={styles.containerItemCenter}>
                 <Text style={styles.titleHeader}>{itemCenter ? itemCenter : textCenter}</Text>
             </View>
-            <TouchableOpacity disabled={itemRightDisabled} style={styles.containerItemRight}>
+            <TouchableOpacity disabled={itemRightDisabled} style={styles.containerItemRight} onPress={funcItemRight? ()=>funcItemRight() : ()=>{}}>
                 {itemRight}
             </TouchableOpacity>
         </View>
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         height: 100,
-        
+
     },
 
     titleHeader: {

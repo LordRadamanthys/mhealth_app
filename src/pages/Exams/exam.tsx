@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, Modal } from 'react-native'
 import Header from '../../components/Header'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
@@ -8,21 +8,31 @@ import examsIcon from '../../assets/images/exams.png'
 import MainButton from '../../components/MainButton'
 import { useNavigation } from '@react-navigation/native'
 import TextAreaCustom from '../../components/TextAreaCustom'
+import ModalConfirm from '../../components/Alert'
 
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
+const alert = <ModalConfirm show={true} />
 const Exam = () => {
     const navigate = useNavigation()
     const [title, setTitle] = useState('')
     const [date, setDate] = useState('')
     const [doctorsName, setDoctorsName] = useState('')
     const [descriptions, setDescriptions] = useState('')
+    const [showAlert, setshowAlert] = useState(false)
+
     function goToExam() {
         navigate.navigate("Exam")
+    } 
+
+    function showMyAlert() {
+        setshowAlert(!showAlert)
     }
+
     return (
         <View style={styles.container}>
-            <Header textCenter="Exam" itemRight={iconRightHeader} />
+            <Header textCenter="Exam" itemRight={iconRightHeader} funcItemRight={showMyAlert} />
             <View style={styles.formContainer}>
+                <ModalConfirm show={showAlert} setShow={setshowAlert} />
                 <Text style={[styles.text, { fontSize: 24 }]}>Title</Text>
                 <View style={styles.formInputContainer}>
                     <TextInputCustom title='Type the title' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
