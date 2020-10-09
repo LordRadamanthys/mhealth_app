@@ -5,17 +5,24 @@ import TextInputCustom from '../../components/TextInput'
 import { RectButton } from 'react-native-gesture-handler'
 import Header from '../../components/Header'
 import ModalAddFile from '../../components/ModalAddFile'
+import ModalYesNo from '../../components/ModalYesNo'
 const teste = [1, 1, 1, 1, 1, 1]
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
 const Files = () => {
     const [showAlertFile, setShowAlertFile] = useState(false)
+    const [showAlertDelete, setShowAlertDelete] = useState(false)
     function showModal() {
         setShowAlertFile(!showAlertFile)
+    }
+
+    function deleteFile() {
+        setShowAlertDelete(!showAlertFile)
     }
 
     return (
         <View style={styles.container}>
             <ModalAddFile show={showAlertFile} setShow={setShowAlertFile} />
+            <ModalYesNo show={showAlertDelete} setShow={setShowAlertDelete} />
             <Header textCenter="Files" itemRight={iconRightHeader} funcItemRight={showModal} />
             <View style={styles.containerInputSearch}>
                 <TextInputCustom title="Search by title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
@@ -27,7 +34,7 @@ const Files = () => {
                             <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonFile, { backgroundColor: '#3D5089', }]} onPress={() => { }}>
                                 <Text style={[styles.text, styles.buttonText]}>File_dddname.jpg</Text>
                             </RectButton>
-                            <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonDelete, { backgroundColor: '#E9585E', }]} onPress={() => { }}>
+                            <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonDelete, { backgroundColor: '#E9585E', }]} onPress={deleteFile}>
                                 <Icon style={{ marginStart: 5 }} name={"trash"} size={22} color="#FFC633" />
                             </RectButton>
                         </View>

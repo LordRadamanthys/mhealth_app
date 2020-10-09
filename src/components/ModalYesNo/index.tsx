@@ -9,7 +9,7 @@ interface AlertInterface {
     setShow(key: boolean): void
 }
 
-const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow }) => {
+const ModalYesNo: React.FC<AlertInterface> = ({ show, setShow }) => {
 
     return (
         <Modal animationType="slide"
@@ -20,17 +20,7 @@ const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow }) => {
             }}>
             <View style={styles.centeredView}>
                 <View style={styles.mainView}>
-                    <Text style={[styles.text, styles.title]}>New File</Text>
-                    <View style={styles.containerText}>
-                        <TextInputCustom title="Title" value={""} onTextChangeFunc={() => { }} icon="edit-2" />
-                    </View>
-                    <TouchableOpacity
-                        activeOpacity={0.6}
-                        style={[styles.button, { backgroundColor: '#3D5089', alignSelf: 'flex-start', paddingHorizontal: 50 }]}
-                        onPress={() => setShow(false)}>
-                        <Text style={[styles.text, styles.buttonText]}>Search file</Text>
-                        <Icon style={{ marginStart: 5 }} name={"file"} size={22} color="#FFC633" />
-                    </TouchableOpacity>
+                    <Text style={[styles.text, styles.title]}>You really want delete this file?</Text>
 
                     <View style={styles.containerBottomButtons}>
                         <RectButton
@@ -51,7 +41,7 @@ const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow }) => {
 }
 
 
-export default ModalAddFile
+export default ModalYesNo
 
 
 
@@ -65,7 +55,7 @@ const styles = StyleSheet.create({
     },
 
     mainView: {
-        paddingHorizontal: 30,
+        paddingHorizontal: 20,
         paddingVertical: 20,
         backgroundColor: '#222B4A',
         borderRadius: 25,
@@ -79,7 +69,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 24,
-        marginBottom: 40
+        marginBottom: 40,
     },
 
     description: {
