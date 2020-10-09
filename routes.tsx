@@ -8,6 +8,7 @@ import AuthContext, { AuthProvider } from './src/providers/AuthProvider';
 import CreateAccount from './src/pages/CreateAccount';
 import Exams from './src/pages/Exams';
 import Exam from './src/pages/Exams/exam';
+import Files from './src/pages/Files';
 const AppStack = createStackNavigator()
 
 const Routes = () => {
@@ -24,6 +25,7 @@ const Routes = () => {
                     <AppStack.Screen name='Home' component={Home} />
                     <AppStack.Screen name='Exams' component={Exams} />
                     <AppStack.Screen name='Exam' component={Exam} />
+                    <AppStack.Screen name='Files' component={Files} />
                 </AppStack.Navigator>
             </NavigationContainer>
             :

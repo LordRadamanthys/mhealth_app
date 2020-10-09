@@ -11,7 +11,6 @@ import TextAreaCustom from '../../components/TextAreaCustom'
 import ModalConfirm from '../../components/Alert'
 
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
-const alert = <ModalConfirm show={true} />
 const Exam = () => {
     const navigate = useNavigation()
     const [title, setTitle] = useState('')
@@ -19,18 +18,19 @@ const Exam = () => {
     const [doctorsName, setDoctorsName] = useState('')
     const [descriptions, setDescriptions] = useState('')
     const [showAlert, setshowAlert] = useState(false)
-
+    
     function goToExam() {
         navigate.navigate("Exam")
     } 
 
     function showMyAlert() {
         setshowAlert(!showAlert)
+       
     }
 
     return (
         <View style={styles.container}>
-            <Header textCenter="Exam" itemRight={iconRightHeader} funcItemRight={showMyAlert} />
+            <Header textCenter="Exam" itemRight={iconRightHeader} funcItemRight={()=>navigate.navigate('Files')} />
             <View style={styles.formContainer}>
                 <ModalConfirm show={showAlert} setShow={setshowAlert} />
                 <Text style={[styles.text, { fontSize: 24 }]}>Title</Text>
@@ -70,11 +70,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#1D2541',
         paddingTop: 40,
-    },
-
-    containerInputSearch: {
-        marginHorizontal: 20,
-        marginTop: 20
     },
 
     formContainer: {
