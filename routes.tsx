@@ -9,6 +9,7 @@ import CreateAccount from './src/pages/CreateAccount';
 import Exams from './src/pages/Exams';
 import Exam from './src/pages/Exams/exam';
 import Files from './src/pages/Files';
+import AddExam from './src/pages/Exams/addExam';
 const AppStack = createStackNavigator()
 
 const Routes = () => {
@@ -26,6 +27,7 @@ const Routes = () => {
                     <AppStack.Screen name='Exams' component={Exams} />
                     <AppStack.Screen name='Exam' component={Exam} />
                     <AppStack.Screen name='Files' component={Files} />
+                    <AppStack.Screen name='AddExam' component={AddExam} />
                 </AppStack.Navigator>
             </NavigationContainer>
             :

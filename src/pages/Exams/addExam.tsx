@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet} from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import Header from '../../components/Header'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
-import { RectButton} from 'react-native-gesture-handler'
+import { RectButton } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import TextAreaCustom from '../../components/TextAreaCustom'
 import ModalConfirm from '../../components/Alert'
 import ModalYesNo from '../../components/ModalYesNo'
+import LottieView from 'lottie-react-native'
 
-const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
-const Exam = () => {
+
+
+const AddExam = () => {
     const navigate = useNavigation()
     const [title, setTitle] = useState('')
     const [date, setDate] = useState('')
@@ -19,18 +21,19 @@ const Exam = () => {
     const [showAlert, setshowAlert] = useState(false)
     const [showAlertDelete, setshowAlertDelete] = useState(false)
 
-    function showMyAlertDelete() {
-        setshowAlertDelete(!showAlertDelete)
-    }
+
 
 
     return (
         <View style={styles.container}>
-            <Header textCenter="Exam" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddExam')} />
+            <Header textCenter="New Exam" itemRight={""} funcItemRight={() => navigate.navigate('Files')} />
             <View style={styles.formContainer}>
-                <ModalConfirm show={showAlert} setShow={setshowAlert} />
-                <ModalYesNo show={showAlertDelete} setShow={setshowAlertDelete} />
-                <Text style={[styles.text, { fontSize: 24 }]}>Title</Text>
+                <LottieView
+                    autoPlay
+                    speed={0.5}
+                    style={styles.homeImage}
+                    source={require('../../assets/animations/register_exam.json')}
+                />
                 <View style={styles.formInputContainer}>
                     <TextInputCustom title='Type the title' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
                 </View>
@@ -43,18 +46,14 @@ const Exam = () => {
                 <View style={styles.formInputContainer}>
                     <TextAreaCustom title='Type Description' value={descriptions} icon='type' onTextChangeFunc={setDescriptions} />
                 </View>
-                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonFiles} onPress={() => navigate.navigate('Files')}>
-                    <Text style={[styles.text, styles.buttonText]}>Files</Text>
-                    <Text style={[styles.text, styles.buttonText]}>total: 0  <Icon name={"paperclip"} size={22} color="#FFC633" /></Text>
-                </RectButton>
                 <View style={styles.containerBottomButtons}>
                     <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={() => { }}>
-                        <Text style={[styles.text, styles.buttonText,]}>Edit</Text>
-                        <Icon style={{ marginStart: 5 }} name={"edit-2"} size={22} color="#FFC633" />
+                        <Text style={[styles.text, styles.buttonText,]}>Create</Text>
+                        <Icon style={{ marginStart: 5 }} name={"plus"} size={22} color="#FFC633" />
                     </RectButton>
-                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => showMyAlertDelete()}>
-                        <Text style={[styles.text, styles.buttonText]}>Delete</Text>
-                        <Icon style={{ marginStart: 5 }} name={"trash"} size={22} color="#FFC633" />
+                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => { }}>
+                        <Text style={[styles.text, styles.buttonText]}>Cancel</Text>
+                        <Icon style={{ marginStart: 5 }} name={"x"} size={22} color="#FFC633" />
                     </RectButton>
                 </View>
             </View>
@@ -73,7 +72,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#222B4A',
         alignItems: 'center',
         paddingHorizontal: 30,
-        paddingTop: 50,
+        paddingTop: 20,
         marginTop: 20,
         marginHorizontal: 20,
         borderRadius: 25,
@@ -123,7 +122,12 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flexDirection: 'row',
         marginVertical: 10
-    }
+    },
+
+    homeImage: {
+        width: 130,
+        height: 130,
+    },
 })
 
-export default Exam
+export default AddExam
