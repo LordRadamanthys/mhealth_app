@@ -6,6 +6,7 @@ import TextInput from '../../components/TextInput'
 import logoApp from '../../../assets/logo.png'
 import { useNavigation } from '@react-navigation/native'
 import LottieView from 'lottie-react-native'
+import * as Animatable from 'react-native-animatable'
 
 const Login = () => {
     const navigate = useNavigation()
@@ -22,7 +23,8 @@ const Login = () => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Image style={{ width: 180, height: 170 }} source={logoApp} resizeMode='contain' />
+                {/* <Image style={{ width: 180, height: 170 }} source={logoApp} resizeMode='contain' /> */}
+                <Animatable.Image animation="pulse" iterationCount="infinite"  style={{ width: 180, height: 170 }} source={logoApp} resizeMode='contain' />
             </View>
             <View style={styles.loginContainer}>
                 <Text style={styles.titleLogin}>Login</Text>

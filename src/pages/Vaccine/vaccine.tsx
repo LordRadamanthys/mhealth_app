@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import Header from '../../components/Header'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
-import { RectButton, TouchableOpacity } from 'react-native-gesture-handler'
+import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import TextAreaCustom from '../../components/TextAreaCustom'
 import ModalConfirm from '../../components/Alert'
@@ -28,46 +28,48 @@ const Vaccine = () => {
     return (
         <View style={styles.container}>
             <Header textCenter="Vaccine" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddVaccine')} />
-            <View style={styles.formContainer}>
-                <ModalConfirm show={showAlert} setShow={setshowAlert} />
-                <ModalYesNo show={showAlertDelete} setShow={setshowAlertDelete} />
-                <Text style={[styles.text, { fontSize: 24 }]}>Title</Text>
-                <View style={styles.formInputContainer}>
-                    <TextInputCustom title='Type the title' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
-                </View>
-                <View style={styles.formInputContainerDoses}>
-                    <View style={{maxWidth:100,marginRight:30}}>
-                        <TextInputCustom title='0/0' value={date} icon='' onTextChangeFunc={setDate} />
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <View style={styles.formContainer}>
+                    <ModalConfirm show={showAlert} setShow={setshowAlert} />
+                    <ModalYesNo show={showAlertDelete} setShow={setshowAlertDelete} />
+                    <Text style={[styles.text, { fontSize: 24 }]}>Title</Text>
+                    <View style={styles.formInputContainer}>
+                        <TextInputCustom title='Type the title' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
                     </View>
-                    <TouchableOpacity activeOpacity={0.5} style={styles.buttonAddDose}>
-                        <Text style={styles.text}>Add a new dose +</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.formInputContainer}>
-                    <TextInputCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} />
-                </View>
-                <View style={styles.formInputContainer}>
-                    <TextInputCustom title='Type date return' value={date} icon='calendar' onTextChangeFunc={setDate} />
-                </View>
-                <View style={styles.formInputContainer}>
-                    <TextInputCustom title='local' value={doctorsName} icon='map-pin' onTextChangeFunc={setDoctorsName} />
-                </View>
+                    <View style={styles.formInputContainerDoses}>
+                        <View style={{ maxWidth: 100, marginRight: 30 }}>
+                            <TextInputCustom title='0/0' value={date} icon='' onTextChangeFunc={setDate} />
+                        </View>
+                        <TouchableOpacity activeOpacity={0.5} style={styles.buttonAddDose}>
+                            <Text style={styles.text}>Add a new dose +</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.formInputContainer}>
+                        <TextInputCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} />
+                    </View>
+                    <View style={styles.formInputContainer}>
+                        <TextInputCustom title='Type date return' value={date} icon='calendar' onTextChangeFunc={setDate} />
+                    </View>
+                    <View style={styles.formInputContainer}>
+                        <TextInputCustom title='local' value={doctorsName} icon='map-pin' onTextChangeFunc={setDoctorsName} />
+                    </View>
 
-                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonFiles} onPress={() => navigate.navigate('Files')}>
-                    <Text style={[styles.text, styles.buttonText]}>Files</Text>
-                    <Text style={[styles.text, styles.buttonText]}>total: 0  <Icon name={"paperclip"} size={22} color="#FFC633" /></Text>
-                </RectButton>
-                <View style={styles.containerBottomButtons}>
-                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={() => { }}>
-                        <Text style={[styles.text, styles.buttonText,]}>Edit</Text>
-                        <Icon style={{ marginStart: 5 }} name={"edit-2"} size={22} color="#FFC633" />
+                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonFiles} onPress={() => navigate.navigate('Files')}>
+                        <Text style={[styles.text, styles.buttonText]}>Files</Text>
+                        <Text style={[styles.text, styles.buttonText]}>total: 0  <Icon name={"paperclip"} size={22} color="#FFC633" /></Text>
                     </RectButton>
-                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => showMyAlertDelete()}>
-                        <Text style={[styles.text, styles.buttonText]}>Delete</Text>
-                        <Icon style={{ marginStart: 5 }} name={"trash"} size={22} color="#FFC633" />
-                    </RectButton>
+                    <View style={styles.containerBottomButtons}>
+                        <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={() => { }}>
+                            <Text style={[styles.text, styles.buttonText,]}>Edit</Text>
+                            <Icon style={{ marginStart: 5 }} name={"edit-2"} size={22} color="#FFC633" />
+                        </RectButton>
+                        <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => showMyAlertDelete()}>
+                            <Text style={[styles.text, styles.buttonText]}>Delete</Text>
+                            <Icon style={{ marginStart: 5 }} name={"trash"} size={22} color="#FFC633" />
+                        </RectButton>
+                    </View>
                 </View>
-            </View>
+            </ScrollView>
         </View>
     )
 }
@@ -137,10 +139,10 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'space-between',
         flexDirection: 'row',
-        marginVertical: 10
+        marginVertical: 20
     },
 
-    buttonAddDose:{
+    buttonAddDose: {
         flexDirection: 'row',
         height: 50,
         alignItems: 'center',

@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         borderRadius: 25,
         borderColor: '#E9585E',
-        borderWidth: 2
+        borderWidth: 2,
     },
     containerMainButton: {
         marginVertical: 10

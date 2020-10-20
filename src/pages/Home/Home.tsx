@@ -7,6 +7,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import examsIcon from '../../assets/images/exams.png'
 import ButtonHome from '../../components/ButtonsHome'
 import { useNavigation } from '@react-navigation/native'
+import * as Animatable from 'react-native-animatable'
+
 const Home = () => {
     const navigate = useNavigation()
     function goTo(page:string) {
@@ -20,8 +22,7 @@ const Home = () => {
                 <TextInputCustom title="teste" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
             </View>
             <View style={styles.main}>
-
-                <View style={styles.recentActivitiesContainer}>
+                <Animatable.View animation="fadeInUpBig" style={styles.recentActivitiesContainer}>
                     <Text style={[styles.text, { fontSize: 19 }]}>Recent Activity</Text>
                     <TouchableOpacity style={styles.recentActvities}>
                         <View style={styles.textsRecentActivities}>
@@ -29,7 +30,7 @@ const Home = () => {
                         </View>
                         <Image source={examsIcon} style={styles.image} />
                     </TouchableOpacity>
-                </View>
+                </Animatable.View >
 
 
                 <View style={styles.mainButtons}>
