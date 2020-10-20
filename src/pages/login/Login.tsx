@@ -5,6 +5,7 @@ import { Feather as Icon } from '@expo/vector-icons'
 import TextInput from '../../components/TextInput'
 import logoApp from '../../../assets/logo.png'
 import { useNavigation } from '@react-navigation/native'
+import LottieView from 'lottie-react-native'
 
 const Login = () => {
     const navigate = useNavigation()
@@ -21,10 +22,16 @@ const Login = () => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Image style={{ width: 200, height: 180 }} source={logoApp} resizeMode='contain' />
+                <Image style={{ width: 180, height: 170 }} source={logoApp} resizeMode='contain' />
             </View>
             <View style={styles.loginContainer}>
                 <Text style={styles.titleLogin}>Login</Text>
+                <LottieView
+                    autoPlay
+                    speed={0.5}
+                    style={styles.lottieImage}
+                    source={require('../../assets/animations/lf30_editor_p2lvshsb.json')}
+                />
                 <View style={styles.containerInputText}>
                     <TextInput title='E-Mail' value={email} onTextChangeFunc={setEmail} icon='user' />
                 </View>
@@ -55,12 +62,13 @@ const styles = StyleSheet.create({
         paddingTop: 20,
     },
     containerInputText: {
-        marginTop: 60,
+        marginTop: 40,
     },
 
     header: {
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        // backgroundColor:'#fff'
     },
     loginContainer: {
         backgroundColor: '#222B4A',
@@ -114,7 +122,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         padding: 5,
         marginTop: 20
-    }
+    },
+    lottieImage: {
+        width: 100,
+        height: 50,
+    },
 
 
 })

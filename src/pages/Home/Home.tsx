@@ -9,8 +9,8 @@ import ButtonHome from '../../components/ButtonsHome'
 import { useNavigation } from '@react-navigation/native'
 const Home = () => {
     const navigate = useNavigation()
-    function goTo() {
-        navigate.navigate('Exams')
+    function goTo(page:string) {
+        navigate.navigate(page)
     }
 
     return (
@@ -33,11 +33,11 @@ const Home = () => {
 
 
                 <View style={styles.mainButtons}>
-                    <ButtonHome text="Exams" action={goTo} image="exams" />
-                    <ButtonHome text="Gyn" action={() => { }} image="gym" />
+                    <ButtonHome text="Exams" action={()=>goTo('Exams')} image="exams" />
+                    <ButtonHome text="Gyn" action={()=>goTo('Vaccines')} image="gym" />
                 </View>
                 <View style={styles.mainButtons}>
-                    <ButtonHome text="Vaccines" action={() => { }} image="vaccines" />
+                    <ButtonHome text="Vaccines" action={() => goTo('Vaccines')} image="vaccines" />
                     <ButtonHome text="Medicines" action={() => { }} image="medicines" />
                 </View>
 

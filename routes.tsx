@@ -10,6 +10,9 @@ import Exams from './src/pages/Exams';
 import Exam from './src/pages/Exams/exam';
 import Files from './src/pages/Files';
 import AddExam from './src/pages/Exams/addExam';
+import Vaccines from './src/pages/Vaccine';
+import Vaccine from './src/pages/Vaccine/vaccine';
+import AddVaccine from './src/pages/Vaccine/addVaccine';
 const AppStack = createStackNavigator()
 
 const Routes = () => {
@@ -28,6 +31,9 @@ const Routes = () => {
                     <AppStack.Screen name='Exam' component={Exam} />
                     <AppStack.Screen name='Files' component={Files} />
                     <AppStack.Screen name='AddExam' component={AddExam} />
+                    <AppStack.Screen name='Vaccines' component={Vaccines} />
+                    <AppStack.Screen name='Vaccine' component={Vaccine} />
+                    <AppStack.Screen name='AddVaccine' component={AddVaccine} />
                 </AppStack.Navigator>
             </NavigationContainer>
             :

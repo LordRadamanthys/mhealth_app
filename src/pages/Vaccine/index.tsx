@@ -9,18 +9,18 @@ import MainButton from '../../components/MainButton'
 import { useNavigation } from '@react-navigation/native'
 
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
-const Exams = () => {
+const Gyms = () => {
     const teste = [1, 1, 1, 1, 1, 1, 1]
     const navigate = useNavigation()
 
-    function goToExam() {
-        navigate.navigate("Exam")
+    function goToVaccine(page:string) {
+        navigate.navigate("Vaccine")
     }
     return (
         <View style={styles.container}>
-            <Header textCenter="Exams" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddExam')} />
+            <Header textCenter="Vaccines" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddExam')} />
             <View style={styles.containerInputSearch}>
-                <TextInputCustom title="Search by title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
+                <TextInputCustom title="Search for title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
             </View>
 
             <View style={styles.main}>
@@ -28,7 +28,7 @@ const Exams = () => {
                     {teste.map(t => {
                         return (
                             <View style={styles.containerMainButton}>
-                                <MainButton text="test tes t de teset stetatdsasd tets" image="exams" action={goToExam} />
+                                <MainButton text="test tes t de teset stetatdsasd tets" image="vaccines" action={goToVaccine} />
                             </View>
                         )
                     })}
@@ -59,4 +59,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Exams
+export default Gyms

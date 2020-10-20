@@ -3,36 +3,40 @@ import { View, Text, StyleSheet } from 'react-native'
 import Header from '../../components/Header'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
-import { RectButton } from 'react-native-gesture-handler'
+import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import TextAreaCustom from '../../components/TextAreaCustom'
-
+import ModalConfirm from '../../components/Alert'
 import LottieView from 'lottie-react-native'
 
+const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
 
-
-const AddExam = () => {
+const AddVaccine = () => {
     const navigate = useNavigation()
     const [title, setTitle] = useState('')
     const [date, setDate] = useState('')
     const [doctorsName, setDoctorsName] = useState('')
     const [descriptions, setDescriptions] = useState('')
     const [showAlert, setshowAlert] = useState(false)
-    const [showAlertDelete, setshowAlertDelete] = useState(false)
 
-
+    function showMyAlertConfirm() {
+        setshowAlert(!showAlert)
+    }
 
 
     return (
         <View style={styles.container}>
-            <Header textCenter="New Exam" itemRight={""} funcItemRight={() => navigate.navigate('Files')} />
+            <Header textCenter="New Vaccine" itemRight={""}  />
+            <ScrollView>
             <View style={styles.formContainer}>
-                <LottieView
+                
+            <LottieView
                     autoPlay
-                    speed={0.5}
+                    speed={1}
                     style={styles.lottieImage}
                     source={require('../../assets/animations/register_exam.json')}
                 />
+                <ModalConfirm show={showAlert} setShow={setshowAlert} />
                 <View style={styles.formInputContainer}>
                     <TextInputCustom title='Type the title' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
                 </View>
@@ -40,22 +44,27 @@ const AddExam = () => {
                     <TextInputCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} />
                 </View>
                 <View style={styles.formInputContainer}>
-                    <TextInputCustom title='Type the Doctors name' value={doctorsName} icon='edit-3' onTextChangeFunc={setDoctorsName} />
+                    <TextInputCustom title='Type date return' value={date} icon='calendar' onTextChangeFunc={setDate} />
                 </View>
                 <View style={styles.formInputContainer}>
-                    <TextAreaCustom title='Type Description' value={descriptions} icon='type' onTextChangeFunc={setDescriptions} />
+                    <TextInputCustom title='local' value={doctorsName} icon='map-pin' onTextChangeFunc={setDoctorsName} />
                 </View>
+                <View style={styles.formInputContainer}>
+                    <TextInputCustom title='How many doses' value={date} icon='activity' onTextChangeFunc={setDate} />
+                </View>
+
                 <View style={styles.containerBottomButtons}>
-                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={() => { }}>
-                        <Text style={[styles.text, styles.buttonText,]}>Create</Text>
+                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={() => showMyAlertConfirm()}>
+                        <Text style={[styles.text, styles.buttonText,]}>Save</Text>
                         <Icon style={{ marginStart: 5 }} name={"plus"} size={22} color="#FFC633" />
                     </RectButton>
-                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => { }}>
+                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => {}}>
                         <Text style={[styles.text, styles.buttonText]}>Cancel</Text>
                         <Icon style={{ marginStart: 5 }} name={"x"} size={22} color="#FFC633" />
                     </RectButton>
                 </View>
             </View>
+            </ScrollView>
         </View>
     )
 }
@@ -78,14 +87,14 @@ const styles = StyleSheet.create({
         borderColor: '#E9585E',
         borderWidth: 2
     },
-    containerMainButton: {
-        marginVertical: 10
-    },
+  
 
     formInputContainer: {
         marginVertical: 20,
         marginHorizontal: 5,
     },
+
+
 
     buttonEdit: {
         marginTop: 15,
@@ -120,13 +129,25 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'space-between',
         flexDirection: 'row',
-        marginVertical: 10
+        marginBottom: 20
     },
 
+    buttonAddDose:{
+        flexDirection: 'row',
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        backgroundColor: 'rgba(255, 255, 255, 0.09)',
+        borderRadius: 10,
+        width: '100%',
+        alignSelf: 'center',
+        paddingHorizontal: 24,
+        fontSize: 16,
+    },
     lottieImage: {
         width: 130,
         height: 130,
     },
 })
 
-export default AddExam
+export default AddVaccine

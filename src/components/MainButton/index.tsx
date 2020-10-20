@@ -40,7 +40,7 @@ const MainButton: React.FC<MainButtonInterface> = ({ text, image, action, childr
                 <View style={styles.textsRecentActivities}>
                     <Text style={styles.textRecentActivitiesCard}>test te st ets te st ets e ts te </Text>
                 </View>
-                <Image source={examsIcon} style={styles.image} />
+                <Image source={selectImage(image)} style={styles.image} resizeMode='contain' />
             </RectButton>
         </View>
     )
@@ -51,8 +51,9 @@ const styles = StyleSheet.create({
 
     border: {
         borderRadius: 10,
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: '#E9585E',
+        // backgroundColor:'#3D5089'
     },
 
 

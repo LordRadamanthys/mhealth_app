@@ -3,15 +3,15 @@ import { View, Text, StyleSheet } from 'react-native'
 import Header from '../../components/Header'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
-import { RectButton } from 'react-native-gesture-handler'
+import { RectButton, TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import TextAreaCustom from '../../components/TextAreaCustom'
+import ModalConfirm from '../../components/Alert'
+import ModalYesNo from '../../components/ModalYesNo'
 
-import LottieView from 'lottie-react-native'
+const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
 
-
-
-const AddExam = () => {
+const Vaccine = () => {
     const navigate = useNavigation()
     const [title, setTitle] = useState('')
     const [date, setDate] = useState('')
@@ -20,39 +20,51 @@ const AddExam = () => {
     const [showAlert, setshowAlert] = useState(false)
     const [showAlertDelete, setshowAlertDelete] = useState(false)
 
-
+    function showMyAlertDelete() {
+        setshowAlertDelete(!showAlertDelete)
+    }
 
 
     return (
         <View style={styles.container}>
-            <Header textCenter="New Exam" itemRight={""} funcItemRight={() => navigate.navigate('Files')} />
+            <Header textCenter="Vaccine" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddVaccine')} />
             <View style={styles.formContainer}>
-                <LottieView
-                    autoPlay
-                    speed={0.5}
-                    style={styles.lottieImage}
-                    source={require('../../assets/animations/register_exam.json')}
-                />
+                <ModalConfirm show={showAlert} setShow={setshowAlert} />
+                <ModalYesNo show={showAlertDelete} setShow={setshowAlertDelete} />
+                <Text style={[styles.text, { fontSize: 24 }]}>Title</Text>
                 <View style={styles.formInputContainer}>
                     <TextInputCustom title='Type the title' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
+                </View>
+                <View style={styles.formInputContainerDoses}>
+                    <View style={{maxWidth:100,marginRight:30}}>
+                        <TextInputCustom title='0/0' value={date} icon='' onTextChangeFunc={setDate} />
+                    </View>
+                    <TouchableOpacity activeOpacity={0.5} style={styles.buttonAddDose}>
+                        <Text style={styles.text}>Add a new dose +</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.formInputContainer}>
                     <TextInputCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} />
                 </View>
                 <View style={styles.formInputContainer}>
-                    <TextInputCustom title='Type the Doctors name' value={doctorsName} icon='edit-3' onTextChangeFunc={setDoctorsName} />
+                    <TextInputCustom title='Type date return' value={date} icon='calendar' onTextChangeFunc={setDate} />
                 </View>
                 <View style={styles.formInputContainer}>
-                    <TextAreaCustom title='Type Description' value={descriptions} icon='type' onTextChangeFunc={setDescriptions} />
+                    <TextInputCustom title='local' value={doctorsName} icon='map-pin' onTextChangeFunc={setDoctorsName} />
                 </View>
+
+                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonFiles} onPress={() => navigate.navigate('Files')}>
+                    <Text style={[styles.text, styles.buttonText]}>Files</Text>
+                    <Text style={[styles.text, styles.buttonText]}>total: 0  <Icon name={"paperclip"} size={22} color="#FFC633" /></Text>
+                </RectButton>
                 <View style={styles.containerBottomButtons}>
                     <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={() => { }}>
-                        <Text style={[styles.text, styles.buttonText,]}>Create</Text>
-                        <Icon style={{ marginStart: 5 }} name={"plus"} size={22} color="#FFC633" />
+                        <Text style={[styles.text, styles.buttonText,]}>Edit</Text>
+                        <Icon style={{ marginStart: 5 }} name={"edit-2"} size={22} color="#FFC633" />
                     </RectButton>
-                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => { }}>
-                        <Text style={[styles.text, styles.buttonText]}>Cancel</Text>
-                        <Icon style={{ marginStart: 5 }} name={"x"} size={22} color="#FFC633" />
+                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => showMyAlertDelete()}>
+                        <Text style={[styles.text, styles.buttonText]}>Delete</Text>
+                        <Icon style={{ marginStart: 5 }} name={"trash"} size={22} color="#FFC633" />
                     </RectButton>
                 </View>
             </View>
@@ -71,7 +83,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#222B4A',
         alignItems: 'center',
         paddingHorizontal: 30,
-        paddingTop: 20,
+        paddingTop: 50,
         marginTop: 20,
         marginHorizontal: 20,
         borderRadius: 25,
@@ -85,6 +97,11 @@ const styles = StyleSheet.create({
     formInputContainer: {
         marginVertical: 20,
         marginHorizontal: 5,
+    },
+
+    formInputContainerDoses: {
+        marginVertical: 20,
+        flexDirection: "row",
     },
 
     buttonEdit: {
@@ -123,10 +140,18 @@ const styles = StyleSheet.create({
         marginVertical: 10
     },
 
-    lottieImage: {
-        width: 130,
-        height: 130,
-    },
+    buttonAddDose:{
+        flexDirection: 'row',
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        backgroundColor: 'rgba(255, 255, 255, 0.09)',
+        borderRadius: 10,
+        width: '100%',
+        alignSelf: 'center',
+        paddingHorizontal: 24,
+        fontSize: 16,
+    }
 })
 
-export default AddExam
+export default Vaccine
