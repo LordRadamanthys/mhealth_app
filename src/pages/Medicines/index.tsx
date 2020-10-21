@@ -15,6 +15,7 @@ const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
 const Medicines = () => {
     const [showAlertFile, setShowAlertFile] = useState(false)
     const [showAlertDelete, setShowAlertDelete] = useState(false)
+    const [expandAlert, setExpandAlert] = useState(false)
     function showModal() {
         setShowAlertFile(!showAlertFile)
     }
@@ -35,11 +36,21 @@ const Medicines = () => {
                 {teste.map(t => {
                     return (
                         <View style={styles.containerButtons}>
-                            <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonFile, { backgroundColor: '#3D5089', }]} onPress={() => { }}>
-                                <Animatable.View style={[styles.buttonFileAnimated, { marginBottom: 0 }]}>
-                                    <Text style={[styles.text, styles.buttonText]}>Loratadina</Text>
-                                    <Animatable.Image animation="pulse" delay={800} source={examsIcon} style={styles.image} />
+                            <RectButton activeOpacity={0.9} rippleColor={'#FFC633'}
+
+                                style={[styles.buttonFile, { backgroundColor: '#3D5089' }]}
+                                onPress={() => setExpandAlert(!expandAlert)}
+                            >
+                                <Animatable.View transition="marginBottom"
+                                    style={[styles.buttonFileAnimated, { marginBottom: expandAlert ? 30 : 0 }]} >
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <Text style={[styles.text, styles.buttonText]}>Loratadina</Text>
+                                        <Animatable.Image animation="pulse" delay={800} source={examsIcon} style={styles.image} />
+                                    </View>
+                                    <Text style={[styles.text, styles.buttonText, { display: expandAlert ? 'flex' : 'none' }]}>Loratadina</Text>
+                                    <Text style={[styles.text, styles.buttonText, { display: expandAlert ? 'flex' : 'none' }]}>Loratadina</Text>
                                 </Animatable.View>
+
                             </RectButton>
                         </View>
                     )
@@ -69,7 +80,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     containerButtons: {
-        marginTop: 20
+        marginTop: 20,
     },
 
     text: {
@@ -82,15 +93,22 @@ const styles = StyleSheet.create({
         marginRight: 20
     },
 
+    buttonTextExpand: {
+        fontSize: 17,
+        alignSelf: 'center',
+        marginRight: 20
+    },
+
     buttonFile: {
         borderRadius: 25,
+        flexDirection: 'column',
     },
 
     buttonFileAnimated: {
         marginHorizontal: 5,
         borderRadius: 25,
-        flexDirection: 'row',
-        paddingHorizontal: 55,
+        flexDirection: 'column',
+        paddingHorizontal: 80,
         paddingVertical: 15,
     },
 
