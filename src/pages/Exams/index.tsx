@@ -7,6 +7,8 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import examsIcon from '../../assets/images/exams.png'
 import MainButton from '../../components/MainButton'
 import { useNavigation } from '@react-navigation/native'
+import * as Animatable from 'react-native-animatable'
+
 
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
 const Exams = () => {
@@ -27,9 +29,9 @@ const Exams = () => {
                 <ScrollView showsVerticalScrollIndicator={false} >
                     {teste.map(t => {
                         return (
-                            <View style={styles.containerMainButton}>
+                            <Animatable.View animation="fadeInUp" style={styles.containerMainButton}>
                                 <MainButton text="test tes t de teset stetatdsasd tets" image="exams" action={goToExam} />
-                            </View>
+                            </Animatable.View>
                         )
                     })}
                 </ScrollView>

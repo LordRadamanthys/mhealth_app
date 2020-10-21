@@ -1,6 +1,6 @@
 import React from 'react'
-import { NavigationContainer, Route } from '@react-navigation/native';
-import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { useContext } from 'react';
 import Home from './src/pages/Home/Home';
 import Login from './src/pages/login/Login';
@@ -13,6 +13,7 @@ import AddExam from './src/pages/Exams/addExam';
 import Vaccines from './src/pages/Vaccine';
 import Vaccine from './src/pages/Vaccine/vaccine';
 import AddVaccine from './src/pages/Vaccine/addVaccine';
+import Profile from './src/pages/Profile';
 const AppStack = createStackNavigator()
 
 const Routes = () => {
@@ -34,6 +35,7 @@ const Routes = () => {
                     <AppStack.Screen name='Vaccines' component={Vaccines} />
                     <AppStack.Screen name='Vaccine' component={Vaccine} />
                     <AppStack.Screen name='AddVaccine' component={AddVaccine} />
+                    <AppStack.Screen name='Profile' component={Profile} />
                 </AppStack.Navigator>
             </NavigationContainer>
             :

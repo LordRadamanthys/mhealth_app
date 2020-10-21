@@ -24,7 +24,7 @@ const Login = () => {
         <View style={styles.container}>
             <View style={styles.header}>
                 {/* <Image style={{ width: 180, height: 170 }} source={logoApp} resizeMode='contain' /> */}
-                <Animatable.Image animation="pulse" iterationCount="infinite"  style={{ width: 180, height: 170 }} source={logoApp} resizeMode='contain' />
+                <Animatable.Image animation="pulse" style={{ width: 180, height: 170 }} source={logoApp} resizeMode='contain' />
             </View>
             <View style={styles.loginContainer}>
                 <Text style={styles.titleLogin}>Login</Text>
@@ -42,7 +42,9 @@ const Login = () => {
                 </View>
                 <TouchableOpacity style={styles.containerForgotPassword} activeOpacity={0.6} >
                     <Text style={styles.forgotPassword}>Forgot password</Text>
-                    <Icon style={{ marginEnd: 10 }} name={"help-circle"} size={22} color="#FFC633" />
+                    <Animatable.View animation="rubberBand" delay={1000}>
+                        <Icon style={{ marginEnd: 10 }} name={"help-circle"} size={22} color="#FFC633" />
+                    </Animatable.View>
                 </TouchableOpacity>
                 <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonLogin} onPress={goToLogin}>
                     <Text style={styles.textButtonLogin}>Login</Text>

@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native'
 import TextAreaCustom from '../../components/TextAreaCustom'
 import ModalConfirm from '../../components/Alert'
 import ModalYesNo from '../../components/ModalYesNo'
-
+import * as Animatable from 'react-native-animatable'
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
 const Exam = () => {
     const navigate = useNavigation()
@@ -31,18 +31,22 @@ const Exam = () => {
                 <ModalConfirm show={showAlert} setShow={setshowAlert} />
                 <ModalYesNo show={showAlertDelete} setShow={setshowAlertDelete} />
                 <Text style={[styles.text, { fontSize: 24 }]}>Title</Text>
-                <View style={styles.formInputContainer}>
+                <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
                     <TextInputCustom title='Type the title' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
-                </View>
-                <View style={styles.formInputContainer}>
+                </Animatable.View>
+
+                <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
                     <TextInputCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} />
-                </View>
-                <View style={styles.formInputContainer}>
+                </Animatable.View>
+
+                <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
                     <TextInputCustom title='Type the Doctors name' value={doctorsName} icon='edit-3' onTextChangeFunc={setDoctorsName} />
-                </View>
-                <View style={styles.formInputContainer}>
+                </Animatable.View>
+
+                <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
                     <TextAreaCustom title='Type Description' value={descriptions} icon='type' onTextChangeFunc={setDescriptions} />
-                </View>
+                </Animatable.View>
+
                 <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonFiles} onPress={() => navigate.navigate('Files')}>
                     <Text style={[styles.text, styles.buttonText]}>Files</Text>
                     <Text style={[styles.text, styles.buttonText]}>total: 0  <Icon name={"paperclip"} size={22} color="#FFC633" /></Text>

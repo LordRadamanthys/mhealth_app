@@ -6,6 +6,7 @@ import gymIcon from '../../assets/images/gym.png'
 import vaccinesIcon from '../../assets/images/mask.png'
 import medicinesIcon from '../../assets/images/medicines.png'
 import * as Animatable from 'react-native-animatable'
+
 interface ButtonHomeInterface {
     text: string
     image: string
@@ -34,12 +35,13 @@ const ButtonHome: React.FC<ButtonHomeInterface> = ({ text, image, action, childr
                 break;
         }
     }
+
     return (
 
         <Animatable.View animation="fadeInUp"  style={styles.border}>
             <RectButton style={styles.container} activeOpacity={0.9} rippleColor={'#FFC633'} onPress={()=>action()} >
                 <Text style={styles.text}>{text}</Text>
-                <Image  source={selectImage(image)} style={{ width: 90, height: 70 }} resizeMode="contain" />
+                <Animatable.Image  animation="pulse" delay={800} source={selectImage(image)} style={{ width: 90, height: 70 }} resizeMode="contain" />
             </RectButton>
         </Animatable.View>
     )

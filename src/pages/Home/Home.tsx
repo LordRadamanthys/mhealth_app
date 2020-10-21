@@ -17,7 +17,7 @@ const Home = () => {
 
     return (
         <View style={styles.container}>
-            <HeaderHome />
+            <HeaderHome funcItemRight={()=>navigate.navigate("Profile")}/>
             <View style={styles.containerInputSearch}>
                 <TextInputCustom title="teste" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
             </View>
@@ -28,7 +28,7 @@ const Home = () => {
                         <View style={styles.textsRecentActivities}>
                             <Text style={[styles.text, styles.textRecentActivitiesCard]}>test te st ets te st ets e ts te </Text>
                         </View>
-                        <Image source={examsIcon} style={styles.image} />
+                        <Animatable.Image  animation="pulse" delay={800} source={examsIcon} style={styles.image} />
                     </TouchableOpacity>
                 </Animatable.View >
 

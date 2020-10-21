@@ -6,7 +6,7 @@ import TextInputCustom from '../../components/TextInput'
 import { RectButton } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 import TextAreaCustom from '../../components/TextAreaCustom'
-
+import * as Animatable from 'react-native-animatable'
 import LottieView from 'lottie-react-native'
 
 
@@ -33,18 +33,18 @@ const AddExam = () => {
                     style={styles.lottieImage}
                     source={require('../../assets/animations/register_exam.json')}
                 />
-                <View style={styles.formInputContainer}>
+                <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
                     <TextInputCustom title='Type the title' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
-                </View>
-                <View style={styles.formInputContainer}>
+                </Animatable.View>
+                <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
                     <TextInputCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} />
-                </View>
-                <View style={styles.formInputContainer}>
+                </Animatable.View>
+                <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
                     <TextInputCustom title='Type the Doctors name' value={doctorsName} icon='edit-3' onTextChangeFunc={setDoctorsName} />
-                </View>
-                <View style={styles.formInputContainer}>
+                </Animatable.View>
+                <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
                     <TextAreaCustom title='Type Description' value={descriptions} icon='type' onTextChangeFunc={setDescriptions} />
-                </View>
+                </Animatable.View>
                 <View style={styles.containerBottomButtons}>
                     <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={() => { }}>
                         <Text style={[styles.text, styles.buttonText,]}>Create</Text>
