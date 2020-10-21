@@ -39,7 +39,7 @@ const Home = () => {
                 </View>
                 <View style={styles.mainButtons}>
                     <ButtonHome text="Vaccines" action={() => goTo('Vaccines')} image="vaccines" />
-                    <ButtonHome text="Medicines" action={() => { }} image="medicines" />
+                    <ButtonHome text="Medicines" action={() => goTo('Medicines')} image="medicines" />
                 </View>
 
 

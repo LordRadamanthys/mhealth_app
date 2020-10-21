@@ -14,6 +14,7 @@ import Vaccines from './src/pages/Vaccine';
 import Vaccine from './src/pages/Vaccine/vaccine';
 import AddVaccine from './src/pages/Vaccine/addVaccine';
 import Profile from './src/pages/Profile';
+import Medicines from './src/pages/Medicines';
 const AppStack = createStackNavigator()
 
 const Routes = () => {
@@ -36,6 +37,7 @@ const Routes = () => {
                     <AppStack.Screen name='Vaccine' component={Vaccine} />
                     <AppStack.Screen name='AddVaccine' component={AddVaccine} />
                     <AppStack.Screen name='Profile' component={Profile} />
+                    <AppStack.Screen name='Medicines' component={Medicines} />
                 </AppStack.Navigator>
             </NavigationContainer>
             :

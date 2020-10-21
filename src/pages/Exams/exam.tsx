@@ -10,6 +10,8 @@ import ModalConfirm from '../../components/Alert'
 import ModalYesNo from '../../components/ModalYesNo'
 import * as Animatable from 'react-native-animatable'
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
+
+
 const Exam = () => {
     const navigate = useNavigation()
     const [title, setTitle] = useState('')

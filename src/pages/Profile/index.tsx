@@ -18,7 +18,6 @@ const Profile = () => {
                 <View style={styles.createContainer}>
                     <Text style={styles.titleCreate}>Mateus Lima</Text>
                     <TouchableOpacity onPress={() => { }} style={styles.profileImgContainer}>
-                        {/* <Image source={image ? { uri: image } : require('../../assets/perfil.jpg')} style={styles.profileImg} /> */}
                         <Image source={undefined} style={styles.profileImg} />
                     </TouchableOpacity>
                     <View style={styles.containerInputText}>
@@ -29,7 +28,7 @@ const Profile = () => {
                     </View>
                   
                     <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={()=>{}}>
-                        <Text style={styles.textButtonCreate}>Create</Text>
+                        <Text style={styles.textButtonCreate}>Edit</Text>
                         <Icon style={{ marginStart: 10 }} name={"save"} size={22} color="#FFC633" />
                     </RectButton>
                 </View>
