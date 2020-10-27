@@ -1,8 +1,6 @@
 import React from 'react'
 import { Text, View, StyleSheet, Image } from 'react-native'
 import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
-import * as Animatable from 'react-native-animatable'
-import { useNavigation } from '@react-navigation/native'
 import TextInput from '../../components/TextInput'
 import { Feather as Icon } from '@expo/vector-icons'
 import logoApp from '../../../assets/logo.png'

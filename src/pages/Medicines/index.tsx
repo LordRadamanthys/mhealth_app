@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
-import { RectButton } from 'react-native-gesture-handler'
 import Header from '../../components/Header'
 import ModalAddFile from '../../components/ModalAddFile'
 import ModalYesNo from '../../components/ModalYesNo'
@@ -10,18 +9,14 @@ import * as Animatable from 'react-native-animatable'
 import examsIcon from '../../assets/images/medicines.png'
 const teste = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
-
+import CollapsibleView from "@eliav2/react-native-collapsible-view"
+import { ScrollView } from 'react-native-gesture-handler'
 
 const Medicines = () => {
     const [showAlertFile, setShowAlertFile] = useState(false)
     const [showAlertDelete, setShowAlertDelete] = useState(false)
-    const [expandAlert, setExpandAlert] = useState(false)
     function showModal() {
         setShowAlertFile(!showAlertFile)
-    }
-
-    function deleteFile() {
-        setShowAlertDelete(!showAlertFile)
     }
 
     return (
@@ -33,29 +28,24 @@ const Medicines = () => {
                 <TextInputCustom title="Search by title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
             </View>
             <View style={styles.main}>
-                {teste.map(t => {
-                    return (
-                        <View style={styles.containerButtons}>
-                            <RectButton activeOpacity={0.9} rippleColor={'#FFC633'}
-
-                                style={[styles.buttonFile, { backgroundColor: '#3D5089' }]}
-                                onPress={() => setExpandAlert(!expandAlert)}
-                            >
-                                <Animatable.View transition="marginBottom"
-                                    style={[styles.buttonFileAnimated, { marginBottom: expandAlert ? 30 : 0 }]} >
-                                    <View style={{ flexDirection: 'row' }}>
-                                        <Text style={[styles.text, styles.buttonText]}>Loratadina</Text>
-                                        <Animatable.Image animation="pulse" delay={800} source={examsIcon} style={styles.image} />
-                                    </View>
-                                    <Text style={[styles.text, styles.buttonText, { display: expandAlert ? 'flex' : 'none' }]}>Loratadina</Text>
-                                    <Text style={[styles.text, styles.buttonText, { display: expandAlert ? 'flex' : 'none' }]}>Loratadina</Text>
-                                </Animatable.View>
-
-                            </RectButton>
-                        </View>
-                    )
-                })}
-
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    {teste.map(t => {
+                        return (
+                            <View style={styles.containerButtons}>
+                                <CollapsibleView style={[styles.buttonFile, { backgroundColor: '#3D5089' }]}
+                                    title={<Text style={[styles.text, styles.buttonText]}>Loratadina</Text>}
+                                    collapsibleContainerStyle={{ borderRadius: 5 }}
+                                    noArrow={true}
+                                    unmountOnCollapse={true}
+                                >
+                                    <Animatable.Image animation="pulse" delay={800} source={examsIcon} style={styles.image} />
+                                    <Text style={[styles.text, styles.buttonTextDescription]}>Rules Loratasdsdsdssdsdsdsdinadsdsdsdsd</Text>
+                                    <Text style={[styles.text, styles.buttonTextDescription]}>Comments Loratasdsdsdssdsdsdsdinadsdsdsdsd</Text>
+                                </CollapsibleView>
+                            </View>
+                        )
+                    })}
+                </ScrollView>
             </View>
         </View>
     )
@@ -80,7 +70,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     containerButtons: {
-        marginTop: 20,
+        marginTop: 15,
     },
 
     text: {
@@ -90,31 +80,31 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: 17,
         alignSelf: 'center',
-        marginRight: 20
     },
 
-    buttonTextExpand: {
-        fontSize: 17,
+    buttonTextDescription: {
+        fontSize: 14,
+        marginTop: 10,
         alignSelf: 'center',
-        marginRight: 20
+
     },
+
 
     buttonFile: {
-        borderRadius: 25,
+        borderRadius: 20,
+        paddingHorizontal: 50,
+        paddingVertical: 30,
+        alignItems: 'center',
         flexDirection: 'column',
+        width: 300
     },
 
-    buttonFileAnimated: {
-        marginHorizontal: 5,
-        borderRadius: 25,
-        flexDirection: 'column',
-        paddingHorizontal: 80,
-        paddingVertical: 15,
-    },
 
     image: {
-        marginStart: 10,
-        width: 40,
-        height: 40
+        marginTop: 20,
+        width: 50,
+        height: 50,
+        alignSelf: 'center'
+
     },
 })

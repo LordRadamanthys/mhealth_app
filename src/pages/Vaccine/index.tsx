@@ -14,7 +14,7 @@ const Gyms = () => {
     const teste = [1, 1, 1, 1, 1, 1, 1]
     const navigate = useNavigation()
 
-    function goToVaccine(page:string) {
+    function goToVaccine(page: string) {
         navigate.navigate("Vaccine")
     }
     return (

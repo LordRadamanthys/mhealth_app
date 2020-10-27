@@ -32,20 +32,20 @@ const Exam = () => {
             <View style={styles.formContainer}>
                 <ModalConfirm show={showAlert} setShow={setshowAlert} />
                 <ModalYesNo show={showAlertDelete} setShow={setshowAlertDelete} />
-                <Text style={[styles.text, { fontSize: 24 }]}>Title</Text>
-                <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
+                <Animatable.Text animation="fadeInUp" style={[styles.text, { fontSize: 24 }]}>Title</Animatable.Text >
+                <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
                     <TextInputCustom title='Type the title' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
                 </Animatable.View>
 
-                <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
+                <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
                     <TextInputCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} />
                 </Animatable.View>
 
-                <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
+                <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
                     <TextInputCustom title='Type the Doctors name' value={doctorsName} icon='edit-3' onTextChangeFunc={setDoctorsName} />
                 </Animatable.View>
 
-                <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
+                <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
                     <TextAreaCustom title='Type Description' value={descriptions} icon='type' onTextChangeFunc={setDescriptions} />
                 </Animatable.View>
 
