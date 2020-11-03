@@ -40,7 +40,7 @@ const Login = () => {
                 <View style={styles.containerInputText}>
                     <TextInput title='Password' value={password} onTextChangeFunc={setPassword} icon='key' />
                 </View>
-                <TouchableOpacity style={styles.containerForgotPassword} activeOpacity={0.6} >
+                <TouchableOpacity style={styles.containerForgotPassword} activeOpacity={0.6} onPress={() => navigate.navigate('ForgotPassword')}>
                     <Text style={styles.forgotPassword}>Forgot password</Text>
                     <Animatable.View animation="rubberBand" delay={1000}>
                         <Icon style={{ marginEnd: 10 }} name={"help-circle"} size={22} color="#FFC633" />
