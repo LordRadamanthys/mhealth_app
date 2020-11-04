@@ -6,6 +6,7 @@ import { RectButton } from 'react-native-gesture-handler'
 import Header from '../../components/Header'
 import ModalAddFile from '../../components/ModalAddFile'
 import ModalYesNo from '../../components/ModalYesNo'
+import EmptyListComponent from '../../components/EmptyList'
 const teste = [1, 1, 1, 1, 1, 1]
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
 const Files = () => {
@@ -28,7 +29,7 @@ const Files = () => {
                 <TextInputCustom title="Search by title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
             </View>
             <View style={styles.main}>
-                {teste.map(t => {
+                {teste != null ? teste.map(t => {
                     return (
                         <View style={styles.containerButtons}>
                             <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonFile, { backgroundColor: '#3D5089', }]} onPress={() => { }}>
@@ -39,7 +40,7 @@ const Files = () => {
                             </RectButton>
                         </View>
                     )
-                })}
+                }) : <EmptyListComponent />}
 
             </View>
         </View>

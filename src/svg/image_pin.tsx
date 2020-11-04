@@ -3,12 +3,12 @@ import Svg, { Path, Ellipse, Circle } from "react-native-svg"
 import ImageInterface from "../interfaces/ImagesInterfaces"
 /* SVGR has dropped some elements not supported by react-native-svg: title */
 
-const ImagePin: React.FC<ImageInterface> = ({ heght, width }) => {
+const ImagePin: React.FC<ImageInterface> = ({ height, width }) => {
     return (
         <Svg
             data-name="Layer 1"
             width={width ? width : 200}
-            height={heght ? heght : 200}
+            height={height ? height : 200}
             viewBox="0 0 960 794.981"
 
         >

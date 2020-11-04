@@ -7,10 +7,11 @@ import ModalAddFile from '../../components/ModalAddFile'
 import ModalYesNo from '../../components/ModalYesNo'
 import * as Animatable from 'react-native-animatable'
 import examsIcon from '../../assets/images/medicines.png'
-const teste = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
 import CollapsibleView from "@eliav2/react-native-collapsible-view"
 import { ScrollView } from 'react-native-gesture-handler'
+import EmptyListComponent from '../../components/EmptyList'
+const teste = null
 
 const Medicines = () => {
     const [showAlertFile, setShowAlertFile] = useState(false)
@@ -29,9 +30,10 @@ const Medicines = () => {
             </View>
             <View style={styles.main}>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    {teste.map(t => {
+                    
+                    {teste != null?teste.map(t => {
                         return (
-                            <View style={styles.containerButtons}>
+                            <Animatable.View animation="fadeInUp" style={styles.containerButtons}>
                                 <CollapsibleView style={[styles.buttonFile, { backgroundColor: '#3D5089' }]}
                                     title={<Text style={[styles.text, styles.buttonText]}>Loratadina</Text>}
                                     collapsibleContainerStyle={{ borderRadius: 5 }}
@@ -42,9 +44,9 @@ const Medicines = () => {
                                     <Text style={[styles.text, styles.buttonTextDescription]}>Rules Loratasdsdsdssdsdsdsdinadsdsdsdsd</Text>
                                     <Text style={[styles.text, styles.buttonTextDescription]}>Comments Loratasdsdsdssdsdsdsdinadsdsdsdsd</Text>
                                 </CollapsibleView>
-                            </View>
+                            </Animatable.View>
                         )
-                    })}
+                    }): <EmptyListComponent />}
                 </ScrollView>
             </View>
         </View>

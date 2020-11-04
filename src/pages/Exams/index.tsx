@@ -1,13 +1,13 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, StyleSheet} from 'react-native'
 import Header from '../../components/Header'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
-import examsIcon from '../../assets/images/exams.png'
+import { ScrollView } from 'react-native-gesture-handler'
 import MainButton from '../../components/MainButton'
 import { useNavigation } from '@react-navigation/native'
 import * as Animatable from 'react-native-animatable'
+import EmptyListComponent from '../../components/EmptyList'
 
 
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
@@ -27,13 +27,13 @@ const Exams = () => {
 
             <View style={styles.main}>
                 <ScrollView showsVerticalScrollIndicator={false} >
-                    {teste.map(t => {
+                    {teste != null ? teste.map(t => {
                         return (
                             <Animatable.View animation="fadeInUp" style={styles.containerMainButton}>
                                 <MainButton text="test tes t de teset stetatdsasd tets" image="exams" action={goToExam} />
                             </Animatable.View>
                         )
-                    })}
+                    }): <EmptyListComponent />}
                 </ScrollView>
             </View>
         </View>

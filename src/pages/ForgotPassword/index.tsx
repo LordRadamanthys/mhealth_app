@@ -34,8 +34,8 @@ const ForgotPassword = () => {
                 <View style={styles.containerInputText}>
                     <TextInput title='Type your e-mail' value={""} onTextChangeFunc={() => { }} icon='mail' />
                 </View>
-    
-                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={()=>setLoading(!showLoading)}>
+
+                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={() => sendEmail()}>
                     <Text style={styles.textButtonCreate}>Send</Text>
                     <Icon style={{ marginStart: 10 }} name={"send"} size={22} color="#FFC633" />
                 </RectButton>
@@ -51,16 +51,16 @@ const ForgotPassword = () => {
                 <View style={styles.containerInputText}>
                     <TextInput title='Type de code' value={""} onTextChangeFunc={() => { }} icon='key' />
                 </View>
-    
-                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={() => { }}>
+
+                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={() => confirmPinRequest()}>
                     <Text style={styles.textButtonCreate}>Confirm</Text>
-                    <Icon style={{ marginStart: 10 }} name={""} size={22} color="#FFC633" />
+                    <Icon style={{ marginStart: 10 }} name={"target"} size={22} color="#FFC633" />
                 </RectButton>
             </View>
         )
     }
-    
-    
+
+
     const PasswordConfirmChangeComponent = () => {
         return (
             <View style={styles.ForgotContainer}>
@@ -69,11 +69,11 @@ const ForgotPassword = () => {
                 <View style={styles.containerInputText}>
                     <TextInput title='Type your new password' value={""} onTextChangeFunc={() => { }} icon='lock' />
                 </View>
-    
+
                 <View style={styles.containerInputText}>
                     <TextInput title='Confirm password' value={""} onTextChangeFunc={() => { }} icon='lock' />
                 </View>
-    
+
                 <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={() => { }}>
                     <Text style={styles.textButtonCreate}>Change</Text>
                     <Icon style={{ marginStart: 10 }} name={"save"} size={22} color="#FFC633" />
@@ -81,10 +81,22 @@ const ForgotPassword = () => {
             </View>
         )
     }
-    
-    function changeModalLoading(){
-        setLoading(!showLoading)
+
+    function sendEmail() {
+        setLoading(true)
+
+        setEmailComponent(false)
+        setPinComponent(true)
+        setLoading(false)
     }
+
+    function confirmPinRequest() {
+        setLoading(true)
+
+        setPinComponent(false)
+        setLoading(false)
+    }
+
     return (
         <View style={styles.container}>
             <Header itemRightDisabled={true} itemRight={<Image style={{ width: 80, height: 170 }} source={logoApp} resizeMode='contain' />} />
@@ -92,7 +104,7 @@ const ForgotPassword = () => {
                 <Text style={styles.titleForgot}>Forgot password</Text>
                 <LoadingModal setShow={() => setLoading(!showLoading)} show={showLoading} />
 
-                {showEmailComponent ? <EmailConfirmComponent/> : <></>}
+                {showEmailComponent ? <EmailConfirmComponent /> : <></>}
                 {showPinComponent ? <PinConfirmComponent /> : <></>}
                 {showPasswordComponent ? <PasswordConfirmChangeComponent /> : <></>}
             </ScrollView>

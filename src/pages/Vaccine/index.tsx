@@ -7,6 +7,7 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import MainButton from '../../components/MainButton'
 import { useNavigation } from '@react-navigation/native'
 import * as Animatable from 'react-native-animatable'
+import EmptyListComponent from '../../components/EmptyList'
 
 
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
@@ -19,20 +20,20 @@ const Gyms = () => {
     }
     return (
         <View style={styles.container}>
-            <Header textCenter="Vaccines" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddExam')} />
+            <Header textCenter="Vaccines" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddVaccine')} />
             <View style={styles.containerInputSearch}>
                 <TextInputCustom title="Search for title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
             </View>
 
             <View style={styles.main}>
                 <ScrollView showsVerticalScrollIndicator={false} >
-                    {teste.map(t => {
+                    {teste != null ? teste.map(t => {
                         return (
                             <Animatable.View animation="fadeInUp" style={styles.containerMainButton}>
                                 <MainButton text="test tes t de teset stetatdsasd tets" image="vaccines" action={goToVaccine} />
                             </Animatable.View>
                         )
-                    })}
+                    }) : <EmptyListComponent />}
                 </ScrollView>
             </View>
         </View>

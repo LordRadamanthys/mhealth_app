@@ -2,11 +2,11 @@ import * as React from "react"
 import Svg, { Path } from "react-native-svg"
 import ImageInterface from "../interfaces/ImagesInterfaces"
 
-const ImageChangePassword: React.FC<ImageInterface> = ({ width, heght }) => {
+const ImageChangePassword: React.FC<ImageInterface> = ({ width, height }) => {
   return (
     <Svg
       width={width ? width : 200}
-      height={heght ? heght : 200}
+      height={height ? height : 200}
       viewBox="0 0 221 170" fill="none"
     >
       <Path

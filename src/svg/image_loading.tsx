@@ -11,12 +11,12 @@ import Svg, {
 import ImageInterface from "../interfaces/ImagesInterfaces"
 /* SVGR has dropped some elements not supported by react-native-svg: title */
 
-const ImageLoading: React.FC<ImageInterface> = ({ width, heght }) => {
+const ImageLoading: React.FC<ImageInterface> = ({ width, height }) => {
     return (
         <Svg
             data-name="Layer 1"
             width={width ? width : 200}
-            height={heght ? heght : 200}
+            height={height ? height : 200}
             viewBox="0 0 1097.1 845.39"
         >
             <Defs>
