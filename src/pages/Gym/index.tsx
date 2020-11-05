@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import Header from '../../components/Header'
 import { Feather as Icon } from '@expo/vector-icons'
@@ -8,29 +8,32 @@ import MainButton from '../../components/MainButton'
 import { useNavigation } from '@react-navigation/native'
 import * as Animatable from 'react-native-animatable'
 import EmptyListComponent from '../../components/EmptyList'
+import ModalAddGym from './modalAddGym'
 
 
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
-const Vaccines = () => {
+const Gyms = () => {
+    const [showModal, setShowModal] = useState(false)
     const teste = [1, 1, 1, 1, 1, 1, 1]
     const navigate = useNavigation()
 
-    function goToVaccine(page: string) {
-        navigate.navigate("Vaccine")
-    }
+
+
     return (
         <View style={styles.container}>
-            <Header textCenter="Vaccines" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddVaccine')} />
+            <Header textCenter="Gyms" itemRight={iconRightHeader} funcItemRight={() => setShowModal(!showModal)} />
             <View style={styles.containerInputSearch}>
                 <TextInputCustom title="Search for title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
             </View>
-
+            <ModalAddGym show={showModal} setShow={() => setShowModal(!showModal)} />
             <View style={styles.main}>
                 <ScrollView showsVerticalScrollIndicator={false} >
                     {teste != null ? teste.map(t => {
                         return (
                             <Animatable.View animation="fadeInUp" style={styles.containerMainButton}>
-                                <MainButton text="test tes t de teset stetatdsasd tets" image="vaccines" action={goToVaccine} />
+                                <MainButton text="test tes t de teset stetatdsasd tets" image="gym" action={setShowModal} >
+
+                                </MainButton>
                             </Animatable.View>
                         )
                     }) : <EmptyListComponent />}
@@ -61,4 +64,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Vaccines
+export default Gyms
