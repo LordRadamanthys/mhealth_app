@@ -31,7 +31,7 @@ const Gyms = () => {
                     {teste != null ? teste.map(t => {
                         return (
                             <Animatable.View animation="fadeInUp" style={styles.containerMainButton}>
-                                <MainButton text="test tes t de teset stetatdsasd tets" image="gym" action={setShowModal} >
+                                <MainButton text="test tes t de teset stetatdsasd tets" image="gym" action={() => navigate.navigate('Training')} >
 
                                 </MainButton>
                             </Animatable.View>

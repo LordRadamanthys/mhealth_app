@@ -2,18 +2,17 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
 
-const SelectDaysWeek = () => {
 
-    const [monday, setMonday] = useState({ text: 'Mon', select: false })
-    const [tuesday, setTuesday] = useState({ text: 'Tue', select: false })
-    const [wednesday, setWednesday] = useState({ text: 'Wed', select: false })
-    const [thursday, setThursday] = useState({ text: 'Thu', select: false })
-    const [friday, setFriday] = useState({ text: 'Fri', select: false })
-    const [saturday, setSat] = useState({ text: 'Sat', select: false })
+const SelectDaysWeek = ({
+    monday = {}, tuesday = {}, wednesday = {}, thursday = {}, friday = {}, saturday = {},
+    setMonday, setTuesday, setWednesday, setThursday, setFriday, setSat
+}) => {
+
 
     return (
-        <View style={styles.containerTextInput}>
+        <View style={styles.containerTextInput} >
             <Icon style={{ marginEnd: 5 }} name={'calendar'} size={20} color="#FFC633" />
+
             <TouchableOpacity onPress={() => setMonday({ text: 'Mon', select: !monday.select })} >
                 <Text style={monday.select ? styles.textSelected : styles.text}>{monday.text}</Text>
             </TouchableOpacity>
@@ -50,12 +49,14 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 15
     },
+
     textSelected: {
         padding: 5,
         color: '#FFC633',
         fontSize: 15,
         fontWeight: 'bold'
     },
+
     containerTextInput: {
         flexDirection: 'row',
         height: 50,
@@ -68,4 +69,5 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         paddingHorizontal: 15,
     },
+
 })

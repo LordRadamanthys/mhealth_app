@@ -2,43 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, Modal, View, Text, TouchableOpacity } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
-import SelectDaysWeek from '../../components/SelectDaysWeek'
 
 interface AlertInterface {
     show: boolean,
     setShow(key: boolean): void
 }
 
-const ModalAddGym: React.FC<AlertInterface> = ({ show, setShow }) => {
-    const [monday, setMonday] = useState({ text: 'Mon', select: false })
-    const [tuesday, setTuesday] = useState({ text: 'Tue', select: false })
-    const [wednesday, setWednesday] = useState({ text: 'Wed', select: false })
-    const [thursday, setThursday] = useState({ text: 'Thu', select: false })
-    const [friday, setFriday] = useState({ text: 'Fri', select: false })
-    const [saturday, setSat] = useState({ text: 'Sat', select: false })
-
-    function getDaysWeek() {
-        const textDaysWeek = []
-        if (monday.select) {
-            textDaysWeek.push(monday.text)
-        }
-        if (tuesday.select) {
-            textDaysWeek.push(tuesday.text)
-        }
-        if (wednesday.select) {
-            textDaysWeek.push(wednesday.text)
-        }
-        if (thursday.select) {
-            textDaysWeek.push(thursday.text)
-        }
-        if (friday.select) {
-            textDaysWeek.push(friday.text)
-        }
-        if (saturday.select) {
-            textDaysWeek.push(saturday.text)
-        }
-        console.log(textDaysWeek)
-    }
+const ModalAddTraining: React.FC<AlertInterface> = ({ show, setShow }) => {
 
     return (
         <Modal animationType="slide"
@@ -49,22 +19,23 @@ const ModalAddGym: React.FC<AlertInterface> = ({ show, setShow }) => {
             }}>
             <View style={styles.centeredView}>
                 <View style={styles.mainView}>
-                    <Text style={[styles.text, styles.title]}>New Gym</Text>
+                    <Text style={[styles.text, styles.title]}>New Training</Text>
                     <View style={styles.containerText}>
-                        <TextInputCustom title="Title" value={""} onTextChangeFunc={() => { }} icon="edit-2" />
+                        <TextInputCustom title="Name" value={""} onTextChangeFunc={() => { }} icon="edit-2" />
                     </View>
 
                     <View style={styles.containerText}>
-                        <SelectDaysWeek
-                            monday={monday} tuesday={tuesday} wednesday={wednesday} thursday={thursday} friday={friday} saturday={saturday}
-                            setMonday={setMonday} setTuesday={setTuesday} setWednesday={setWednesday} setThursday={setThursday} setFriday={setFriday} setSat={setSat}
-                        />
+                    <TextInputCustom title="Number Moviments" value={""} onTextChangeFunc={() => { }} icon="smile" />
+                    </View>
+
+                    <View style={styles.containerText}>
+                        <TextInputCustom title="Number repetitions" value={""} onTextChangeFunc={() => { }} icon="smile" />
                     </View>
 
                     <View style={styles.containerBottomButtons}>
                         <TouchableOpacity
                             activeOpacity={0.9} style={[styles.button, { backgroundColor: '#3D5089', }]}
-                            onPress={getDaysWeek}
+                            onPress={()=>{}}
                         >
                             <Icon style={{ marginStart: 5 }} name={"check"} size={22} color="#FFC633" />
                         </TouchableOpacity>
@@ -81,7 +52,7 @@ const ModalAddGym: React.FC<AlertInterface> = ({ show, setShow }) => {
 }
 
 
-export default ModalAddGym
+export default ModalAddTraining
 
 
 

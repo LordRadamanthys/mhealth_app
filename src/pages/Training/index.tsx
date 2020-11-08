@@ -3,47 +3,43 @@ import { View, Text, StyleSheet } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
 import Header from '../../components/Header'
-import ModalAddFile from '../../components/ModalAddFile'
-import ModalYesNo from '../../components/ModalYesNo'
-import * as Animatable from 'react-native-animatable'
-import examsIcon from '../../assets/images/medicines.png'
+
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
-import CollapsibleView from "@eliav2/react-native-collapsible-view"
 import { ScrollView } from 'react-native-gesture-handler'
 import EmptyListComponent from '../../components/EmptyList'
 import ExpandCard from '../../components/ExpandCard'
+import ModalAddTraining from './modalAddTraining'
 const teste = [1]
 
-const Medicines = () => {
-    const [showAlertFile, setShowAlertFile] = useState(false)
-    const [showAlertDelete, setShowAlertDelete] = useState(false)
+const Training = () => {
+    const [showModalAddTraining, setShowModalAddTraining] = useState(false)
     function showModal() {
-        setShowAlertFile(!showAlertFile)
+        setShowModalAddTraining(!showModalAddTraining)
     }
 
     return (
         <View style={styles.container}>
-            <ModalAddFile show={showAlertFile} setShow={setShowAlertFile} />
-            <ModalYesNo show={showAlertDelete} setShow={setShowAlertDelete} />
-            <Header textCenter="Medicines" itemRight={iconRightHeader} funcItemRight={showModal} />
+
+            <Header textCenter="Training" itemRight={iconRightHeader} funcItemRight={showModal} />
+            <ModalAddTraining setShow={setShowModalAddTraining} show={showModalAddTraining} />
             <View style={styles.containerInputSearch}>
                 <TextInputCustom title="Search by title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
             </View>
             <View style={styles.main}>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    
-                    {teste != null?teste.map(t => {
+
+                    {teste != null ? teste.map(t => {
                         return (
-                            <ExpandCard image='exam' title='Loratadina' description='Lorem ipsum rhoncus cursus vestibulum, ullamcorper erat nostra leo rutrum, ullamcorper semper viverra. nulla porttitor blandit curae in proin elementum in pretium, ornare fusce consectetur pretium semper conubia nullam proin, praesent potenti mi augue et consectetur platea. enim himenaeos mollis laoreet arcu viverra lobortis, vehicula orci arcu maecenas hac aliquam euismod, nam vel ante nibh sit. condimentum aenean nam ligula porttitor euismod urna tempor per, ullamcorper non nostra risus pellentesque mollis fames sagittis, phasellus praesent sodales curabitur dictumst curabitur lobortis, himenaeos tempor consequat tortor congue a nam. curabitur nibh amet eros donec aenean ullamcorper orci et volutpat, curabitur arcu platea ad posuere fringilla nulla interdum nisi euismod, pellentesque augue maecenas posuere in porta dapibus praesent.'  />
+                            <ExpandCard image='gym' title='Teste' description='	Lorem ipsum rhoncus cursus vestibulum, ullamcorper erat nostra leo rutrum, ullamcorper semper viverra. nulla porttitor blandit curae in proin elementum in pretium, ornare fusce consectetur pretium semper conubia nullam proin, praesent potenti mi augue et consectetur platea. enim himenaeos mollis laoreet arcu viverra lobortis, vehicula orci arcu maecenas hac aliquam euismod, nam vel ante nibh sit. condimentum aenean nam ligula porttitor euismod urna tempor per, ullamcorper non nostra risus pellentesque mollis fames sagittis, phasellus praesent sodales curabitur dictumst curabitur lobortis, himenaeos tempor consequat tortor congue a nam. curabitur nibh amet eros donec aenean ullamcorper orci et volutpat, curabitur arcu platea ad posuere fringilla nulla interdum nisi euismod, pellentesque augue maecenas posuere in porta dapibus praesent.' />
                         )
-                    }): <EmptyListComponent />}
+                    }) : <EmptyListComponent />}
                 </ScrollView>
             </View>
         </View>
     )
 }
 
-export default Medicines
+export default Training
 
 const styles = StyleSheet.create({
     container: {
