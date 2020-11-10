@@ -38,7 +38,7 @@ const MainButton: React.FC<MainButtonInterface> = ({ text, image, action, childr
         <View style={styles.border}>
             <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.recentActvities} onPress={() => action()}>
                 <View style={styles.textsRecentActivities}>
-                    <Text style={styles.textRecentActivitiesCard}>test te st ets te st ets e ts te </Text>
+                    <Text style={styles.textRecentActivitiesCard}>{text}</Text>
                     {children}
                 </View>
                 <Image source={selectImage(image)} style={styles.image} resizeMode='contain' />
@@ -79,8 +79,9 @@ const styles = StyleSheet.create({
     },
 
     textRecentActivitiesCard: {
-        fontSize: 16,
+        fontSize: 21,
         color: '#D8DFFD',
+        marginBottom:10
     },
     image: {
         marginStart: 10,

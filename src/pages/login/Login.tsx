@@ -1,60 +1,75 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Text, View, StyleSheet, Image } from 'react-native'
-import { RectButton, TouchableOpacity } from 'react-native-gesture-handler'
+import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInput from '../../components/TextInput'
 import logoApp from '../../../assets/logo.png'
 import { useNavigation } from '@react-navigation/native'
 import LottieView from 'lottie-react-native'
 import * as Animatable from 'react-native-animatable'
+import api from '../../services/api'
+import AuthContext from '../../providers/AuthProvider'
 
 const Login = () => {
+    const { login } = useContext(AuthContext)
     const navigate = useNavigation()
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('mateus@teste.com')
+    const [password, setPassword] = useState('123')
 
     function goToCreateAccount() {
         navigate.navigate('CreateAccount')
     }
-    function goToLogin() {
-        navigate.navigate('Home')
+   
+
+    async function loginUser() {
+        if(email === '' || password === '') return console.log('Preencha todos os campos');
+        
+        login(email, password).catch(error=>{
+            console.log(error);
+            
+        })
+
     }
 
+
     return (
-        <View style={styles.container}>
+        <View style={styles.container} >
             <View style={styles.header}>
-                {/* <Image style={{ width: 180, height: 170 }} source={logoApp} resizeMode='contain' /> */}
-                <Animatable.Image animation="pulse" style={{ width: 180, height: 170 }} source={logoApp} resizeMode='contain' />
+                <Animatable.Image animation="pulse" style={{ width: 100, height: 100 }} source={logoApp} resizeMode='contain' />
             </View>
-            <View style={styles.loginContainer}>
-                <Text style={styles.titleLogin}>Login</Text>
-                <LottieView
-                    autoPlay
-                    speed={0.5}
-                    style={styles.lottieImage}
-                    source={require('../../assets/animations/lf30_editor_p2lvshsb.json')}
-                />
-                <View style={styles.containerInputText}>
-                    <TextInput title='E-Mail' value={email} onTextChangeFunc={setEmail} icon='user' />
+            <ScrollView>
+                <View style={styles.loginContainer}>
+                    <Text style={styles.titleLogin}>Login</Text>
+                    <LottieView
+                        autoPlay
+                        speed={0.5}
+                        style={styles.lottieImage}
+                        source={require('../../assets/animations/lf30_editor_p2lvshsb.json')}
+                    />
+                    <View style={styles.containerInputText}>
+                        <TextInput title='E-Mail' value={email} onTextChangeFunc={setEmail} icon='user' />
+                    </View>
+
+                    <View style={styles.containerInputText}>
+                        <TextInput title='Password' value={password} onTextChangeFunc={setPassword} icon='key' />
+                    </View>
+
+                    <TouchableOpacity style={styles.containerForgotPassword} activeOpacity={0.6} onPress={() => navigate.navigate('ForgotPassword')}>
+                        <Text style={styles.forgotPassword}>Forgot password</Text>
+                        <Animatable.View animation="rubberBand" delay={1000}>
+                            <Icon style={{ marginEnd: 10 }} name={"help-circle"} size={22} color="#FFC633" />
+                        </Animatable.View>
+                    </TouchableOpacity>
+                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonLogin} onPress={loginUser}>
+                        <Text style={styles.textButtonLogin}>Login</Text>
+                        <Icon style={{ marginStart: 10 }} name={"arrow-right"} size={22} color="#FFC633" />
+                    </RectButton>
                 </View>
-                <View style={styles.containerInputText}>
-                    <TextInput title='Password' value={password} onTextChangeFunc={setPassword} icon='key' />
-                </View>
-                <TouchableOpacity style={styles.containerForgotPassword} activeOpacity={0.6} onPress={() => navigate.navigate('ForgotPassword')}>
-                    <Text style={styles.forgotPassword}>Forgot password</Text>
-                    <Animatable.View animation="rubberBand" delay={1000}>
-                        <Icon style={{ marginEnd: 10 }} name={"help-circle"} size={22} color="#FFC633" />
-                    </Animatable.View>
-                </TouchableOpacity>
-                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonLogin} onPress={goToLogin}>
-                    <Text style={styles.textButtonLogin}>Login</Text>
-                    <Icon style={{ marginStart: 10 }} name={"arrow-right"} size={22} color="#FFC633" />
+                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonCreateAccount]} onPress={goToCreateAccount}>
+                    <Text style={styles.textButtonLogin}>Create account</Text>
+                    <Icon style={{ marginStart: 10 }} name={"user-plus"} size={22} color="#FFC633" />
                 </RectButton>
-            </View>
-            <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonCreateAccount]} onPress={goToCreateAccount}>
-                <Text style={styles.textButtonLogin}>Create account</Text>
-                <Icon style={{ marginStart: 10 }} name={"user-plus"} size={22} color="#FFC633" />
-            </RectButton>
+            </ScrollView>
         </View>
     )
 }
@@ -72,7 +87,6 @@ const styles = StyleSheet.create({
     header: {
         justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor:'#fff'
     },
     loginContainer: {
         backgroundColor: '#222B4A',

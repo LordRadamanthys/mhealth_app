@@ -31,7 +31,15 @@ const Routes = () => {
                     headerMode="none">
                     <AppStack.Screen name='Login' component={Login} />
                     <AppStack.Screen name='CreateAccount' component={CreateAccount} />
+                    <AppStack.Screen name='ForgotPassword' component={ForgotPassword} />
 
+
+                </AppStack.Navigator>
+            </NavigationContainer>
+            :
+            <NavigationContainer>
+                <AppStack.Navigator
+                    headerMode="none">
                     <AppStack.Screen name='Home' component={Home} />
                     <AppStack.Screen name='Exams' component={Exams} />
                     <AppStack.Screen name='Exam' component={Exam} />
@@ -44,14 +52,6 @@ const Routes = () => {
                     <AppStack.Screen name='Profile' component={Profile} />
                     <AppStack.Screen name='Medicines' component={Medicines} />
                     <AppStack.Screen name='Training' component={Training} />
-                    <AppStack.Screen name='ForgotPassword' component={ForgotPassword} />
-                </AppStack.Navigator>
-            </NavigationContainer>
-            :
-            <NavigationContainer>
-                <AppStack.Navigator
-                    headerMode="none">
-                    <AppStack.Screen name='Home' component={Home} />
                 </AppStack.Navigator>
             </NavigationContainer>
     )

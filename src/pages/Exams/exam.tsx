@@ -1,69 +1,97 @@
-import React, { useState } from 'react'
-import { View, Text, StyleSheet} from 'react-native'
+import React, { useContext, useEffect, useState } from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 import Header from '../../components/Header'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
-import { RectButton} from 'react-native-gesture-handler'
-import { useNavigation } from '@react-navigation/native'
+import { RectButton, ScrollView } from 'react-native-gesture-handler'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import TextAreaCustom from '../../components/TextAreaCustom'
 import ModalConfirm from '../../components/Alert'
 import ModalYesNo from '../../components/ModalYesNo'
 import * as Animatable from 'react-native-animatable'
+import { ExamsInterface } from '../../interfaces/ExamsInterface'
+import { getFilesExam } from '../../controller/FilesExamController'
+import AuthContext from '../../providers/AuthProvider'
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
 
 
 const Exam = () => {
+    const { user } = useContext(AuthContext)
     const navigate = useNavigation()
+    const routes = useRoute()
     const [title, setTitle] = useState('')
     const [date, setDate] = useState('')
     const [doctorsName, setDoctorsName] = useState('')
     const [descriptions, setDescriptions] = useState('')
     const [showAlert, setshowAlert] = useState(false)
     const [showAlertDelete, setshowAlertDelete] = useState(false)
-
+    const [files, setFiles] = useState(0)
+    const exam = routes.params.data as ExamsInterface
     function showMyAlertDelete() {
         setshowAlertDelete(!showAlertDelete)
     }
 
+    async function getFile() {
+        try {
+            const result = await getFilesExam(exam.id, user)
+            setFiles(result.length);
 
+
+        } catch (err) {
+            console.log(err);
+
+        }
+    }
+
+
+
+    useEffect(() => {
+        setTitle(exam.title)
+        setDate(exam.date)
+        setDescriptions(exam.description)
+        setDoctorsName(exam.doctors_name)
+        getFile()
+    }, [])
     return (
         <View style={styles.container}>
             <Header textCenter="Exam" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddExam')} />
-            <View style={styles.formContainer}>
-                <ModalConfirm show={showAlert} setShow={setshowAlert} />
-                <ModalYesNo show={showAlertDelete} setShow={setshowAlertDelete} />
-                <Animatable.Text animation="fadeInUp" style={[styles.text, { fontSize: 24 }]}>Title</Animatable.Text >
-                <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
-                    <TextInputCustom title='Type the title' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
-                </Animatable.View>
+            <ScrollView>
+                <View style={styles.formContainer}>
+                    <ModalConfirm show={showAlert} setShow={setshowAlert} />
+                    <ModalYesNo show={showAlertDelete} setShow={setshowAlertDelete} />
+                    <Animatable.Text animation="fadeInUp" style={[styles.text, { fontSize: 24 }]}>Title</Animatable.Text >
+                    <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
+                        <TextInputCustom title='Type the title' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
+                    </Animatable.View>
 
-                <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
-                    <TextInputCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} />
-                </Animatable.View>
+                    <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
+                        <TextInputCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} />
+                    </Animatable.View>
 
-                <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
-                    <TextInputCustom title='Type the Doctors name' value={doctorsName} icon='edit-3' onTextChangeFunc={setDoctorsName} />
-                </Animatable.View>
+                    <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
+                        <TextInputCustom title='Type the Doctors name' value={doctorsName} icon='edit-3' onTextChangeFunc={setDoctorsName} />
+                    </Animatable.View>
 
-                <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
-                    <TextAreaCustom title='Type Description' value={descriptions} icon='type' onTextChangeFunc={setDescriptions} />
-                </Animatable.View>
+                    <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
+                        <TextAreaCustom title='Type Description' value={descriptions} icon='type' onTextChangeFunc={setDescriptions} />
+                    </Animatable.View>
 
-                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonFiles} onPress={() => navigate.navigate('Files')}>
-                    <Text style={[styles.text, styles.buttonText]}>Files</Text>
-                    <Text style={[styles.text, styles.buttonText]}>total: 0  <Icon name={"paperclip"} size={22} color="#FFC633" /></Text>
-                </RectButton>
-                <View style={styles.containerBottomButtons}>
-                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={() => { }}>
-                        <Text style={[styles.text, styles.buttonText,]}>Edit</Text>
-                        <Icon style={{ marginStart: 5 }} name={"edit-2"} size={22} color="#FFC633" />
+                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonFiles} onPress={() => navigate.navigate('Files')}>
+                        <Text style={[styles.text, styles.buttonText]}>Files</Text>
+                        <Text style={[styles.text, styles.buttonText]}>total: {files}  <Icon name={"paperclip"} size={22} color="#FFC633" /></Text>
                     </RectButton>
-                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => showMyAlertDelete()}>
-                        <Text style={[styles.text, styles.buttonText]}>Delete</Text>
-                        <Icon style={{ marginStart: 5 }} name={"trash"} size={22} color="#FFC633" />
-                    </RectButton>
+                    <View style={styles.containerBottomButtons}>
+                        <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={() => { }}>
+                            <Text style={[styles.text, styles.buttonText,]}>Edit</Text>
+                            <Icon style={{ marginStart: 5 }} name={"edit-2"} size={22} color="#FFC633" />
+                        </RectButton>
+                        <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => showMyAlertDelete()}>
+                            <Text style={[styles.text, styles.buttonText]}>Delete</Text>
+                            <Icon style={{ marginStart: 5 }} name={"trash"} size={22} color="#FFC633" />
+                        </RectButton>
+                    </View>
                 </View>
-            </View>
+            </ScrollView>
         </View>
     )
 }

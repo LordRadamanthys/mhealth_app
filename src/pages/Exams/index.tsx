@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, StyleSheet} from 'react-native'
+import React, { useContext, useEffect, useState } from 'react'
+import { View, StyleSheet, Text } from 'react-native'
 import Header from '../../components/Header'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
@@ -8,15 +8,33 @@ import MainButton from '../../components/MainButton'
 import { useNavigation } from '@react-navigation/native'
 import * as Animatable from 'react-native-animatable'
 import EmptyListComponent from '../../components/EmptyList'
-
+import AuthContext from '../../providers/AuthProvider'
+import { getExams } from '../../controller/ExamsController'
+import { ExamsInterface } from '../../interfaces/ExamsInterface'
 
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
 const Exams = () => {
+    const { user } = useContext(AuthContext)
     const teste = [1, 1, 1, 1, 1, 1, 1]
+    const [listExams, setListExams] = useState<ExamsInterface[]>()
     const navigate = useNavigation()
 
-    function goToExam() {
-        navigate.navigate("Exam")
+    useEffect(() => {
+        async function getListExam() {
+            try {
+                const result = await getExams(user)
+                //console.log(result);
+
+                setListExams(result)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getListExam()
+
+    }, [])
+    function goToExam(exam: ExamsInterface) {
+        navigate.navigate("Exam", { data: exam })
     }
     return (
         <View style={styles.container}>
@@ -27,13 +45,16 @@ const Exams = () => {
 
             <View style={styles.main}>
                 <ScrollView showsVerticalScrollIndicator={false} >
-                    {teste != null ? teste.map(t => {
+                    {listExams != null ? listExams.map(exam => {
                         return (
                             <Animatable.View animation="fadeInUp" style={styles.containerMainButton}>
-                                <MainButton text="test tes t de teset stetatdsasd tets" image="exams" action={goToExam} />
+                                <MainButton text={exam.title} image="exams" action={() => goToExam(exam)} >
+                                    <Text style={styles.text}>{exam.date}</Text>
+
+                                </MainButton>
                             </Animatable.View>
                         )
-                    }): <EmptyListComponent />}
+                    }) : <EmptyListComponent />}
                 </ScrollView>
             </View>
         </View>
@@ -58,6 +79,10 @@ const styles = StyleSheet.create({
     },
     containerMainButton: {
         marginVertical: 10
+    },
+    text: {
+        color: '#D8DFFD',
+        marginStart: 5
     }
 })
 

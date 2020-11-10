@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import UserInterface from '../interfaces/UserInterface'
 import Axios from 'axios'
 import ProviderLoginInterface from '../interfaces/ProviderLoginInterface'
+import api from '../services/api'
 const AuthContext = createContext<ProviderLoginInterface>({} as ProviderLoginInterface)
 
 export const AuthProvider: React.FC = ({ children }) => {
@@ -14,13 +15,14 @@ export const AuthProvider: React.FC = ({ children }) => {
             email,
             password
         }
-        await Axios.post('login', data).then(response => {
-            setUser(response.data)
-            return 200
-        }).catch(error => {
-            console.log(error);
-            return 400
-        })
+
+        await api.post('login', data)
+            .then(resp => {
+                setUser(resp.data)
+            }).catch(err =>{
+                throw('Erro ao fazer login')
+            })
+      
     }
 
     async function clearUser() {
