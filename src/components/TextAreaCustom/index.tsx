@@ -9,9 +9,10 @@ interface TextInputCustom {
     onTextChangeFunc: Function
     security?: boolean
     icon?: string
+    editable:boolean
 }
 
-const TextAreaCustom: React.FC<TextInputCustom> = ({ title, value, onTextChangeFunc, security, icon }) => {
+const TextAreaCustom: React.FC<TextInputCustom> = ({ title, value, onTextChangeFunc, security, icon, editable }) => {
     return (
         <View style={styles.containerTextInput}>
             <Icon style={{ marginEnd: 10 }} name={icon ? icon : ""} size={20} color="#FFC633" />
@@ -21,6 +22,7 @@ const TextAreaCustom: React.FC<TextInputCustom> = ({ title, value, onTextChangeF
                 placeholder={title}
                 multiline={true}
                 numberOfLines={5}
+                editable={editable}
                 secureTextEntry={security}
                 value={value}
                 onChangeText={(props) => onTextChangeFunc(props)} />
@@ -37,7 +39,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255, 255, 255, 0.09)',
         borderRadius: 10,
         width: '100%',
-        paddingHorizontal: 24,
+        paddingHorizontal: 15,
         fontSize: 16,
     },
 

@@ -9,9 +9,10 @@ interface TextInputCustom {
     onTextChangeFunc: Function
     security?: boolean
     icon?: string
+    editable?: boolean
 }
 
-const TextInputCustom: React.FC<TextInputCustom> = ({ title, value, onTextChangeFunc, security, icon }) => {
+const TextInputCustom: React.FC<TextInputCustom> = ({ title, value, onTextChangeFunc, security, icon, editable }) => {
     return (
         <View style={styles.containerTextInput}>
             <Icon style={{ marginEnd: 10 }} name={icon ? icon : ""} size={20} color="#FFC633" />
@@ -20,6 +21,7 @@ const TextInputCustom: React.FC<TextInputCustom> = ({ title, value, onTextChange
                 placeholderTextColor={'rgba(255, 255, 255, 0.5)'}
                 placeholder={title}
                 secureTextEntry={security}
+                editable={editable}
                 value={value}
                 onChangeText={(props) => onTextChangeFunc(props)} />
         </View>

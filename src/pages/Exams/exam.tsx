@@ -25,6 +25,8 @@ const Exam = () => {
     const [descriptions, setDescriptions] = useState('')
     const [showAlert, setshowAlert] = useState(false)
     const [showAlertDelete, setshowAlertDelete] = useState(false)
+    const [enabledEdit, setEnabledEdit] = useState(false)
+
     const [files, setFiles] = useState(0)
     const exam = routes.params.data as ExamsInterface
     function showMyAlertDelete() {
@@ -43,7 +45,9 @@ const Exam = () => {
         }
     }
 
-
+    function blockTextInputs(){
+        setEnabledEdit(false)
+    }
 
     useEffect(() => {
         setTitle(exam.title)
@@ -54,26 +58,25 @@ const Exam = () => {
     }, [])
     return (
         <View style={styles.container}>
-            <Header textCenter="Exam" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddExam')} />
+            <Header textCenter="Exams" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddExam')} />
             <ScrollView>
                 <View style={styles.formContainer}>
                     <ModalConfirm show={showAlert} setShow={setshowAlert} />
                     <ModalYesNo show={showAlertDelete} setShow={setshowAlertDelete} />
-                    <Animatable.Text animation="fadeInUp" style={[styles.text, { fontSize: 24 }]}>Title</Animatable.Text >
                     <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
-                        <TextInputCustom title='Type the title' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
+                        <TextInputCustom title='Type the title' value={title} icon='edit-3' onTextChangeFunc={setTitle} editable={enabledEdit}/>
                     </Animatable.View>
 
                     <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
-                        <TextInputCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} />
+                        <TextInputCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} editable={enabledEdit}/>
                     </Animatable.View>
 
                     <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
-                        <TextInputCustom title='Type the Doctors name' value={doctorsName} icon='edit-3' onTextChangeFunc={setDoctorsName} />
+                        <TextInputCustom title='Type the Doctors name' value={doctorsName} icon='edit-3' onTextChangeFunc={setDoctorsName} editable={enabledEdit}/>
                     </Animatable.View>
 
                     <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
-                        <TextAreaCustom title='Type Description' value={descriptions} icon='type' onTextChangeFunc={setDescriptions} />
+                        <TextAreaCustom title='Type Description' value={descriptions} icon='type' onTextChangeFunc={setDescriptions} editable={enabledEdit}/>
                     </Animatable.View>
 
                     <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonFiles} onPress={() => navigate.navigate('Files')}>
@@ -81,10 +84,17 @@ const Exam = () => {
                         <Text style={[styles.text, styles.buttonText]}>total: {files}  <Icon name={"paperclip"} size={22} color="#FFC633" /></Text>
                     </RectButton>
                     <View style={styles.containerBottomButtons}>
-                        <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={() => { }}>
-                            <Text style={[styles.text, styles.buttonText,]}>Edit</Text>
-                            <Icon style={{ marginStart: 5 }} name={"edit-2"} size={22} color="#FFC633" />
-                        </RectButton>
+                        {!enabledEdit ?
+                            <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={() => setEnabledEdit(!enabledEdit)}>
+                                <Text style={[styles.text, styles.buttonText,]}>Edit</Text>
+                                <Icon style={{ marginStart: 5 }} name={"edit-2"} size={22} color="#FFC633" />
+                            </RectButton>
+                            :
+                            <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={() => blockTextInputs()}>
+                                <Text style={[styles.text, styles.buttonText,]}>Save</Text>
+                                <Icon style={{ marginStart: 5 }} name={"save"} size={22} color="#FFC633" />
+                            </RectButton>
+                        }
                         <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => showMyAlertDelete()}>
                             <Text style={[styles.text, styles.buttonText]}>Delete</Text>
                             <Icon style={{ marginStart: 5 }} name={"trash"} size={22} color="#FFC633" />
