@@ -15,6 +15,25 @@ export async function getExams(user: UserInterface) {
     if (response) {
         return response
     } else {
-        throw(error)
+        throw (error)
+    }
+}
+
+
+export async function deleteExamAndFiles(id_exam: number, user: UserInterface) {
+    let response = null
+    let error = null
+    await api.get(`exams/${id_exam}`, {
+        headers: { 'Authorization': 'Bearer' + user.token }
+    }).then(resp => {
+        response = resp.data
+    }).catch(err => {
+        error = err
+    })
+
+    if (response) {
+        return response
+    } else {
+        throw (error)
     }
 }

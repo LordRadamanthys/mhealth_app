@@ -17,15 +17,17 @@ const Exams = () => {
     const { user } = useContext(AuthContext)
     const teste = [1, 1, 1, 1, 1, 1, 1]
     const [listExams, setListExams] = useState<ExamsInterface[]>()
+    const [showEmptyComponent, setShowEmptyComponent] = useState(true)
     const navigate = useNavigation()
 
     useEffect(() => {
         async function getListExam() {
             try {
                 const result = await getExams(user)
-                //console.log(result);
-
+                if (result.length == 0) return setShowEmptyComponent(true)
                 setListExams(result)
+                setShowEmptyComponent(false)
+
             } catch (error) {
                 console.log(error);
             }
@@ -45,9 +47,9 @@ const Exams = () => {
 
             <View style={styles.main}>
                 <ScrollView showsVerticalScrollIndicator={false} >
-                    {listExams != null ? listExams.map(exam => {
+                    {!showEmptyComponent ? listExams.map(exam => {
                         return (
-                            <Animatable.View animation="fadeInUp" style={styles.containerMainButton}>
+                            <Animatable.View animation="fadeInUp" style={styles.containerMainButton} key={exam.id}>
                                 <MainButton text={exam.title} image="exams" action={() => goToExam(exam)} >
                                     <Text style={styles.text}>{exam.date}</Text>
 

@@ -7,9 +7,10 @@ import TextInputCustom from '../TextInput'
 interface AlertInterface {
     show: boolean,
     setShow(key: boolean): void
+    onOkPress():void
 }
 
-const ModalYesNo: React.FC<AlertInterface> = ({ show, setShow }) => {
+const ModalYesNo: React.FC<AlertInterface> = ({ show, setShow, onOkPress }) => {
 
     return (
         <Modal animationType="slide"
@@ -23,11 +24,11 @@ const ModalYesNo: React.FC<AlertInterface> = ({ show, setShow }) => {
                     <Text style={[styles.text, styles.title]}>You really want delete this file?</Text>
 
                     <View style={styles.containerBottomButtons}>
-                        <RectButton
-                            activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.button, { backgroundColor: '#3D5089', }]}
-                            onPress={() => setShow(false)}>
+                        <TouchableOpacity
+                            activeOpacity={0.9} style={[styles.button, { backgroundColor: '#3D5089', }]}
+                            onPress={onOkPress}>
                             <Icon style={{ marginStart: 5 }} name={"check"} size={22} color="#FFC633" />
-                        </RectButton>
+                        </TouchableOpacity>
                         <TouchableOpacity
                             activeOpacity={0.9} style={[styles.button, { backgroundColor: '#E9585E', }]}
                             onPress={() => setShow(false)}>
