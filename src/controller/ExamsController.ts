@@ -4,10 +4,11 @@ import api from "../services/api";
 export async function getExams(user: UserInterface) {
     let response = null
     let error = null
-    await api.get(`exams/${user.id}`, {
+    await api.get(`exams`, {
         headers: { 'Authorization': 'Bearer' + user.token }
     }).then(resp => {
         response = resp.data
+        
     }).catch(err => {
         error = err
     })
@@ -23,7 +24,7 @@ export async function getExams(user: UserInterface) {
 export async function deleteExamAndFiles(id_exam: number, user: UserInterface) {
     let response = null
     let error = null
-    await api.get(`exams/${id_exam}`, {
+    await api.delete(`exams/${id_exam}`, {
         headers: { 'Authorization': 'Bearer' + user.token }
     }).then(resp => {
         response = resp.data
@@ -37,3 +38,25 @@ export async function deleteExamAndFiles(id_exam: number, user: UserInterface) {
         throw (error)
     }
 }
+
+
+export async function insert(data: {}, user: UserInterface) {
+    let response = null
+    let error = null
+    await api.post(`exams`, data, {
+
+        headers: { 'Authorization': 'Bearer' + user.token },
+
+    }).then(resp => {
+        response = resp.data
+    }).catch(err => {
+        error = err
+    })
+
+    if (response) {
+        return response
+    } else {
+        throw (error)
+    }
+}
+

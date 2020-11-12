@@ -25,6 +25,8 @@ const Exams = () => {
             try {
                 const result = await getExams(user)
                 if (result.length == 0) return setShowEmptyComponent(true)
+                console.log(result);
+                
                 setListExams(result)
                 setShowEmptyComponent(false)
 

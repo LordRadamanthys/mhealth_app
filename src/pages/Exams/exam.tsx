@@ -41,6 +41,7 @@ const Exam = () => {
             const result = await deleteExamAndFiles(exam.id, user)
             console.log(result);
             setshowAlertDelete(false)
+            navigate.goBack()
         } catch (error) {
             console.log(error);
             setshowAlertDelete(false)
