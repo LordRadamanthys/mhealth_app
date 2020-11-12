@@ -5,7 +5,7 @@ import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
 import { ScrollView } from 'react-native-gesture-handler'
 import MainButton from '../../components/MainButton'
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import * as Animatable from 'react-native-animatable'
 import EmptyListComponent from '../../components/EmptyList'
 import AuthContext from '../../providers/AuthProvider'
@@ -20,23 +20,32 @@ const Exams = () => {
     const [showEmptyComponent, setShowEmptyComponent] = useState(true)
     const navigate = useNavigation()
 
-    useEffect(() => {
-        async function getListExam() {
-            try {
-                const result = await getExams(user)
-                if (result.length == 0) return setShowEmptyComponent(true)
-                console.log(result);
-                
-                setListExams(result)
-                setShowEmptyComponent(false)
+    useFocusEffect(
+        React.useCallback(() => {
+            getListExam()
+      
+          return () => {};
+        }, [])
+      );
 
-            } catch (error) {
-                console.log(error);
-            }
+    // useEffect(() => {
+
+    //     getListExam()
+
+    // }, [])
+    async function getListExam() {
+        try {
+            const result = await getExams(user)
+            if (result.length == 0) return setShowEmptyComponent(true)
+            console.log(result);
+
+            setListExams(result)
+            setShowEmptyComponent(false)
+
+        } catch (error) {
+            console.log(error);
         }
-        getListExam()
-
-    }, [])
+    }
     function goToExam(exam: ExamsInterface) {
         navigate.navigate("Exam", { data: exam })
     }
