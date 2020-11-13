@@ -10,6 +10,7 @@ import * as Animatable from 'react-native-animatable'
 import LottieView from 'lottie-react-native'
 import { insert } from '../../controller/ExamsController'
 import AuthContext from '../../providers/AuthProvider'
+import { Snackbar } from 'react-native-paper'
 
 
 
@@ -22,7 +23,7 @@ const AddExam = () => {
     const [descriptions, setDescriptions] = useState('')
     const [showAlert, setshowAlert] = useState(false)
     const [showAlertDelete, setshowAlertDelete] = useState(false)
-
+    const [showSnackBar, setShowSnackBar] = useState(false)
 
 
     async function createExam() {
@@ -81,6 +82,17 @@ const AddExam = () => {
                     </View>
                 </View>
             </ScrollView>
+            <Snackbar
+                visible={showSnackBar}
+                onDismiss={()=>setShowSnackBar(false)}
+                action={{
+                    label: 'Undo',
+                    onPress: () => {
+                        // Do something
+                    },
+                }}>
+                Hey there! I'm a Snackbar.
+      </Snackbar>
         </View>
     )
 }

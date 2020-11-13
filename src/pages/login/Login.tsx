@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Text, View, StyleSheet, Image } from 'react-native'
+import { Text, View, StyleSheet, ActivityIndicator } from 'react-native'
 import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInput from '../../components/TextInput'
@@ -7,26 +7,36 @@ import logoApp from '../../../assets/logo.png'
 import { useNavigation } from '@react-navigation/native'
 import LottieView from 'lottie-react-native'
 import * as Animatable from 'react-native-animatable'
-import api from '../../services/api'
 import AuthContext from '../../providers/AuthProvider'
+import { Snackbar } from 'react-native-paper';
 
 const Login = () => {
     const { login } = useContext(AuthContext)
     const navigate = useNavigation()
     const [email, setEmail] = useState('mateus@teste.com')
-    const [password, setPassword] = useState('123')
+    const [password, setPassword] = useState('1234')
+    const [showSnackBar, setShowSnackBar] = useState(false)
+    const [enabledAllButtons, setEnabledAllButtons] = useState(true)
+    const [disableButtonForgotPassword, setDisableButtonForgotPassword] = useState(false)
+    const [textSnackBar, setTextSnackBar] = useState('Ops, Ocorreu um erro ao fazer o login, verifique seu dados')
 
     function goToCreateAccount() {
         navigate.navigate('CreateAccount')
     }
-   
+
 
     async function loginUser() {
-        if(email === '' || password === '') return console.log('Preencha todos os campos');
-        
-        login(email, password).catch(error=>{
-            console.log(error);
-            
+        if (email === '' || password === '') {
+            setTextSnackBar('Preencha todos os campos')
+            return setShowSnackBar(true)
+        }
+        setEnabledAllButtons(false)
+        setDisableButtonForgotPassword(true)
+        login(email, password).catch(error => {
+            setTextSnackBar(error)
+            setEnabledAllButtons(true)
+            setDisableButtonForgotPassword(false)
+            setShowSnackBar(true)
         })
 
     }
@@ -54,22 +64,41 @@ const Login = () => {
                         <TextInput title='Password' value={password} onTextChangeFunc={setPassword} icon='key' />
                     </View>
 
-                    <TouchableOpacity style={styles.containerForgotPassword} activeOpacity={0.6} onPress={() => navigate.navigate('ForgotPassword')}>
+                    <TouchableOpacity disabled={disableButtonForgotPassword} style={styles.containerForgotPassword} activeOpacity={0.6} onPress={() => navigate.navigate('ForgotPassword')}>
                         <Text style={styles.forgotPassword}>Forgot password</Text>
                         <Animatable.View animation="rubberBand" delay={1000}>
                             <Icon style={{ marginEnd: 10 }} name={"help-circle"} size={22} color="#FFC633" />
                         </Animatable.View>
                     </TouchableOpacity>
-                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonLogin} onPress={loginUser}>
+
+                    <RectButton enabled={enabledAllButtons} activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonLogin} onPress={loginUser}>
                         <Text style={styles.textButtonLogin}>Login</Text>
-                        <Icon style={{ marginStart: 10 }} name={"arrow-right"} size={22} color="#FFC633" />
+                        {enabledAllButtons ?
+                            <Icon style={{ marginStart: 10 }} name={"arrow-right"} size={22} color="#FFC633" />
+                            :
+                            <ActivityIndicator style={{ marginStart: 10 }} color='#FFC633' size={22} />}
                     </RectButton>
                 </View>
-                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonCreateAccount]} onPress={goToCreateAccount}>
+
+                <RectButton enabled={enabledAllButtons} activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonCreateAccount]} onPress={goToCreateAccount}>
                     <Text style={styles.textButtonLogin}>Create account</Text>
                     <Icon style={{ marginStart: 10 }} name={"user-plus"} size={22} color="#FFC633" />
                 </RectButton>
             </ScrollView>
+            <Snackbar
+                visible={showSnackBar}
+                onDismiss={() => setShowSnackBar(false)}
+                duration={5000}
+                style={{ alignSelf: 'center', width: '90%', backgroundColor: '#E9585E' }}
+                action={{
+                    label: 'Ok',
+                    onPress: () => {
+                        setEnabledAllButtons(true)
+                        setDisableButtonForgotPassword(false)
+                    },
+                }}>
+                {textSnackBar}
+            </Snackbar>
         </View>
     )
 }

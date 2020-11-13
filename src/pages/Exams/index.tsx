@@ -11,6 +11,7 @@ import EmptyListComponent from '../../components/EmptyList'
 import AuthContext from '../../providers/AuthProvider'
 import { getExams } from '../../controller/ExamsController'
 import { ExamsInterface } from '../../interfaces/ExamsInterface'
+import { Snackbar } from 'react-native-paper'
 
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
 const Exams = () => {
@@ -18,26 +19,21 @@ const Exams = () => {
     const teste = [1, 1, 1, 1, 1, 1, 1]
     const [listExams, setListExams] = useState<ExamsInterface[]>()
     const [showEmptyComponent, setShowEmptyComponent] = useState(true)
+    
     const navigate = useNavigation()
 
     useFocusEffect(
         React.useCallback(() => {
             getListExam()
-      
-          return () => {};
+
+            return () => { };
         }, [])
-      );
+    )
 
-    // useEffect(() => {
-
-    //     getListExam()
-
-    // }, [])
     async function getListExam() {
         try {
             const result = await getExams(user)
             if (result.length == 0) return setShowEmptyComponent(true)
-            console.log(result);
 
             setListExams(result)
             setShowEmptyComponent(false)
@@ -70,6 +66,7 @@ const Exams = () => {
                     }) : <EmptyListComponent />}
                 </ScrollView>
             </View>
+            
         </View>
     )
 }

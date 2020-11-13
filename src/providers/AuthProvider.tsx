@@ -19,10 +19,15 @@ export const AuthProvider: React.FC = ({ children }) => {
         await api.post('login', data)
             .then(resp => {
                 setUser(resp.data)
-            }).catch(err =>{
-                throw('Erro ao fazer login')
+            }).catch(err => {
+                // console.log(err.response.data.message);
+                
+                throw (err.response.data.message)
             })
-      
+
+
+
+
     }
 
     async function clearUser() {
