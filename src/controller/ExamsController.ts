@@ -7,7 +7,7 @@ export async function getExams(user: UserInterface) {
     await api.get(`exams`, {
         headers: { 'Authorization': 'Bearer' + user.token }
     }).then(resp => {
-        response = resp.data
+        response = resp.data.reverse()
         
     }).catch(err => {
         error = err

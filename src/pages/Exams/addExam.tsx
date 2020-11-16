@@ -11,6 +11,7 @@ import LottieView from 'lottie-react-native'
 import { insert } from '../../controller/ExamsController'
 import AuthContext from '../../providers/AuthProvider'
 import { Snackbar } from 'react-native-paper'
+import LoadingModal from '../../components/Loading'
 
 
 
@@ -21,13 +22,17 @@ const AddExam = () => {
     const [date, setDate] = useState('')
     const [doctorsName, setDoctorsName] = useState('')
     const [descriptions, setDescriptions] = useState('')
-    const [showAlert, setshowAlert] = useState(false)
-    const [showAlertDelete, setshowAlertDelete] = useState(false)
+    const [showLoading, setShowLoading] = useState(false)
     const [showSnackBar, setShowSnackBar] = useState(false)
-
+    const [textSnackBar, setTextSnackBar] = useState('Ops, Ocorreu um erro!')
 
     async function createExam() {
-        if (title == '' || date == '' || doctorsName == '' || descriptions == '') return alert('erro')
+        if (title == '' || date == '' || doctorsName == '' || descriptions == '') {
+            setTextSnackBar('Preencha todos os campos')
+            return setShowSnackBar(true)
+        }
+        setShowLoading(true)
+
         const data = {
             title: title,
             date: date,
@@ -39,10 +44,13 @@ const AddExam = () => {
         try {
             const result = await insert(data, user)
             console.log(result);
+            setShowLoading(false)
             // setshowAlertDelete(false)
         } catch (error) {
-            console.log(error);
-            // setshowAlertDelete(false)
+            console.log(error)
+            setShowLoading(false)
+            setTextSnackBar(error)
+            return setShowSnackBar(true)
         }
     }
 
@@ -50,6 +58,7 @@ const AddExam = () => {
     return (
         <View style={styles.container}>
             <Header textCenter="New Exam" itemRight={""} funcItemRight={() => navigate.navigate('Files')} />
+            <LoadingModal setShow={() => setShowLoading(!showLoading)} show={showLoading} />
             <ScrollView>
                 <View style={styles.formContainer}>
                     <LottieView
@@ -75,7 +84,7 @@ const AddExam = () => {
                             <Text style={[styles.text, styles.buttonText,]}>Create</Text>
                             <Icon style={{ marginStart: 5 }} name={"plus"} size={22} color="#FFC633" />
                         </RectButton>
-                        <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => { }}>
+                        <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => navigate.goBack()}>
                             <Text style={[styles.text, styles.buttonText]}>Cancel</Text>
                             <Icon style={{ marginStart: 5 }} name={"x"} size={22} color="#FFC633" />
                         </RectButton>
@@ -84,15 +93,17 @@ const AddExam = () => {
             </ScrollView>
             <Snackbar
                 visible={showSnackBar}
-                onDismiss={()=>setShowSnackBar(false)}
+                onDismiss={() => setShowSnackBar(false)}
+                duration={5000}
+                style={{ alignSelf: 'center', width: '90%', backgroundColor: '#E9585E' }}
                 action={{
-                    label: 'Undo',
+                    label: 'Ok',
                     onPress: () => {
-                        // Do something
+
                     },
                 }}>
-                Hey there! I'm a Snackbar.
-      </Snackbar>
+                {textSnackBar}
+            </Snackbar>
         </View>
     )
 }
@@ -120,7 +131,7 @@ const styles = StyleSheet.create({
     },
 
     formInputContainer: {
-        marginVertical: 20,
+        marginVertical: 15,
         marginHorizontal: 5,
     },
 
@@ -134,16 +145,6 @@ const styles = StyleSheet.create({
         paddingVertical: 15
     },
 
-    buttonFiles: {
-        backgroundColor: '#3D5089',
-        borderRadius: 25,
-        width: '100%',
-        paddingHorizontal: 30,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        paddingVertical: 15
-    },
 
     text: {
         color: '#D8DFFD'
@@ -157,7 +158,7 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'space-between',
         flexDirection: 'row',
-        marginVertical: 10
+        marginVertical: 15
     },
 
     lottieImage: {

@@ -25,12 +25,12 @@ const ModalYesNo: React.FC<AlertInterface> = ({ show, setShow, onOkPress }) => {
 
                     <View style={styles.containerBottomButtons}>
                         <TouchableOpacity
-                            activeOpacity={0.9} style={[styles.button, { backgroundColor: '#3D5089', }]}
+                             style={[styles.button, { backgroundColor: '#3D5089', }]}
                             onPress={onOkPress}>
                             <Icon style={{ marginStart: 5 }} name={"check"} size={22} color="#FFC633" />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            activeOpacity={0.9} style={[styles.button, { backgroundColor: '#E9585E', }]}
+                            style={[styles.button, { backgroundColor: '#E9585E', }]}
                             onPress={() => setShow(false)}>
                             <Icon style={{ marginStart: 5 }} name={"x"} size={22} color="#FFC633" />
                         </TouchableOpacity>
