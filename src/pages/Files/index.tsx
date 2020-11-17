@@ -1,17 +1,26 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
-import { RectButton } from 'react-native-gesture-handler'
+import { RectButton, ScrollView } from 'react-native-gesture-handler'
 import Header from '../../components/Header'
 import ModalAddFile from '../../components/ModalAddFile'
 import ModalYesNo from '../../components/ModalYesNo'
 import EmptyListComponent from '../../components/EmptyList'
+import AuthContext from '../../providers/AuthProvider'
+import { useRoute } from '@react-navigation/native'
+import { getFilesExam } from '../../controller/FilesExamController'
+import FileInterface from '../../interfaces/FilesInterface'
 const teste = [1, 1, 1, 1, 1, 1]
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
+
 const Files = () => {
+    const { user } = useContext(AuthContext)
+    const routes = useRoute()
+    const [listFiles, setListFiles] = useState([])
     const [showAlertFile, setShowAlertFile] = useState(false)
     const [showAlertDelete, setShowAlertDelete] = useState(false)
+    const id_exam = routes.params.id_exam
     function showModal() {
         setShowAlertFile(!showAlertFile)
     }
@@ -19,6 +28,23 @@ const Files = () => {
     function deleteFile() {
         setShowAlertDelete(!showAlertFile)
     }
+
+
+    async function getFiles() {
+        const files = await getFilesExam(id_exam, user).catch(err => {
+            console.log(err);
+        })
+        setListFiles(files)
+    }
+
+    function formatText(text: string) {
+        return text.substring(0, 19).concat('...')
+    }
+
+
+    useEffect(() => {
+        getFiles()
+    }, [])
 
     return (
         <View style={styles.container}>
@@ -28,21 +54,22 @@ const Files = () => {
             <View style={styles.containerInputSearch}>
                 <TextInputCustom title="Search by title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
             </View>
-            <View style={styles.main}>
-                {teste != null ? teste.map(t => {
-                    return (
-                        <View style={styles.containerButtons}>
-                            <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonFile, { backgroundColor: '#3D5089', }]} onPress={() => { }}>
-                                <Text style={[styles.text, styles.buttonText]}>File_dddname.jpg</Text>
-                            </RectButton>
-                            <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonDelete, { backgroundColor: '#E9585E', }]} onPress={deleteFile}>
-                                <Icon style={{ marginStart: 5 }} name={"trash"} size={22} color="#FFC633" />
-                            </RectButton>
-                        </View>
-                    )
-                }) : <EmptyListComponent />}
-
-            </View>
+            <ScrollView showsVerticalScrollIndicator={false} style={{marginTop:10}}>
+                <View style={styles.main}>
+                    {listFiles != null ? listFiles.map((file: FileInterface) => {
+                        return (
+                            <View style={styles.containerButtons}>
+                                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonFile, { backgroundColor: '#3D5089', }]} onPress={() => { }}>
+                                    <Text style={[styles.text, styles.buttonText]}>{formatText(file.name_file)}</Text>
+                                </RectButton>
+                                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonDelete, { backgroundColor: '#E9585E', }]} onPress={deleteFile}>
+                                    <Icon style={{ marginStart: 5 }} name={"trash"} size={22} color="#FFC633" />
+                                </RectButton>
+                            </View>
+                        )
+                    }) : <EmptyListComponent />}
+                </View>
+            </ScrollView>
         </View>
     )
 }
@@ -61,7 +88,7 @@ const styles = StyleSheet.create({
     },
 
     main: {
-        margin: 20,
+        marginHorizontal: 20,
         alignItems: 'center',
     },
     containerButtons: {
@@ -80,7 +107,7 @@ const styles = StyleSheet.create({
     buttonFile: {
         marginHorizontal: 5,
         borderRadius: 25,
-        minWidth: 220,
+        minWidth: 250,
         justifyContent: 'flex-start',
         alignSelf: 'center',
         flexDirection: 'row',

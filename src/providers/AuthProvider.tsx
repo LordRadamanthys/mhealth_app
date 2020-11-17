@@ -20,9 +20,12 @@ export const AuthProvider: React.FC = ({ children }) => {
             .then(resp => {
                 setUser(resp.data)
             }).catch(err => {
-                // console.log(err.response.data.message);
-                
-                throw (err.response.data.message)
+
+                if (err.message == '') {
+                    throw (err.response.data.message)
+                }else{
+                    throw (err.message)
+                }
             })
 
 

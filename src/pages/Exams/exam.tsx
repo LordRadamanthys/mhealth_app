@@ -37,6 +37,10 @@ const Exam = () => {
         setshowAlertDelete(!showAlertDelete)
     }
 
+    function goToFiles(id:number){
+        navigate.navigate('Files', {id_exam:id})
+    }
+
     async function deleteExam() {
         setShowLoading(true)
         try {
@@ -126,7 +130,7 @@ const Exam = () => {
                             />
                         </Animatable.View>
 
-                        <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonFiles} onPress={() => navigate.navigate('Files')}>
+                        <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonFiles} onPress={() => goToFiles(exam.id)}>
                             <Text style={[styles.text, styles.buttonText]}>Files</Text>
                             <Text style={[styles.text, styles.buttonText]}>total: {files}  <Icon name={"paperclip"} size={22} color="#FFC633" /></Text>
                         </RectButton>

@@ -10,6 +10,7 @@ export async function getFilesExam(id: number, user: UserInterface) {
         headers: { 'Authorization': 'Bearer' + user.token }
     }).then(resp => {
         response = resp.data
+        
     }).catch(err => {
         error = err
     })
@@ -21,3 +22,22 @@ export async function getFilesExam(id: number, user: UserInterface) {
     }
 }
 
+
+export async function getFile(data: {}, user: UserInterface) {
+    let response = null
+    let error = null
+    await api.get(`file/exams`, {
+        headers: { 'Authorization': 'Bearer' + user.token }
+    }).then(resp => {
+        response = resp.data
+        
+    }).catch(err => {
+        error = err
+    })
+
+    if (response) {
+        return response
+    } else {
+        throw (error)
+    }
+}
