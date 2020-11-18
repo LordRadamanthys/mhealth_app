@@ -15,9 +15,9 @@ const Login = () => {
     const navigate = useNavigation()
     const [email, setEmail] = useState('mateus@teste.com')
     const [password, setPassword] = useState('1234')
-    const [showSnackBar, setShowSnackBar] = useState(false)
     const [enabledAllButtons, setEnabledAllButtons] = useState(true)
     const [disableButtonForgotPassword, setDisableButtonForgotPassword] = useState(false)
+    const [showSnackBar, setShowSnackBar] = useState(false)
     const [textSnackBar, setTextSnackBar] = useState('Ops, Ocorreu um erro ao fazer o login, verifique seu dados')
 
     function goToCreateAccount() {

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { Text, View, StyleSheet, Image, ActivityIndicator, Modal } from 'react-native'
-import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
+import React, { useContext, useState } from 'react'
+import { Text, View, StyleSheet, Image } from 'react-native'
+import { RectButton, ScrollView } from 'react-native-gesture-handler'
 import TextInput from '../../components/TextInput'
 import { Feather as Icon } from '@expo/vector-icons'
 import logoApp from '../../../assets/logo.png'
@@ -9,30 +9,56 @@ import ImageChangePassword from '../../svg/image_change_password'
 import ImagePin from '../../svg/image_pin'
 import ImagePinConfirm from '../../svg/image_confirm_pin'
 import LoadingModal from '../../components/Loading'
-
-
-
+import { sendEmailForgotPassword, sendPinForgotPassword } from '../../controller/ForgotPasswordController'
+import AuthContext from '../../providers/AuthProvider'
+import { Snackbar } from 'react-native-paper'
 
 
 
 const ForgotPassword = () => {
-    const [email, setEmail] = useState()
+    const { user } = useContext(AuthContext)
+
     const [showEmailComponent, setEmailComponent] = useState(true)
     const [showPinComponent, setPinComponent] = useState(false)
     const [showPasswordComponent, setPasswordComponent] = useState(false)
     const [showLoading, setLoading] = useState(false)
-    const [pin, setPin] = useState()
-    const [confirmPin, setConfirmPin] = useState()
-    const [newPassword, setNewPassword] = useState()
-    const [ConfirmNewPassword, setConfirmNewPassword] = useState()
+
+    const [confirmPin, setConfirmPin] = useState('')
+    const [newPassword, setNewPassword] = useState('')
+    const [ConfirmNewPassword, setConfirmNewPassword] = useState('')
+
+    const [showSnackBar, setShowSnackBar] = useState(false)
+    const [textSnackBar, setTextSnackBar] = useState('Ops, Ocorreu um erro ao fazer o login, verifique seu dados')
 
     const EmailConfirmComponent = () => {
+        const [email, setEmail] = useState('')
+
+        async function sendEmail() {
+            if (email == '') {
+                setTextSnackBar('Preencha o campo email')
+                return setShowSnackBar(true)
+            }
+
+            setLoading(true)
+            await sendEmailForgotPassword(email)
+                .then(() => {
+                    setEmailComponent(false)
+                    setPinComponent(true)
+                    setLoading(false)
+                })
+                .catch(err => {
+                    setLoading(false)
+                    setTextSnackBar(err)
+                    return setShowSnackBar(true)
+                })
+
+        }
         return (
             <View style={styles.ForgotContainer}>
-                <ImagePin width={250} heght={150} />
+                <ImagePin width={250} height={150} />
                 <Text style={styles.description}>Enviaremos um código de confirmação para seu e-mail</Text>
                 <View style={styles.containerInputText}>
-                    <TextInput title='Type your e-mail' value={""} onTextChangeFunc={() => { }} icon='mail' />
+                    <TextInput title='E-Mail' value={email} onTextChangeFunc={setEmail} icon='user' />
                 </View>
 
                 <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={() => sendEmail()}>
@@ -44,12 +70,28 @@ const ForgotPassword = () => {
     }
 
     const PinConfirmComponent = () => {
+        const [pin, setPin] = useState('')
+
+        async function confirmPinRequest() {
+            setLoading(true)
+            await sendPinForgotPassword(pin)
+                .then((resp) => {
+                    setPinComponent(false)
+                    setPasswordComponent(true)
+                    return setLoading(false)
+
+                }).catch(err => {
+                    console.log(err);
+                    return setLoading(false)
+                })
+
+        }
         return (
             <View style={styles.ForgotContainer}>
-                <ImagePinConfirm width={250} heght={150} />
+                <ImagePinConfirm width={250} height={150} />
                 <Text style={styles.description}>Enviamos um codigo para seu email, digite-o abaixo para confirmarmos que é voce mesmo.</Text>
                 <View style={styles.containerInputText}>
-                    <TextInput title='Type de code' value={""} onTextChangeFunc={() => { }} icon='key' />
+                    <TextInput title='Type de code' value={pin} onTextChangeFunc={setPin} icon='key' />
                 </View>
 
                 <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={() => confirmPinRequest()}>
@@ -64,7 +106,7 @@ const ForgotPassword = () => {
     const PasswordConfirmChangeComponent = () => {
         return (
             <View style={styles.ForgotContainer}>
-                <ImageChangePassword width={250} heght={150} />
+                <ImageChangePassword width={250} height={150} />
                 <Text style={styles.description}>Digite uma nova senha, ideal é que ela tenha numeros, letras maiusculas e minusculas e caracteres especiais.</Text>
                 <View style={styles.containerInputText}>
                     <TextInput title='Type your new password' value={""} onTextChangeFunc={() => { }} icon='lock' />
@@ -82,20 +124,9 @@ const ForgotPassword = () => {
         )
     }
 
-    function sendEmail() {
-        setLoading(true)
 
-        setEmailComponent(false)
-        setPinComponent(true)
-        setLoading(false)
-    }
 
-    function confirmPinRequest() {
-        setLoading(true)
 
-        setPinComponent(false)
-        setLoading(false)
-    }
 
     return (
         <View style={styles.container}>
@@ -108,7 +139,19 @@ const ForgotPassword = () => {
                 {showPinComponent ? <PinConfirmComponent /> : <></>}
                 {showPasswordComponent ? <PasswordConfirmChangeComponent /> : <></>}
             </ScrollView>
+            <Snackbar
+                visible={showSnackBar}
+                onDismiss={() => setShowSnackBar(false)}
+                duration={5000}
+                style={{ alignSelf: 'center', width: '90%', backgroundColor: '#E9585E' }}
+                action={{
+                    label: 'Ok',
+                    onPress: () => {
 
+                    },
+                }}>
+                {textSnackBar}
+            </Snackbar>
         </View>
     )
 }
