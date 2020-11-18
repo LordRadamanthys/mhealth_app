@@ -5,28 +5,53 @@ import { Feather as Icon } from '@expo/vector-icons'
 import TextInput from '../../components/TextInput'
 import logoApp from '../../../assets/logo.png'
 import Header from '../../components/Header'
+import { Snackbar } from 'react-native-paper'
+import { createUser } from '../../controller/UserController'
+import ModalConfirm from '../../components/Alert'
 
 const CreateAccount = () => {
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirm, setPasswordConfirm] = useState('')
+    const [showSnackBar, setShowSnackBar] = useState(false)
+    const [textSnackBar, setTextSnackBar] = useState('Ops, Ocorreu um erro')
+    const [showModalConfirm, setSHowModalConfirm] = useState(false)
 
-    function createAccount() {
-        if (!verifyPassword()) return console.log('aaaaa')
-        console.log("foi");
+    async function createAccount() {
+        if (!verifyPassword()) {
+            setTextSnackBar('Verifique as senhas')
+            return setShowSnackBar(true)
+        }
 
+        await createUser(name, email, password)
+            .then(resp => {
+                setSHowModalConfirm(true)
+                cleanFields()
+            })
+            .catch(err => {
+                console.log(err);
+                setTextSnackBar(err)
+                return setShowSnackBar(true)
+            })
     }
 
     function verifyPassword() {
-        if (password !== passwordConfirm) return false
+        if (password !== passwordConfirm || password == '' || passwordConfirm == '') return false
         return true
     }
-  
+
+    function cleanFields() {
+        setName('')
+        setEmail('')
+        setPassword('')
+        setPasswordConfirm('')
+    }
 
     return (
         <View style={styles.container}>
-            <Header itemRightDisabled={true}  itemRight={<Image style={{ width: 80, height: 170 }}  source={logoApp} resizeMode='contain' />}/>
-
+            <Header itemRightDisabled={true} itemRight={<Image style={{ width: 80, height: 170 }} source={logoApp} resizeMode='contain' />} />
+            <ModalConfirm setShow={setSHowModalConfirm} show={showModalConfirm} />
             <ScrollView>
                 <View style={styles.createContainer}>
                     <Text style={styles.titleCreate}>Create Account</Text>
@@ -34,23 +59,40 @@ const CreateAccount = () => {
                         {/* <Image source={image ? { uri: image } : require('../../assets/perfil.jpg')} style={styles.profileImg} /> */}
                         <Image source={undefined} style={styles.profileImg} />
                     </TouchableOpacity>
+
                     <View style={styles.containerInputText}>
-                        <TextInput title='E-Mail' value={email} onTextChangeFunc={setEmail} icon='user' />
-                    </View>
-                    <View style={styles.containerInputText}>
-                        <TextInput title='Password' value={password} onTextChangeFunc={setPassword} icon='key' />
-                    </View>
-                    <View style={styles.containerInputText}>
-                        <TextInput title='Confirm Password' value={passwordConfirm} onTextChangeFunc={setPasswordConfirm} icon='key' />
+                        <TextInput title='Name' value={name} onTextChangeFunc={setName} icon='user' />
                     </View>
 
-                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={createAccount}>
+                    <View style={styles.containerInputText}>
+                        <TextInput title='E-Mail' value={email} onTextChangeFunc={setEmail} icon='mail' />
+                    </View>
+                    <View style={styles.containerInputText}>
+                        <TextInput title='Password' value={password} onTextChangeFunc={setPassword} icon='lock' />
+                    </View>
+                    <View style={styles.containerInputText}>
+                        <TextInput title='Confirm Password' value={passwordConfirm} onTextChangeFunc={setPasswordConfirm} icon='lock' />
+                    </View>
+
+                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={() => createAccount()}>
                         <Text style={styles.textButtonCreate}>Create</Text>
                         <Icon style={{ marginStart: 10 }} name={"save"} size={22} color="#FFC633" />
                     </RectButton>
                 </View>
             </ScrollView>
+            <Snackbar
+                visible={showSnackBar}
+                onDismiss={() => setShowSnackBar(false)}
+                duration={5000}
+                style={{ alignSelf: 'center', width: '90%', backgroundColor: '#E9585E' }}
+                action={{
+                    label: 'Ok',
+                    onPress: () => {
 
+                    },
+                }}>
+                {textSnackBar}
+            </Snackbar>
         </View>
     )
 }
