@@ -3,5 +3,6 @@ export default interface FileInterface {
     id_exams: number
     name_file: string
     path_file: string
+    page?: string
 
 }

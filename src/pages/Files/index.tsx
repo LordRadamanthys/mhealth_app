@@ -32,6 +32,10 @@ const Files = () => {
         setShowAlertDelete(!showAlertFile)
     }
 
+    function goToFile(file: FileInterface) {
+        file.page = 'exams'
+        navigate.navigate('ViewFile', { data: file })
+    }
 
     async function getFiles() {
         setShowLoading(true)
@@ -64,14 +68,14 @@ const Files = () => {
 
             <ScrollView showsVerticalScrollIndicator={false} style={{ marginTop: 10 }}>
                 <View style={styles.main}>
-                  
+
                     {listFiles != null ? listFiles.map((file: FileInterface) => {
                         return (
                             <View style={styles.containerButtons} key={file.id}>
 
                                 <RectButton activeOpacity={0.9} rippleColor={'#FFC633'}
                                     style={[styles.buttonFile, { backgroundColor: '#3D5089', }]}
-                                    onPress={() => navigate.navigate('ViewFile')}
+                                    onPress={() => goToFile(file)}
                                 >
                                     <Text style={[styles.text, styles.buttonText]}>{formatText(file.name_file)}</Text>
                                 </RectButton>
