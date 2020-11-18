@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, Platform } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
@@ -8,19 +8,22 @@ import ModalAddFile from '../../components/ModalAddFile'
 import ModalYesNo from '../../components/ModalYesNo'
 import EmptyListComponent from '../../components/EmptyList'
 import AuthContext from '../../providers/AuthProvider'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { getFilesExam } from '../../controller/FilesExamController'
 import FileInterface from '../../interfaces/FilesInterface'
-const teste = [1, 1, 1, 1, 1, 1]
+import LoadingModal from '../../components/Loading'
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
 
 const Files = () => {
     const { user } = useContext(AuthContext)
+    const navigate = useNavigation()
     const routes = useRoute()
     const [listFiles, setListFiles] = useState([])
     const [showAlertFile, setShowAlertFile] = useState(false)
+    const [showLoading, setShowLoading] = useState(false)
     const [showAlertDelete, setShowAlertDelete] = useState(false)
     const id_exam = routes.params.id_exam
+
     function showModal() {
         setShowAlertFile(!showAlertFile)
     }
@@ -31,10 +34,13 @@ const Files = () => {
 
 
     async function getFiles() {
+        setShowLoading(true)
         const files = await getFilesExam(id_exam, user).catch(err => {
             console.log(err);
+            setShowLoading(false)
         })
         setListFiles(files)
+        setShowLoading(false)
     }
 
     function formatText(text: string) {
@@ -50,16 +56,23 @@ const Files = () => {
         <View style={styles.container}>
             <ModalAddFile show={showAlertFile} setShow={setShowAlertFile} />
             <ModalYesNo show={showAlertDelete} setShow={setShowAlertDelete} />
+            <LoadingModal setShow={() => setShowLoading(!showLoading)} show={showLoading} />
             <Header textCenter="Files" itemRight={iconRightHeader} funcItemRight={showModal} />
             <View style={styles.containerInputSearch}>
                 <TextInputCustom title="Search by title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
             </View>
-            <ScrollView showsVerticalScrollIndicator={false} style={{marginTop:10}}>
+
+            <ScrollView showsVerticalScrollIndicator={false} style={{ marginTop: 10 }}>
                 <View style={styles.main}>
+                  
                     {listFiles != null ? listFiles.map((file: FileInterface) => {
                         return (
-                            <View style={styles.containerButtons}>
-                                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonFile, { backgroundColor: '#3D5089', }]} onPress={() => { }}>
+                            <View style={styles.containerButtons} key={file.id}>
+
+                                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'}
+                                    style={[styles.buttonFile, { backgroundColor: '#3D5089', }]}
+                                    onPress={() => navigate.navigate('ViewFile')}
+                                >
                                     <Text style={[styles.text, styles.buttonText]}>{formatText(file.name_file)}</Text>
                                 </RectButton>
                                 <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonDelete, { backgroundColor: '#E9585E', }]} onPress={deleteFile}>

@@ -19,6 +19,7 @@ import ForgotPassword from './src/pages/ForgotPassword';
 import Gyms from './src/pages/Gym';
 import ExpandCard from './src/components/ExpandCard';
 import Training from './src/pages/Training';
+import ViewFile from './src/pages/Files/viewFile';
 const AppStack = createStackNavigator()
 
 const Routes = () => {
@@ -52,6 +53,7 @@ const Routes = () => {
                     <AppStack.Screen name='Profile' component={Profile} />
                     <AppStack.Screen name='Medicines' component={Medicines} />
                     <AppStack.Screen name='Training' component={Training} />
+                    <AppStack.Screen name='ViewFile' component={ViewFile} />
                 </AppStack.Navigator>
             </NavigationContainer>
     )

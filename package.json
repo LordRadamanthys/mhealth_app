@@ -15,6 +15,10 @@
     "@react-navigation/stack": "^5.9.2",
     "axios": "^0.21.0",
     "expo": "~39.0.2",
+    "expo-constants": "~9.2.0",
+    "expo-file-system": "^9.2.0",
+    "expo-network": "~2.3.0",
+    "expo-permissions": "~9.3.0",
     "expo-status-bar": "~1.0.2",
     "lottie-react-native": "~2.6.1",
     "react": "16.13.1",
@@ -27,8 +31,8 @@
     "react-native-safe-area-context": "3.1.4",
     "react-native-screens": "~2.10.1",
     "react-native-web": "~0.13.7",
-    "expo-permissions": "~9.3.0",
-    "expo-network": "~2.3.0"
+    "react-native-webview": "^10.10.2",
+    "rn-pdf-reader-js": "^4.1.1"
   },
   "devDependencies": {
     "react-native-web": "~0.13.7",
