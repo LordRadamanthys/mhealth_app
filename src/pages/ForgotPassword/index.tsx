@@ -9,7 +9,7 @@ import ImageChangePassword from '../../svg/image_change_password'
 import ImagePin from '../../svg/image_pin'
 import ImagePinConfirm from '../../svg/image_confirm_pin'
 import LoadingModal from '../../components/Loading'
-import { sendEmailForgotPassword, sendPinForgotPassword } from '../../controller/ForgotPasswordController'
+import { changeForgotPassword, sendEmailForgotPassword, sendPinForgotPassword } from '../../controller/ForgotPasswordController'
 import AuthContext from '../../providers/AuthProvider'
 import { Snackbar } from 'react-native-paper'
 
@@ -23,9 +23,9 @@ const ForgotPassword = () => {
     const [showPasswordComponent, setPasswordComponent] = useState(false)
     const [showLoading, setLoading] = useState(false)
 
-    const [confirmPin, setConfirmPin] = useState('')
-    const [newPassword, setNewPassword] = useState('')
-    const [ConfirmNewPassword, setConfirmNewPassword] = useState('')
+    const [pin, setPin] = useState()
+    const [id, setId] = useState()
+
 
     const [showSnackBar, setShowSnackBar] = useState(false)
     const [textSnackBar, setTextSnackBar] = useState('Ops, Ocorreu um erro ao fazer o login, verifique seu dados')
@@ -75,14 +75,19 @@ const ForgotPassword = () => {
         async function confirmPinRequest() {
             setLoading(true)
             await sendPinForgotPassword(pin)
-                .then((resp) => {
+                .then(resp => {
+                    console.log(resp);
+                    
+                    //setDataPin(resp)
                     setPinComponent(false)
                     setPasswordComponent(true)
                     return setLoading(false)
 
                 }).catch(err => {
-                    console.log(err);
-                    return setLoading(false)
+                    //console.log(err);
+                    setTextSnackBar(err)
+                    setLoading(false)
+                    return setShowSnackBar(true)
                 })
 
         }
@@ -91,7 +96,12 @@ const ForgotPassword = () => {
                 <ImagePinConfirm width={250} height={150} />
                 <Text style={styles.description}>Enviamos um codigo para seu email, digite-o abaixo para confirmarmos que é voce mesmo.</Text>
                 <View style={styles.containerInputText}>
-                    <TextInput title='Type de code' value={pin} onTextChangeFunc={setPin} icon='key' />
+                    <TextInput title='Type de code' value={pin}
+                        onTextChangeFunc={(text: string) => setPin(text.replace('.', '').replace(',', ''))}
+                        keyboardType='number'
+                        length={6}
+                        icon='key'
+                    />
                 </View>
 
                 <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={() => confirmPinRequest()}>
@@ -104,19 +114,31 @@ const ForgotPassword = () => {
 
 
     const PasswordConfirmChangeComponent = () => {
+        const [newPassword, setNewPassword] = useState('')
+        const [ConfirmNewPassword, setConfirmNewPassword] = useState('')
+
+        async function changePassword() {
+            await changeForgotPassword(newPassword,dataPin.pin , dataPin.id)
+            .then(resp=>{
+
+            }).catch(err =>{
+
+            })
+        }
+
         return (
             <View style={styles.ForgotContainer}>
                 <ImageChangePassword width={250} height={150} />
                 <Text style={styles.description}>Digite uma nova senha, ideal é que ela tenha numeros, letras maiusculas e minusculas e caracteres especiais.</Text>
                 <View style={styles.containerInputText}>
-                    <TextInput title='Type your new password' value={""} onTextChangeFunc={() => { }} icon='lock' />
+                    <TextInput title='Type your new password' value={newPassword} onTextChangeFunc={setNewPassword} icon='lock' />
                 </View>
 
                 <View style={styles.containerInputText}>
-                    <TextInput title='Confirm password' value={""} onTextChangeFunc={() => { }} icon='lock' />
+                    <TextInput title='Confirm password' value={ConfirmNewPassword} onTextChangeFunc={setConfirmNewPassword} icon='lock' />
                 </View>
 
-                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={() => { }}>
+                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={() => changePassword()}>
                     <Text style={styles.textButtonCreate}>Change</Text>
                     <Icon style={{ marginStart: 10 }} name={"save"} size={22} color="#FFC633" />
                 </RectButton>

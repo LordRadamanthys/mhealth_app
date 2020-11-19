@@ -11,9 +11,23 @@ interface TextInputCustom {
     icon?: string
     iconColor?: string
     editable?: boolean
+    keyboardType?: string
+    length?:number
 }
 
-const TextInputCustom: React.FC<TextInputCustom> = ({ title, value, onTextChangeFunc, security, icon, editable, iconColor }) => {
+const TextInputCustom: React.FC<TextInputCustom> = ({ title, value, onTextChangeFunc, security, icon, editable, iconColor, keyboardType='', length }) => {
+
+    function selectTypeKeyboard(type: string) {
+        switch (type) {
+            case 'email':
+                return 'email-address'
+            case 'number':
+                return 'number-pad'
+            default:
+                return 'default'
+        }
+    }
+
     return (
         <View style={styles.containerTextInput}>
             <Icon style={{ marginEnd: 10 }} name={icon ? icon : ""} size={20} color={iconColor ? iconColor : "#FFC633"} />
@@ -24,6 +38,8 @@ const TextInputCustom: React.FC<TextInputCustom> = ({ title, value, onTextChange
                 secureTextEntry={security}
                 editable={editable}
                 value={value}
+                maxLength={length}
+                keyboardType={selectTypeKeyboard(keyboardType)}
                 onChangeText={(props) => onTextChangeFunc(props)} />
         </View>
     )
