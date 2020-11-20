@@ -12,19 +12,19 @@ import LoadingModal from '../../components/Loading'
 import { changeForgotPassword, sendEmailForgotPassword, sendPinForgotPassword } from '../../controller/ForgotPasswordController'
 import AuthContext from '../../providers/AuthProvider'
 import { Snackbar } from 'react-native-paper'
+import { useNavigation } from '@react-navigation/native'
 
 
 
 const ForgotPassword = () => {
     const { user } = useContext(AuthContext)
-
+    const navigate = useNavigation()
     const [showEmailComponent, setEmailComponent] = useState(true)
     const [showPinComponent, setPinComponent] = useState(false)
     const [showPasswordComponent, setPasswordComponent] = useState(false)
     const [showLoading, setLoading] = useState(false)
 
-    const [pin, setPin] = useState()
-    const [id, setId] = useState()
+    const [dataPin, setDataPin] = useState()
 
 
     const [showSnackBar, setShowSnackBar] = useState(false)
@@ -74,11 +74,12 @@ const ForgotPassword = () => {
 
         async function confirmPinRequest() {
             setLoading(true)
+
             await sendPinForgotPassword(pin)
                 .then(resp => {
-                    console.log(resp);
-                    
-                    //setDataPin(resp)
+                    // console.log(resp);
+
+                    setDataPin(resp)
                     setPinComponent(false)
                     setPasswordComponent(true)
                     return setLoading(false)
@@ -117,13 +118,29 @@ const ForgotPassword = () => {
         const [newPassword, setNewPassword] = useState('')
         const [ConfirmNewPassword, setConfirmNewPassword] = useState('')
 
+
         async function changePassword() {
-            await changeForgotPassword(newPassword,dataPin.pin , dataPin.id)
-            .then(resp=>{
-
-            }).catch(err =>{
-
-            })
+            if (newPassword == '' || ConfirmNewPassword == '') {
+                setTextSnackBar('Preencha os campos')
+                return setShowSnackBar(true)
+            }
+            if (newPassword != ConfirmNewPassword) {
+                setTextSnackBar('Senhas não são iguais')
+                return setShowSnackBar(true)
+            }
+            setLoading(true)
+            await changeForgotPassword(newPassword, dataPin.pin, dataPin.id)
+                .then(resp => {
+                    setDataPin(resp)
+                    setPinComponent(false)
+                    setPasswordComponent(true)
+                    setLoading(false)
+                    return navigate.goBack()
+                }).catch(err => {
+                    setTextSnackBar(err)
+                    setLoading(false)
+                    return setShowSnackBar(true)
+                })
         }
 
         return (

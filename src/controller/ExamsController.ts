@@ -50,7 +50,7 @@ export async function insert(data: {}, user: UserInterface) {
     }).then(resp => {
         response = resp.data
     }).catch(err => {
-        error = err
+        error = 'Error'
     })
 
     if (response) {

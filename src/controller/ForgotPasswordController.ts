@@ -11,11 +11,15 @@ export async function sendEmailForgotPassword(email: string) {
 
     await api.post('user/reset_password/verify_email', data)
         .then(resp => {
-            console.log(resp);
+            //console.log(resp);
         }).catch(error => {
-            if (error.response.data.message) {
-                throw (error.response.data.message)
-            } else {
+            try {
+                if (error.response.data.message) {
+                    throw (error.response.data.message)
+                } else {
+                    throw ('Erro')
+                }
+            } catch (err) {
                 throw ('Erro')
             }
         })
@@ -28,25 +32,26 @@ export async function sendPinForgotPassword(pin: string) {
     const data = {
         pin
     }
+    let response = null
+    let error = ''
 
     await api.post('/user/reset_password/verify_pin', data)
         .then(resp => {
-           // console.log({ pin: resp.data.pin, id: resp.data.id });
-const data ={ pin: resp.data.pin, id: resp.data.id }
-            return data
-        }).catch(error => {
-            if (error.response.data.message) {
-                throw (error.response.data.message)
+            response = { pin: resp.data.pin, id: resp.data.id }
+
+        }).catch(err => {
+            if (err.response.data.message) {
+                error = err.response.data.message
             } else {
-                throw ('Erro')
+                error = 'Erro'
             }
         })
+    return response ? response : error
 }
 
 
 
 export async function changeForgotPassword(password: string, pin: number, id: number) {
-    console.log(password, pin, id);
 
     const data = {
         new_password: password,
@@ -54,17 +59,26 @@ export async function changeForgotPassword(password: string, pin: number, id: nu
         id: id
     }
 
+    let response = null
+    let error = ''
+
     await api.post('/user/reset_password', data)
         .then(resp => {
             console.log(resp);
 
-            // return resp.data.pin
-        }).catch(error => {
-            console.log(error);
-            // if (error.response.data.message) {
-            //     throw (error.response.data.message)
-            // } else {
-            //     throw ('Erro')
-            // }
+            response = resp.data.message
+        }).catch(err => {
+            console.log(err);
+            if (err.response.data.message) {
+                error = err.response.data.message
+            } else {
+                error = 'Erro'
+            }
         })
+
+    if (response != null) {
+        return response
+    } else {
+        throw (error)
+    }
 }

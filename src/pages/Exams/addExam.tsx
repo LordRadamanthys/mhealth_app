@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Header from '../../components/Header'
 import { Feather as Icon } from '@expo/vector-icons'
@@ -12,7 +12,9 @@ import { insert } from '../../controller/ExamsController'
 import AuthContext from '../../providers/AuthProvider'
 import { Snackbar } from 'react-native-paper'
 import LoadingModal from '../../components/Loading'
-
+import { getAllSpecialties } from '../../controller/SpecialistController'
+import DropDownPicker from 'react-native-dropdown-picker';
+import ModalConfirm from '../../components/Alert'
 
 
 const AddExam = () => {
@@ -23,11 +25,31 @@ const AddExam = () => {
     const [doctorsName, setDoctorsName] = useState('')
     const [descriptions, setDescriptions] = useState('')
     const [showLoading, setShowLoading] = useState(false)
+    const [showModalConfirm, setShowModalConfirm] = useState(false)
     const [showSnackBar, setShowSnackBar] = useState(false)
     const [textSnackBar, setTextSnackBar] = useState('Ops, Ocorreu um erro!')
+    const [specialtiesList, setSpecialtiesList] = useState([])
+    const [specialty, setSpecialty] = useState('')
+
+    function cleanFields(){
+        setTitle('')
+        setDoctorsName('')
+        setDescriptions('')
+    }
+    async function getSpecialties() {
+        setShowLoading(true)
+        await getAllSpecialties(user)
+            .then(resp => {
+                setSpecialtiesList(resp);
+                setShowLoading(false)
+            }).catch(error => {
+                // console.log(error);
+                setShowLoading(false)
+            })
+    }
 
     async function createExam() {
-        if (title == '' || date == '' || doctorsName == '' || descriptions == '') {
+        if (title == '' || date == '' || doctorsName == '' || descriptions == '' || specialty == '') {
             setTextSnackBar('Preencha todos os campos')
             return setShowSnackBar(true)
         }
@@ -38,14 +60,14 @@ const AddExam = () => {
             date: date,
             doctors_name: doctorsName,
             description: descriptions,
-            id_speciality: 2
+            id_speciality: specialty.value
         }
 
         try {
             const result = await insert(data, user)
-            console.log(result);
+            cleanFields()
             setShowLoading(false)
-            // setshowAlertDelete(false)
+            return setShowModalConfirm(true)
         } catch (error) {
             console.log(error)
             setShowLoading(false)
@@ -55,10 +77,15 @@ const AddExam = () => {
     }
 
 
+    useEffect(() => {
+        getSpecialties()
+    }, [])
+
     return (
         <View style={styles.container}>
             <Header textCenter="New Exam" itemRight={""} funcItemRight={() => navigate.navigate('Files')} />
-            <LoadingModal setShow={() => setShowLoading(!showLoading)} show={showLoading} />
+            <LoadingModal setShow={() => setShowLoading(showLoading)} show={showLoading} />
+            <ModalConfirm  setShow={()=>setShowModalConfirm(showModalConfirm)} show={showModalConfirm} />
             <ScrollView>
                 <View style={styles.formContainer}>
                     <LottieView
@@ -67,18 +94,57 @@ const AddExam = () => {
                         style={styles.lottieImage}
                         source={require('../../assets/animations/register_exam.json')}
                     />
+                    <DropDownPicker
+
+                        searchable={true}
+                        searchablePlaceholder='Pesquisar...'
+                        searchableError={() => <Text style={{ color: '#fff' }}>Não encontrado  <Icon name='frown' size={23} color='#FFC633' /></Text>}
+                        searchableStyle={{ color: '#fff' }}
+                        placeholder="Selecione um especialista"
+                        placeholderStyle={{ color: 'rgba(255, 255, 255, 0.5)' }}
+                        containerStyle={{ height: 50, width: 290, maxWidth: 290, marginBottom: 15 }}
+                        style={{
+                            backgroundColor: 'rgba(255, 255, 255, 0.09)',
+                            borderWidth: 0,
+                            borderTopRightRadius: 10,
+                            borderTopLeftRadius: 10,
+                            borderBottomLeftRadius: 10,
+                            borderBottomRightRadius: 10
+                        }}
+                        itemStyle={{
+                            justifyContent: 'flex-start',
+                        }}
+                        arrowColor='#FFC633'
+                        arrowSize={23}
+                        activeLabelStyle={{ color: '#fff' }}
+                        selectedLabelStyle={{ color: '#fff' }}
+                        labelStyle={{ color: '#fff', fontSize: 14 }}
+                        dropDownStyle={{
+                            backgroundColor: 'rgba(29, 37, 65, 0.95)',
+                            marginBottom: 100,
+                            borderWidth: 0
+                        }}
+
+                        items={specialtiesList}
+                        onChangeItem={(item) => setSpecialty(item)}
+                    />
+
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
                         <TextInputCustom title='Type the title' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
                     </Animatable.View>
+
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
                         <TextInputCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} />
                     </Animatable.View>
+
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
                         <TextInputCustom title='Type the Doctors name' value={doctorsName} icon='edit-3' onTextChangeFunc={setDoctorsName} />
                     </Animatable.View>
+
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
                         <TextAreaCustom title='Type Description' value={descriptions} icon='type' onTextChangeFunc={setDescriptions} />
                     </Animatable.View>
+
                     <View style={styles.containerBottomButtons}>
                         <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={createExam}>
                             <Text style={[styles.text, styles.buttonText,]}>Create</Text>
