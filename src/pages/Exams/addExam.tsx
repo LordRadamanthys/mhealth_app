@@ -85,7 +85,7 @@ const AddExam = () => {
         <View style={styles.container}>
             <Header textCenter="New Exam" itemRight={""} funcItemRight={() => navigate.navigate('Files')} />
             <LoadingModal setShow={() => setShowLoading(showLoading)} show={showLoading} />
-            <ModalConfirm  setShow={()=>setShowModalConfirm(showModalConfirm)} show={showModalConfirm} />
+            <ModalConfirm  setShow={()=>setShowModalConfirm(!showModalConfirm)} show={showModalConfirm} />
             <ScrollView>
                 <View style={styles.formContainer}>
                     <LottieView

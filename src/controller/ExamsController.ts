@@ -8,7 +8,28 @@ export async function getExams(user: UserInterface) {
         headers: { 'Authorization': 'Bearer' + user.token }
     }).then(resp => {
         response = resp.data.reverse()
-        
+
+    }).catch(err => {
+        error = err
+    })
+
+    if (response) {
+        return response
+    } else {
+        throw (error)
+    }
+}
+
+
+export async function update(data: {}, user: UserInterface) {
+    let response = null
+    let error = null
+    await api.put(`exams`, data, {
+
+        headers: { 'Authorization': 'Bearer' + user.token },
+
+    }).then(resp => {
+        response = resp.data
     }).catch(err => {
         error = err
     })

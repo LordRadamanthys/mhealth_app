@@ -1,10 +1,8 @@
+import SpecialtiesInterface from "../interfaces/SpecialtyInterface";
 import UserInterface from "../interfaces/UserInterface";
 import api from "../services/api";
 
-interface SpecialtiesInterface {
-    id: number
-    name: string
-}
+
 
 export async function getAllSpecialties(user: UserInterface) {
     let response = null

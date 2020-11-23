@@ -15,17 +15,18 @@ export const AuthProvider: React.FC = ({ children }) => {
             email,
             password
         }
-
+        let error = 'Erro de conexão'
         await api.post('login', data)
             .then(resp => {
                 setUser(resp.data)
             }).catch(err => {
+                try {
+                    error = err.response.data.message
+                } catch (error) {
 
-                if (err.response.data.message) {
-                    throw (err.response.data.message)
-                }else{
-                    throw (err.message)
+                    error = err.message
                 }
+                throw (error)
             })
 
 
