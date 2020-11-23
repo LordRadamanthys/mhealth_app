@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, Platform } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
@@ -39,12 +39,15 @@ const Files = () => {
 
     async function getFiles() {
         setShowLoading(true)
-        const files = await getFilesExam(id_exam, user).catch(err => {
-            console.log(err);
-            setShowLoading(false)
-        })
-        setListFiles(files)
-        setShowLoading(false)
+        try {
+            const files = await getFilesExam(id_exam, user)
+            setListFiles(files)
+            return setShowLoading(false)
+        } catch (error) {
+            console.log(error);
+
+        }
+
     }
 
     function formatText(text: string) {
@@ -58,7 +61,7 @@ const Files = () => {
 
     return (
         <View style={styles.container}>
-            <ModalAddFile show={showAlertFile} setShow={setShowAlertFile} />
+            <ModalAddFile show={showAlertFile} setShow={setShowAlertFile} id={id_exam} callback={() => getFiles()} />
             <ModalYesNo show={showAlertDelete} setShow={setShowAlertDelete} />
             <LoadingModal setShow={() => setShowLoading(!showLoading)} show={showLoading} />
             <Header textCenter="Files" itemRight={iconRightHeader} funcItemRight={showModal} />
@@ -69,7 +72,7 @@ const Files = () => {
             <ScrollView showsVerticalScrollIndicator={false} style={{ marginTop: 10 }}>
                 <View style={styles.main}>
 
-                    {listFiles != null ? listFiles.map((file: FileInterface) => {
+                    {listFiles.length > 0 ? listFiles.map((file: FileInterface) => {
                         return (
                             <View style={styles.containerButtons} key={file.id}>
 

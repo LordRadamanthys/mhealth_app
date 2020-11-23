@@ -9,6 +9,7 @@ export async function getFilesExam(id: number, user: UserInterface) {
     await api.get(`exams/file/${id}`, {
         headers: { 'Authorization': 'Bearer' + user.token }
     }).then(resp => {
+        
         response = resp.data
         
     }).catch(err => {

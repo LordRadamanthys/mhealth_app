@@ -47,12 +47,12 @@ const ViewFile = () => {
                         uri: `http://192.168.100.10:2222/file/${fileReceived.page}/${user?.id}/${fileReceived.id_exams}/${fileReceived.name_file}`,
                     }}
                     webviewStyle={{ flex: 1 }}
-
+                    withPinchZoom={true}
                     onLoad={() => setShowLoading(true)}
                     onLoadEnd={() => setShowLoading(false)}
                     onError={()=>console.log('erro')}
                     
-                    useGoogleReader={true}
+                    //useGoogleReader={true}
                 />
             }
         </View>

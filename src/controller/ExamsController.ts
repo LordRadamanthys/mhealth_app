@@ -31,7 +31,9 @@ export async function update(data: {}, user: UserInterface) {
     }).then(resp => {
         response = resp.data
     }).catch(err => {
-        error = err
+        console.log(err.response.data);
+        
+        error = err.response.data
     })
 
     if (response) {

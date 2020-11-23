@@ -1,16 +1,81 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { StyleSheet, Modal, View, Text, TouchableOpacity } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
 import { RectButton } from 'react-native-gesture-handler'
 import TextInputCustom from '../TextInput'
+import * as ImagePicker from 'expo-image-picker'
+import Constants from 'expo-constants'
+import * as Permissions from 'expo-permissions'
+import * as DocumentPicker from 'expo-document-picker';
+import api from '../../services/api'
+import AuthContext from '../../providers/AuthProvider'
+
 
 interface AlertInterface {
     show: boolean,
     setShow(key: boolean): void
+    id?: number
+    callback():void
 }
 
-const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow }) => {
 
+const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow, id , callback}) => {
+    const [nameFile, setNameFile] = useState('')
+    const [file, setFile] = useState(null)
+    const { user } = useContext(AuthContext)
+
+
+    const getPermissionAsync = async () => {
+        if (Constants.platform?.android) {
+            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            if (status !== 'granted') {
+                alert('Preciso de permissão para acessar seus arquivos, para você escolher sua foto');
+            }
+        }
+    }
+
+    const pickFile = async () => {
+        const pickerOptions = {
+            copyToCacheDirectory: false,
+            type: "*/*",
+            multiple: false,
+        };
+        try {
+            let result = await DocumentPicker.getDocumentAsync(pickerOptions)
+            // if (!result.cancelled) {
+            //     setImage(result.uri);
+            // }
+            setNameFile(result.name.replace('.pdf', '').replace('.jpg',''))
+            setFile(result)
+            console.log(result)
+        } catch (E) {
+            console.log("teste"+E);
+        }
+    };
+    async function uploadFile() {
+        const data = new FormData()
+        data.append('id_exam', id)
+        data.append('name_file', nameFile)
+        data.append('file', {
+            uri: file.uri,
+            name: file.name,
+            type: '*/*'
+        })
+        await api.post(`exams/file`, data, {
+            headers: {
+                'Authorization': 'Bearer' + user?.token,
+                'Content-Type': 'Multipart/form-data'
+            }
+        }).then(resp => {
+            setShow(false)
+            return callback()
+        }).catch(error => {
+            console.log("e " + error)
+        })
+    }
+    useEffect(() => {
+        getPermissionAsync()
+    }, [])
     return (
         <Modal animationType="slide"
             transparent={true}
@@ -22,22 +87,22 @@ const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow }) => {
                 <View style={styles.mainView}>
                     <Text style={[styles.text, styles.title]}>New File</Text>
                     <View style={styles.containerText}>
-                        <TextInputCustom title="Title" value={""} onTextChangeFunc={() => { }} icon="edit-2" />
+                        <TextInputCustom title="Title" value={nameFile} onTextChangeFunc={setNameFile} icon="edit-2" />
                     </View>
                     <TouchableOpacity
                         activeOpacity={0.6}
                         style={[styles.button, { backgroundColor: '#3D5089', alignSelf: 'flex-start', paddingHorizontal: 50 }]}
-                        onPress={() => setShow(false)}>
+                        onPress={() => pickFile()}>
                         <Text style={[styles.text, styles.buttonText]}>Search file</Text>
                         <Icon style={{ marginStart: 5 }} name={"file"} size={22} color="#FFC633" />
                     </TouchableOpacity>
 
                     <View style={styles.containerBottomButtons}>
-                        <RectButton
-                            activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.button, { backgroundColor: '#3D5089', }]}
-                            onPress={() => setShow(false)}>
+                        <TouchableOpacity
+                            activeOpacity={0.9} style={[styles.button, { backgroundColor: '#3D5089', }]}
+                            onPress={uploadFile}>
                             <Icon style={{ marginStart: 5 }} name={"check"} size={22} color="#FFC633" />
-                        </RectButton>
+                        </TouchableOpacity>
                         <TouchableOpacity
                             activeOpacity={0.9} style={[styles.button, { backgroundColor: '#E9585E', }]}
                             onPress={() => setShow(false)}>

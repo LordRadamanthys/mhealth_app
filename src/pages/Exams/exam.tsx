@@ -4,7 +4,7 @@ import Header from '../../components/Header'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
 import { RectButton, ScrollView } from 'react-native-gesture-handler'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native'
 import TextAreaCustom from '../../components/TextAreaCustom'
 import ModalConfirm from '../../components/Alert'
 import ModalYesNo from '../../components/ModalYesNo'
@@ -123,6 +123,13 @@ const Exam = () => {
     function blockTextInputs() {
         setEnabledEdit(false)
     }
+    useFocusEffect(
+        React.useCallback(() => {
+            getFile()
+
+            return () => { };
+        }, [])
+    )
 
     useEffect(() => {
         setTitle(exam.title)
@@ -223,6 +230,7 @@ const Exam = () => {
                                 onTextChangeFunc={setDate}
                                 iconColor={!enabledEdit ? "#FFC633" : "#E9585E"}
                                 editable={enabledEdit}
+                                
                             />
                         </Animatable.View>
 
