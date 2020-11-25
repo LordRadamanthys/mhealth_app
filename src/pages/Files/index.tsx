@@ -9,9 +9,10 @@ import ModalYesNo from '../../components/ModalYesNo'
 import EmptyListComponent from '../../components/EmptyList'
 import AuthContext from '../../providers/AuthProvider'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { getFilesExam } from '../../controller/FilesExamController'
+import { deleteFile, getFilesExam } from '../../controller/FilesExamController'
 import FileInterface from '../../interfaces/FilesInterface'
 import LoadingModal from '../../components/Loading'
+import { Snackbar } from 'react-native-paper'
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
 
 const Files = () => {
@@ -22,18 +23,36 @@ const Files = () => {
     const [showAlertFile, setShowAlertFile] = useState(false)
     const [showLoading, setShowLoading] = useState(false)
     const [showAlertDelete, setShowAlertDelete] = useState(false)
+    const [showSnackBar, setShowSnackBar] = useState(false)
+    const [textSnackBar, setTextSnackBar] = useState('Ops, Ocorreu um erro')
     const id_exam = routes.params.id_exam
+    const page = routes.params.page
 
     function showModal() {
         setShowAlertFile(!showAlertFile)
     }
 
-    function deleteFile() {
-        setShowAlertDelete(!showAlertFile)
+    async function deleteFileOnly(file: FileInterface) {
+        const data = {
+            id_user: user?.id,
+            id_exam: id_exam,
+            id_file: file.id,
+            name_file: file.name_file
+        }
+        setShowLoading(true)
+
+        await deleteFile(data, user)
+            .catch(error => {
+                setTextSnackBar(error)
+                setShowSnackBar(true)
+                return setShowLoading(false)
+            })
+            
+            return getFiles() 
     }
 
     function goToFile(file: FileInterface) {
-        file.page = 'exams'
+        file.page = page
         navigate.navigate('ViewFile', { data: file })
     }
 
@@ -51,7 +70,7 @@ const Files = () => {
     }
 
     function formatText(text: string) {
-        return text.substring(0, 19).concat('...')
+        return text.substring(0, 20).concat('...')
     }
 
 
@@ -62,7 +81,7 @@ const Files = () => {
     return (
         <View style={styles.container}>
             <ModalAddFile show={showAlertFile} setShow={setShowAlertFile} id={id_exam} callback={() => getFiles()} />
-            <ModalYesNo show={showAlertDelete} setShow={setShowAlertDelete} />
+            <ModalYesNo show={showAlertDelete} setShow={setShowAlertDelete} onOkPress={() => { }} />
             <LoadingModal setShow={() => setShowLoading(!showLoading)} show={showLoading} />
             <Header textCenter="Files" itemRight={iconRightHeader} funcItemRight={showModal} />
             <View style={styles.containerInputSearch}>
@@ -76,13 +95,20 @@ const Files = () => {
                         return (
                             <View style={styles.containerButtons} key={file.id}>
 
-                                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'}
+                                <RectButton
+                                    activeOpacity={0.9}
+                                    rippleColor={'#FFC633'}
                                     style={[styles.buttonFile, { backgroundColor: '#3D5089', }]}
                                     onPress={() => goToFile(file)}
                                 >
                                     <Text style={[styles.text, styles.buttonText]}>{formatText(file.name_file)}</Text>
                                 </RectButton>
-                                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonDelete, { backgroundColor: '#E9585E', }]} onPress={deleteFile}>
+                                <RectButton
+                                    activeOpacity={0.9}
+                                    rippleColor={'#FFC633'}
+                                    style={[styles.buttonDelete, { backgroundColor: '#E9585E', }]}
+                                    onPress={() => deleteFileOnly(file)}
+                                >
                                     <Icon style={{ marginStart: 5 }} name={"trash"} size={22} color="#FFC633" />
                                 </RectButton>
                             </View>
@@ -90,6 +116,19 @@ const Files = () => {
                     }) : <EmptyListComponent />}
                 </View>
             </ScrollView>
+            <Snackbar
+                visible={showSnackBar}
+                onDismiss={() => setShowSnackBar(false)}
+                duration={5000}
+                style={{ alignSelf: 'center', width: '90%', backgroundColor: '#E9585E' }}
+                action={{
+                    label: 'Ok',
+                    onPress: () => {
+                       
+                    },
+                }}>
+                {textSnackBar}
+            </Snackbar>
         </View>
     )
 }

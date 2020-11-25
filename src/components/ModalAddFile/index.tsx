@@ -51,7 +51,8 @@ const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow, id , callback})
         } catch (E) {
             console.log("teste"+E);
         }
-    };
+    }
+
     async function uploadFile() {
         const data = new FormData()
         data.append('id_exam', id)
@@ -61,16 +62,18 @@ const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow, id , callback})
             name: file.name,
             type: '*/*'
         })
-        await api.post(`exams/file`, data, {
+        
+        await api.post(`exams/file`,data, {
+            
             headers: {
                 'Authorization': 'Bearer' + user?.token,
-                'Content-Type': 'Multipart/form-data'
+                'Content-Type': 'multipart/form-data',
             }
         }).then(resp => {
             setShow(false)
             return callback()
         }).catch(error => {
-            console.log("e " + error)
+            console.log(error.message)
         })
     }
     useEffect(() => {

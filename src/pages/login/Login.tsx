@@ -14,7 +14,7 @@ const Login = () => {
     const { login } = useContext(AuthContext)
     const navigate = useNavigation()
     const [email, setEmail] = useState('mateus@teste.com')
-    const [password, setPassword] = useState('1234')
+    const [password, setPassword] = useState('123456')
     const [enabledAllButtons, setEnabledAllButtons] = useState(true)
     const [disableButtonForgotPassword, setDisableButtonForgotPassword] = useState(false)
     const [showSnackBar, setShowSnackBar] = useState(false)
@@ -64,7 +64,12 @@ const Login = () => {
                         <TextInput title='Password' value={password} onTextChangeFunc={setPassword} icon='key' />
                     </View>
 
-                    <TouchableOpacity disabled={disableButtonForgotPassword} style={styles.containerForgotPassword} activeOpacity={0.6} onPress={() => navigate.navigate('ForgotPassword')}>
+                    <TouchableOpacity
+                        disabled={disableButtonForgotPassword}
+                        style={styles.containerForgotPassword}
+                        activeOpacity={0.6}
+                        onPress={() => navigate.navigate('ForgotPassword')}
+                    >
                         <Text style={styles.forgotPassword}>Forgot password</Text>
                         <Animatable.View animation="rubberBand" delay={1000}>
                             <Icon style={{ marginEnd: 10 }} name={"help-circle"} size={22} color="#FFC633" />
