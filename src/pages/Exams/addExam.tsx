@@ -33,6 +33,7 @@ const AddExam = () => {
 
     function cleanFields(){
         setTitle('')
+        setDate('')
         setDoctorsName('')
         setDescriptions('')
     }

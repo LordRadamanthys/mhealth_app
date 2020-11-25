@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import Header from '../../components/Header'
 import { Feather as Icon } from '@expo/vector-icons'
@@ -9,15 +9,28 @@ import { useNavigation } from '@react-navigation/native'
 import * as Animatable from 'react-native-animatable'
 import EmptyListComponent from '../../components/EmptyList'
 import ModalAddGym from './modalAddGym'
+import { getGyms } from '../../controller/GymController'
+import AuthContext from '../../providers/AuthProvider'
+import GymsInterface from '../../interfaces/GymsInterface'
 
 
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
 const Gyms = () => {
+    const { user } = useContext(AuthContext)
     const [showModal, setShowModal] = useState(false)
-    const teste = [1, 1, 1, 1, 1, 1, 1]
+    const [listGyms, setListGyms] = useState([])
     const navigate = useNavigation()
 
+    async function get() {
+        const response = await getGyms(user).catch(error => {
+            console.log("sas" + error)
+        })
+        return setListGyms(response);
+    }
 
+    useEffect(() => {
+        get()
+    }, [])
 
     return (
         <View style={styles.container}>
@@ -28,11 +41,11 @@ const Gyms = () => {
             <ModalAddGym show={showModal} setShow={() => setShowModal(!showModal)} />
             <View style={styles.main}>
                 <ScrollView showsVerticalScrollIndicator={false} >
-                    {teste != null ? teste.map(t => {
+                    {listGyms.length > 0 ? listGyms.map((gym: GymsInterface) => {
                         return (
-                            <Animatable.View animation="fadeInUp" style={styles.containerMainButton}>
-                                <MainButton text="test tes t de teset stetatdsasd tets" image="gym" action={() => navigate.navigate('Training')} >
-
+                            <Animatable.View animation="fadeInUp" style={styles.containerMainButton} key={gym.id}>
+                                <MainButton text={gym.name} image="gym" action={() => navigate.navigate('Training')} >
+                                    <Text style={{color:'#fff'}}>{gym.days}</Text>
                                 </MainButton>
                             </Animatable.View>
                         )

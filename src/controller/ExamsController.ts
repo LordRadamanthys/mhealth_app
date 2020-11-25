@@ -73,6 +73,8 @@ export async function insert(data: {}, user: UserInterface) {
     }).then(resp => {
         response = resp.data
     }).catch(err => {
+        console.log(err);
+        
         error = 'Error'
     })
 

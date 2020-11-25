@@ -47,11 +47,14 @@ const Files = () => {
                 setShowSnackBar(true)
                 return setShowLoading(false)
             })
-            
-            return getFiles() 
+        getFiles()
+        setTextSnackBar("Deletado com sucesso")
+        return setShowSnackBar(true)
     }
 
     function goToFile(file: FileInterface) {
+        console.log(page);
+
         file.page = page
         navigate.navigate('ViewFile', { data: file })
     }
@@ -124,7 +127,7 @@ const Files = () => {
                 action={{
                     label: 'Ok',
                     onPress: () => {
-                       
+
                     },
                 }}>
                 {textSnackBar}

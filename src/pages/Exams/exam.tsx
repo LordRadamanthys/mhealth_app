@@ -44,7 +44,7 @@ const Exam = () => {
     }
 
     function goToFiles(id: number) {
-        navigate.navigate('Files', { id_exam: id, page: 'exam' })
+        navigate.navigate('Files', { id_exam: id, page: 'exams' })
     }
 
     async function deleteExam() {
