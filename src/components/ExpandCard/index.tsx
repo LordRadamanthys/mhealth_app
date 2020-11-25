@@ -8,10 +8,10 @@ import gymIcon from '../../assets/images/gym.png'
 interface ExpandCardInterface {
     image: string
     title: string
-    description: string
+    description?: string
 }
 
-const ExpandCard: React.FC<ExpandCardInterface> = ({ image, title, description }) => {
+const ExpandCard: React.FC<ExpandCardInterface> = ({ image, title, description, children }) => {
 
     function selectImage(image: string) {
         switch (image) {
@@ -33,6 +33,7 @@ const ExpandCard: React.FC<ExpandCardInterface> = ({ image, title, description }
                 unmountOnCollapse={true}
             >
                 <Animatable.Image animation="pulse" resizeMode={'center'} delay={800} source={selectImage(image)} style={styles.image} />
+                {children}
                 <Text style={[styles.text, styles.buttonTextDescription]}>{description}</Text>
             </CollapsibleView>
         </Animatable.View>
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
 
     },
     buttonFile: {
-        borderRadius: 20,
+        borderRadius: 15,
         paddingHorizontal: 20,
         paddingVertical: 30,
         alignItems: 'center',

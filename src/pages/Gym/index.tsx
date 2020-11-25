@@ -28,6 +28,10 @@ const Gyms = () => {
         return setListGyms(response);
     }
 
+    function goToTraining(gym: GymsInterface) {
+        navigate.navigate('Training', { gym:gym })
+    }
+
     useEffect(() => {
         get()
     }, [])
@@ -44,8 +48,8 @@ const Gyms = () => {
                     {listGyms.length > 0 ? listGyms.map((gym: GymsInterface) => {
                         return (
                             <Animatable.View animation="fadeInUp" style={styles.containerMainButton} key={gym.id}>
-                                <MainButton text={gym.name} image="gym" action={() => navigate.navigate('Training')} >
-                                    <Text style={{color:'#fff'}}>{gym.days}</Text>
+                                <MainButton text={gym.name} image="gym" action={() => goToTraining(gym)} >
+                                    <Text style={{ color: '#fff' }}>{gym.days}</Text>
                                 </MainButton>
                             </Animatable.View>
                         )

@@ -1,16 +1,16 @@
+import GymsInterface from "../interfaces/GymsInterface";
 import UserInterface from "../interfaces/UserInterface";
 import api from "../services/api";
 
-export async function getGyms(user: UserInterface) {
+export async function getTraining(gym: GymsInterface, user: UserInterface) {
     let response = null
     let error = null
 
 
-    await api.get(`gym`, {
+    await api.get(`training/${gym.id}`, {
         headers: { 'Authorization': 'Bearer' + user.token }
     }).then(resp => {
         response = resp.data
-
     }).catch(err => {
         error = err
     })

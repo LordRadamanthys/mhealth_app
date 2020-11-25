@@ -1,21 +1,43 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
 import Header from '../../components/Header'
-
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
 import { ScrollView } from 'react-native-gesture-handler'
 import EmptyListComponent from '../../components/EmptyList'
 import ExpandCard from '../../components/ExpandCard'
 import ModalAddTraining from './modalAddTraining'
+import { useRoute } from '@react-navigation/native'
+import GymsInterface from '../../interfaces/GymsInterface'
+import { getTraining } from '../../controller/TrainingController'
+import AuthContext from '../../providers/AuthProvider'
+import TrainingInterface from '../../interfaces/TrainingInterface'
 const teste = [1]
 
 const Training = () => {
+    const { user } = useContext(AuthContext)
+    const route = useRoute()
+    const gym: GymsInterface = route.params.gym
     const [showModalAddTraining, setShowModalAddTraining] = useState(false)
+    const [listTraining, setListTraining] = useState([])
+
     function showModal() {
         setShowModalAddTraining(!showModalAddTraining)
     }
+
+    async function get() {
+        const response = await getTraining(gym, user).catch(err => {
+            return console.log(err)
+        })
+        
+        return setListTraining(response);
+
+    }
+
+    useEffect(() => {
+        get()
+    }, [])
 
     return (
         <View style={styles.container}>
@@ -26,11 +48,34 @@ const Training = () => {
                 <TextInputCustom title="Search by title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
             </View>
             <View style={styles.main}>
-                <ScrollView showsVerticalScrollIndicator={false}>
+                <ScrollView style={{marginBottom:150}} showsVerticalScrollIndicator={false}>
 
-                    {teste != null ? teste.map(t => {
+                    {listTraining.length > 0 ? listTraining.map((training: TrainingInterface) => {
                         return (
-                            <ExpandCard image='gym' title='Teste' description='	Lorem ipsum rhoncus cursus vestibulum, ullamcorper erat nostra leo rutrum, ullamcorper semper viverra. nulla porttitor blandit curae in proin elementum in pretium, ornare fusce consectetur pretium semper conubia nullam proin, praesent potenti mi augue et consectetur platea. enim himenaeos mollis laoreet arcu viverra lobortis, vehicula orci arcu maecenas hac aliquam euismod, nam vel ante nibh sit. condimentum aenean nam ligula porttitor euismod urna tempor per, ullamcorper non nostra risus pellentesque mollis fames sagittis, phasellus praesent sodales curabitur dictumst curabitur lobortis, himenaeos tempor consequat tortor congue a nam. curabitur nibh amet eros donec aenean ullamcorper orci et volutpat, curabitur arcu platea ad posuere fringilla nulla interdum nisi euismod, pellentesque augue maecenas posuere in porta dapibus praesent.' />
+                            <ExpandCard
+                                image='gym'
+                                title={training.name}
+                                description={training.description}
+                            >
+                                <View style={{ marginVertical: 10 }}>
+                                    <TextInputCustom
+                                        editable={false}
+                                        title="Number moviments"
+                                        value={`Numero de movimentos: ${training.number_moviments}`}
+                                        onTextChangeFunc={() => { }}
+                                        icon="activity"
+                                    />
+                                </View>
+                                
+                                <View style={{ marginVertical: 10 }}>
+                                    <TextInputCustom editable={false}
+                                        title="Number repetitions"
+                                        value={`Numero de repetições: ${training.number_repetitions}`}
+                                        onTextChangeFunc={() => { }}
+                                        icon="activity"
+                                    />
+                                </View>
+                            </ExpandCard>
                         )
                     }) : <EmptyListComponent />}
                 </ScrollView>
