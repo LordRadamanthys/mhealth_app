@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, Modal, View, Text, TouchableOpacity } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
+import TextAreaCustom from '../../components/TextAreaCustom'
 
 interface AlertInterface {
     show: boolean,
@@ -25,17 +26,19 @@ const ModalAddTraining: React.FC<AlertInterface> = ({ show, setShow }) => {
                     </View>
 
                     <View style={styles.containerText}>
-                    <TextInputCustom title="Number Moviments" value={""} onTextChangeFunc={() => { }} icon="smile" />
+                        <TextInputCustom title="Number Moviments" value={""} onTextChangeFunc={() => { }} icon="smile" />
                     </View>
 
                     <View style={styles.containerText}>
                         <TextInputCustom title="Number repetitions" value={""} onTextChangeFunc={() => { }} icon="smile" />
                     </View>
-
+                    <View style={styles.containerText}>
+                        <TextAreaCustom title='Description' value={''} icon='edit-2' onTextChangeFunc={() => { }} />
+                    </View>
                     <View style={styles.containerBottomButtons}>
                         <TouchableOpacity
                             activeOpacity={0.9} style={[styles.button, { backgroundColor: '#3D5089', }]}
-                            onPress={()=>{}}
+                            onPress={() => { }}
                         >
                             <Icon style={{ marginStart: 5 }} name={"check"} size={22} color="#FFC633" />
                         </TouchableOpacity>

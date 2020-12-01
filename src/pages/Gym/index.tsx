@@ -12,24 +12,29 @@ import ModalAddGym from './modalAddGym'
 import { getGyms } from '../../controller/GymController'
 import AuthContext from '../../providers/AuthProvider'
 import GymsInterface from '../../interfaces/GymsInterface'
+import LoadingModal from '../../components/Loading'
 
 
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
 const Gyms = () => {
     const { user } = useContext(AuthContext)
     const [showModal, setShowModal] = useState(false)
+    const [showLoading, setShowLoading] = useState(false)
     const [listGyms, setListGyms] = useState([])
     const navigate = useNavigation()
 
     async function get() {
+        setShowLoading(true)
         const response = await getGyms(user).catch(error => {
             console.log("sas" + error)
+            return setShowLoading(false)
         })
-        return setListGyms(response);
+        setListGyms(response)
+        return setShowLoading(false)
     }
 
     function goToTraining(gym: GymsInterface) {
-        navigate.navigate('Training', { gym:gym })
+        navigate.navigate('Training', { gym: gym })
     }
 
     useEffect(() => {
@@ -38,6 +43,7 @@ const Gyms = () => {
 
     return (
         <View style={styles.container}>
+            <LoadingModal setShow={() => setShowLoading(!showLoading)} show={showLoading} />
             <Header textCenter="Gyms" itemRight={iconRightHeader} funcItemRight={() => setShowModal(!showModal)} />
             <View style={styles.containerInputSearch}>
                 <TextInputCustom title="Search for title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />

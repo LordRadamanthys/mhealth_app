@@ -13,6 +13,7 @@ import GymsInterface from '../../interfaces/GymsInterface'
 import { getTraining } from '../../controller/TrainingController'
 import AuthContext from '../../providers/AuthProvider'
 import TrainingInterface from '../../interfaces/TrainingInterface'
+import LoadingModal from '../../components/Loading'
 const teste = [1]
 
 const Training = () => {
@@ -20,6 +21,7 @@ const Training = () => {
     const route = useRoute()
     const gym: GymsInterface = route.params.gym
     const [showModalAddTraining, setShowModalAddTraining] = useState(false)
+    const [showLoading, setShowLoading] = useState(false)
     const [listTraining, setListTraining] = useState([])
 
     function showModal() {
@@ -27,11 +29,14 @@ const Training = () => {
     }
 
     async function get() {
+        setShowLoading(true)
         const response = await getTraining(gym, user).catch(err => {
-            return console.log(err)
+            console.log(err)
+            return setShowLoading(false)
         })
-        
-        return setListTraining(response);
+
+        setListTraining(response)
+        return setShowLoading(false)
 
     }
 
@@ -44,11 +49,12 @@ const Training = () => {
 
             <Header textCenter="Training" itemRight={iconRightHeader} funcItemRight={showModal} />
             <ModalAddTraining setShow={setShowModalAddTraining} show={showModalAddTraining} />
+            <LoadingModal setShow={() => setShowLoading(!showLoading)} show={showLoading} />
             <View style={styles.containerInputSearch}>
                 <TextInputCustom title="Search by title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
             </View>
             <View style={styles.main}>
-                <ScrollView style={{marginBottom:150}} showsVerticalScrollIndicator={false}>
+                <ScrollView style={{ marginBottom: 150 }} showsVerticalScrollIndicator={false}>
 
                     {listTraining.length > 0 ? listTraining.map((training: TrainingInterface) => {
                         return (
@@ -56,6 +62,7 @@ const Training = () => {
                                 image='gym'
                                 title={training.name}
                                 description={training.description}
+                                key={training.id}
                             >
                                 <View style={{ marginVertical: 10 }}>
                                     <TextInputCustom
@@ -66,7 +73,7 @@ const Training = () => {
                                         icon="activity"
                                     />
                                 </View>
-                                
+
                                 <View style={{ marginVertical: 10 }}>
                                     <TextInputCustom editable={false}
                                         title="Number repetitions"
