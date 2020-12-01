@@ -37,8 +37,9 @@ const Training = () => {
 
         setListTraining(response)
         return setShowLoading(false)
-
     }
+
+
 
     useEffect(() => {
         get()
@@ -48,7 +49,7 @@ const Training = () => {
         <View style={styles.container}>
 
             <Header textCenter="Training" itemRight={iconRightHeader} funcItemRight={showModal} />
-            <ModalAddTraining setShow={setShowModalAddTraining} show={showModalAddTraining} />
+            <ModalAddTraining callback={() => get()} id_gym={gym.id} setShow={setShowModalAddTraining} show={showModalAddTraining} />
             <LoadingModal setShow={() => setShowLoading(!showLoading)} show={showLoading} />
             <View style={styles.containerInputSearch}>
                 <TextInputCustom title="Search by title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />

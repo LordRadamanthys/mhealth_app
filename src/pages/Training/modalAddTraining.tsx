@@ -1,44 +1,85 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet, Modal, View, Text, TouchableOpacity } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
 import TextAreaCustom from '../../components/TextAreaCustom'
+import { insertTraining } from '../../controller/TrainingController'
+import AuthContext from '../../providers/AuthProvider'
+import LoadingModal from '../../components/Loading'
 
 interface AlertInterface {
     show: boolean,
     setShow(key: boolean): void
+    id_gym: number
+    callback(): void
 }
 
-const ModalAddTraining: React.FC<AlertInterface> = ({ show, setShow }) => {
+const ModalAddTraining: React.FC<AlertInterface> = ({ show, setShow, id_gym, callback }) => {
+    const { user } = useContext(AuthContext)
+    const [name, setName] = useState('')
+    const [numberMoviments, setNumberMoviments] = useState('')
+    const [numberRepetitions, setNumberRepetitions] = useState('')
+    const [description, setDescription] = useState('')
+    const [showLoading, setShowLoading] = useState(false)
+
+    async function addTraining() {
+        if (name === '' || numberMoviments === '' || numberRepetitions === '' || description === '') return console.log('Preencha os campos');
+        setShowLoading(true)
+        const data = {
+            id_gym: id_gym,
+            name: name,
+            number_moviments: numberMoviments,
+            number_repetitions: numberRepetitions,
+            description: description
+        }
+
+        const response = await insertTraining(data, user).catch(error => {
+            setShowLoading(false)
+            return console.log(error)
+        })
+        cleanFields()
+        setShowLoading(false)
+        setShow(false)
+        return callback()
+
+    }
+
+    function cleanFields() {
+        setName('')
+        setDescription('')
+        setNumberMoviments('')
+        setNumberRepetitions('')
+    }
 
     return (
         <Modal animationType="slide"
             transparent={true}
             visible={show}
             onRequestClose={() => {
-                setShow(false);
+                setShow(false)
             }}>
+            <LoadingModal setShow={() => setShowLoading(!showLoading)} show={showLoading} />
             <View style={styles.centeredView}>
                 <View style={styles.mainView}>
                     <Text style={[styles.text, styles.title]}>New Training</Text>
                     <View style={styles.containerText}>
-                        <TextInputCustom title="Name" value={""} onTextChangeFunc={() => { }} icon="edit-2" />
+                        <TextInputCustom title="Name" value={name} onTextChangeFunc={setName} icon="edit-2" />
                     </View>
 
                     <View style={styles.containerText}>
-                        <TextInputCustom title="Number Moviments" value={""} onTextChangeFunc={() => { }} icon="smile" />
+                        <TextInputCustom title="Number Moviments" keyboardType='number' value={numberMoviments} onTextChangeFunc={setNumberMoviments} icon="smile" />
                     </View>
 
                     <View style={styles.containerText}>
-                        <TextInputCustom title="Number repetitions" value={""} onTextChangeFunc={() => { }} icon="smile" />
+                        <TextInputCustom title="Number repetitions" keyboardType='number' value={numberRepetitions} onTextChangeFunc={setNumberRepetitions} icon="smile" />
                     </View>
                     <View style={styles.containerText}>
-                        <TextAreaCustom title='Description' value={''} icon='edit-2' onTextChangeFunc={() => { }} />
+                        <TextAreaCustom title='Description' value={description} icon='edit-2' onTextChangeFunc={setDescription} />
                     </View>
                     <View style={styles.containerBottomButtons}>
                         <TouchableOpacity
                             activeOpacity={0.9} style={[styles.button, { backgroundColor: '#3D5089', }]}
-                            onPress={() => { }}
+                            onPress={addTraining}
                         >
                             <Icon style={{ marginStart: 5 }} name={"check"} size={22} color="#FFC633" />
                         </TouchableOpacity>
