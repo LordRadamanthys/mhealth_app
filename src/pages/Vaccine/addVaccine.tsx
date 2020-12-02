@@ -21,7 +21,6 @@ const AddVaccine = () => {
     const [date, setDate] = useState('')
     const [dateReturn, setDateReturn] = useState('')
     const [local, setLocal] = useState('')
-    const [doses, setDoses] = useState('')
     const [showAlert, setshowAlert] = useState(false)
     const [showLogin, setShowLogin] = useState(false)
 
@@ -30,14 +29,13 @@ const AddVaccine = () => {
     }
 
     async function addVaccine() {
-        if (title == '' || date == '' || local == '' || doses == '') return console.log('err');
+        if (title == '' || date == '' || local == '' ) return console.log('err');
         setShowLogin(true)
         const data = {
             title: title,
             date: date,
             date_return: dateReturn,
             local: local,
-            doses: doses
         }
 
         const response = await insertVaccine(data, user).catch(error => {
@@ -77,9 +75,7 @@ const AddVaccine = () => {
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
                         <TextInputCustom title='local' value={local} icon='map-pin' onTextChangeFunc={setLocal} />
                     </Animatable.View>
-                    <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
-                        <TextInputCustom title='How many doses' value={doses} icon='activity' onTextChangeFunc={setDoses} />
-                    </Animatable.View>
+                   
 
                     <View style={styles.containerBottomButtons}>
                         <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={addVaccine}>

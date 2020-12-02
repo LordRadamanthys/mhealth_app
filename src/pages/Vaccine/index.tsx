@@ -25,11 +25,13 @@ const Vaccines = () => {
             return console.log(error);
 
         })
+        console.log(response);
+        
         return setListVaccines(response)
     }
 
-    function goToVaccine(page: string) {
-        navigate.navigate("Vaccine")
+    function goToVaccine(vaccine: VaccinesInterface) {
+        navigate.navigate("Vaccine", { data: vaccine })
     }
 
 
@@ -48,8 +50,8 @@ const Vaccines = () => {
                 <ScrollView showsVerticalScrollIndicator={false} >
                     {listVaccines.length > 0 ? listVaccines.map((vaccine: VaccinesInterface) => {
                         return (
-                            <Animatable.View animation="fadeInUp" style={styles.containerMainButton}>
-                                <MainButton text={vaccine.title} image="vaccines" action={goToVaccine} >
+                            <Animatable.View animation="fadeInUp" style={styles.containerMainButton} key={vaccine.id}>
+                                <MainButton text={vaccine.title} image="vaccines" action={() => goToVaccine(vaccine)} >
                                     <Text style={styles.subTitles}>{vaccine.date}</Text>
                                     <Text style={styles.subTitles}>{vaccine.local}</Text>
                                 </MainButton>
@@ -83,9 +85,9 @@ const styles = StyleSheet.create({
         marginVertical: 10
     },
 
-    subTitles:{
-        color:'#D8DFFD',
-        marginVertical:2
+    subTitles: {
+        color: '#D8DFFD',
+        marginVertical: 2
     }
 })
 
