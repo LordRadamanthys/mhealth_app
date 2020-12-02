@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Header from '../../components/Header'
 import { Feather as Icon } from '@expo/vector-icons'
@@ -9,24 +9,52 @@ import TextAreaCustom from '../../components/TextAreaCustom'
 import ModalConfirm from '../../components/Alert'
 import LottieView from 'lottie-react-native'
 import * as Animatable from 'react-native-animatable'
+import { insertVaccine } from '../../controller/VaccinesController'
+import AuthContext from '../../providers/AuthProvider'
+import LoadingModal from '../../components/Loading'
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
 
 const AddVaccine = () => {
+    const { user } = useContext(AuthContext)
     const navigate = useNavigation()
     const [title, setTitle] = useState('')
     const [date, setDate] = useState('')
-    const [doctorsName, setDoctorsName] = useState('')
-    const [descriptions, setDescriptions] = useState('')
+    const [dateReturn, setDateReturn] = useState('')
+    const [local, setLocal] = useState('')
+    const [doses, setDoses] = useState('')
     const [showAlert, setshowAlert] = useState(false)
+    const [showLogin, setShowLogin] = useState(false)
 
     function showMyAlertConfirm() {
         setshowAlert(!showAlert)
     }
 
+    async function addVaccine() {
+        if (title == '' || date == '' || local == '' || doses == '') return console.log('err');
+        setShowLogin(true)
+        const data = {
+            title: title,
+            date: date,
+            date_return: dateReturn,
+            local: local,
+            doses: doses
+        }
+
+        const response = await insertVaccine(data, user).catch(error => {
+            console.log(error);
+            setShowLogin(false)
+        })
+        setShowLogin(false)
+        console.log(response);
+
+    }
+
+
 
     return (
         <View style={styles.container}>
             <Header textCenter="New Vaccine" itemRight={""} />
+            <LoadingModal setShow={() => setShowLogin(showLogin)} show={showLogin} />
             <ScrollView>
                 <View style={styles.formContainer}>
 
@@ -44,17 +72,17 @@ const AddVaccine = () => {
                         <TextInputCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} />
                     </Animatable.View>
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
-                        <TextInputCustom title='Type date return' value={date} icon='calendar' onTextChangeFunc={setDate} />
+                        <TextInputCustom title='Type date return' value={dateReturn} icon='calendar' onTextChangeFunc={setDateReturn} />
                     </Animatable.View>
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
-                        <TextInputCustom title='local' value={doctorsName} icon='map-pin' onTextChangeFunc={setDoctorsName} />
+                        <TextInputCustom title='local' value={local} icon='map-pin' onTextChangeFunc={setLocal} />
                     </Animatable.View>
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
-                        <TextInputCustom title='How many doses' value={date} icon='activity' onTextChangeFunc={setDate} />
+                        <TextInputCustom title='How many doses' value={doses} icon='activity' onTextChangeFunc={setDoses} />
                     </Animatable.View>
 
                     <View style={styles.containerBottomButtons}>
-                        <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={() => showMyAlertConfirm()}>
+                        <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={addVaccine}>
                             <Text style={[styles.text, styles.buttonText,]}>Save</Text>
                             <Icon style={{ marginStart: 5 }} name={"plus"} size={22} color="#FFC633" />
                         </RectButton>
