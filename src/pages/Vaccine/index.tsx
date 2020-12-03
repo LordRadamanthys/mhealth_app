@@ -5,7 +5,7 @@ import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
 import { ScrollView } from 'react-native-gesture-handler'
 import MainButton from '../../components/MainButton'
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import * as Animatable from 'react-native-animatable'
 import EmptyListComponent from '../../components/EmptyList'
 import { getVaccines } from '../../controller/VaccinesController'
@@ -25,8 +25,7 @@ const Vaccines = () => {
             return console.log(error);
 
         })
-        console.log(response);
-        
+
         return setListVaccines(response)
     }
 
@@ -34,6 +33,12 @@ const Vaccines = () => {
         navigate.navigate("Vaccine", { data: vaccine })
     }
 
+    useFocusEffect(
+        React.useCallback(() => {
+            getListVaccine()
+            return () => { };
+        }, [])
+    )
 
     useEffect(() => {
         getListVaccine()

@@ -10,12 +10,12 @@ export async function getVaccines(user: UserInterface) {
     await api.get(`vaccines`, {
         headers: { 'Authorization': 'Bearer' + user.token }
     }).then(resp => {
-        console.log(resp.data);
+      //  console.log(resp.data);
         
         response = resp.data
 
     }).catch(err => {
-        console.log(err);
+        //console.log(err);
         error = err
     })
 
@@ -25,6 +25,9 @@ export async function getVaccines(user: UserInterface) {
         throw (error)
     }
 }
+
+
+
 
 
 export async function insertVaccine(data: {}, user: UserInterface) {
@@ -56,12 +59,12 @@ export async function updateVaccine(data: {}, user: UserInterface) {
     await api.put(`vaccines`, data, {
         headers: { 'Authorization': 'Bearer' + user.token }
     }).then(resp => {
-        console.log(resp.data);
+        //console.log(resp.data);
         
         response = resp.data
 
     }).catch(err => {
-        console.log(err);
+       // console.log(err);
         
         error = err
     })

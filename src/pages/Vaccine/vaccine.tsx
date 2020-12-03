@@ -4,7 +4,7 @@ import Header from '../../components/Header'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
 import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native'
 import ModalConfirm from '../../components/Alert'
 import ModalYesNo from '../../components/ModalYesNo'
 import * as Animatable from 'react-native-animatable'
@@ -13,6 +13,7 @@ import VaccinesInterface from '../../interfaces/VaccinesInterface'
 import { Snackbar } from 'react-native-paper'
 import { deleteVaccineAndFiles, updateVaccine } from '../../controller/VaccinesController'
 import LoadingModal from '../../components/Loading'
+import { getFilesVaccine } from '../../controller/FilesVaccineController'
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
 
 const Vaccine = () => {
@@ -30,33 +31,43 @@ const Vaccine = () => {
     const [showSnackBar, setShowSnackBar] = useState(false)
     const [textSnackBar, setTextSnackBar] = useState('Ops, Ocorreu um erro!')
     const [enabledEdit, setEnabledEdit] = useState(false)
+    const [totalFiles, setTotalFiles] = useState(0)
 
     function showMyAlertDelete() {
         setshowAlertDelete(!showAlertDelete)
     }
 
+    async function getFiles() {
+        const response = await getFilesVaccine(vaccine.id, user).catch(error => {
+            return console.log(error);
+
+        })
+        return setTotalFiles(response.length);
+
+    }
 
     async function deleteVaccine() {
         setShowLoading(true)
 
         const response = await deleteVaccineAndFiles(vaccine.id, user).catch(error => {
+            setShowLoading(false)
             return console.log(error);
 
         })
-
+        setShowLoading(false)
         console.log(response)
-
+        return navigate.goBack()
     }
 
 
     async function saveVaccine() {
-        if (title == '' || date == '' || local == ''){
+        if (title == '' || date == '' || local == '') {
             setTextSnackBar('Virifique se preencheu corretamanete os campos Title, Date e local')
             return setShowSnackBar(true)
-        } 
+        }
         setShowLoading(true)
         const data = {
-            id:vaccine.id,
+            id: vaccine.id,
             title: title,
             date: date,
             date_return: dateReturn,
@@ -72,12 +83,21 @@ const Vaccine = () => {
         return setShowSnackBar(true)
     }
 
+    useFocusEffect(
+        React.useCallback(() => {
+            getFiles()
+
+            return () => { };
+        }, [])
+    )
 
     useEffect(() => {
+        getFiles()
         setTitle(vaccine.title)
         setDate(vaccine.date)
         setDateReturn(vaccine.date_return)
         setLocal(vaccine.local)
+
     }, [])
 
     return (
@@ -108,9 +128,9 @@ const Vaccine = () => {
                         <TextInputCustom editable={enabledEdit} iconColor={!enabledEdit ? "#FFC633" : "#E9585E"} title='local' value={local} icon='map-pin' onTextChangeFunc={setLocal} />
                     </Animatable.View>
 
-                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonFiles} onPress={() => navigate.navigate('Files')}>
+                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonFiles} onPress={() => navigate.navigate('FilesVaccine', { id_vaccine: vaccine.id })}>
                         <Text style={[styles.text, styles.buttonText]}>Files</Text>
-                        <Text style={[styles.text, styles.buttonText]}>total: 0  <Icon name={"paperclip"} size={22} color="#FFC633" /></Text>
+                        <Text style={[styles.text, styles.buttonText]}>{`total: ${totalFiles}`}  <Icon name={"paperclip"} size={22} color="#FFC633" /></Text>
                     </RectButton>
 
                     {!enabledEdit ?

@@ -10,19 +10,20 @@ import api from '../../services/api';
 import AuthContext from '../../providers/AuthProvider';
 import { useRoute } from '@react-navigation/native';
 import FileInterface from '../../interfaces/FilesInterface';
+import FileVaccineInterface from '../../interfaces/FilesVaccineInterface';
 
 
 
 
-const ViewFile = () => {
+const ViewFileVaccine = () => {
     const [showLoading, setShowLoading] = useState(false)
     const [showImage, setShowImage] = useState(false)
     const route = useRoute()
     const { user } = useContext(AuthContext)
-    const fileReceived: FileInterface = route.params.data
+    const fileReceived: FileVaccineInterface = route.params.data
 
     useEffect(() => {
-        console.log(`http://192.168.100.10:2222/file/${fileReceived.page}/${user?.id}/${fileReceived.id_exams}/${fileReceived.name_file}`);
+        console.log(`http://192.168.100.10:2222/file/${fileReceived.page}/${user?.id}/${fileReceived.id_vaccines}/${fileReceived.name_file}`);
         
         if(fileReceived.name_file.includes('.pdf')){
             setShowImage(false)
@@ -40,13 +41,13 @@ const ViewFile = () => {
                     style={styles.image}
                     resizeMode='center'
                     source={{
-                        uri: `http://192.168.100.10:2222/file/${fileReceived.page}/${user?.id}/${fileReceived.id_exams}/${fileReceived.name_file}`,
+                        uri: `http://192.168.100.10:2222/file/${fileReceived.page}/${user?.id}/${fileReceived.id_vaccines}/${fileReceived.name_file}`,
                     }}
                 />
                 :
                 <PDFReader
                     source={{
-                        uri: `http://192.168.100.10:2222/file/${fileReceived.page}/${user?.id}/${fileReceived.id_exams}/${fileReceived.name_file}`,
+                        uri: `http://192.168.100.10:2222/file/${fileReceived.page}/${user?.id}/${fileReceived.id_vaccines}/${fileReceived.name_file}`,
                     }}
                     webviewStyle={{ flex: 1 }}
                     withPinchZoom={true}
@@ -61,7 +62,7 @@ const ViewFile = () => {
     )
 }
 
-export default ViewFile
+export default ViewFileVaccine
 const styles = StyleSheet.create({
     container: {
         flex: 1,

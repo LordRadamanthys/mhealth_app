@@ -20,6 +20,8 @@ import Gyms from './src/pages/Gym';
 import ExpandCard from './src/components/ExpandCard';
 import Training from './src/pages/Training';
 import ViewFile from './src/pages/Files/viewFile';
+import FilesVaccine from './src/pages/FilesVaccine';
+import ViewFileVaccine from './src/pages/FilesVaccine/viewFile';
 const AppStack = createStackNavigator()
 
 const Routes = () => {
@@ -54,6 +56,8 @@ const Routes = () => {
                     <AppStack.Screen name='Medicines' component={Medicines} />
                     <AppStack.Screen name='Training' component={Training} />
                     <AppStack.Screen name='ViewFile' component={ViewFile} />
+                    <AppStack.Screen name='ViewFileVaccine' component={ViewFileVaccine} />
+                    <AppStack.Screen name='FilesVaccine' component={FilesVaccine} />
                 </AppStack.Navigator>
             </NavigationContainer>
     )

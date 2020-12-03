@@ -15,11 +15,12 @@ interface AlertInterface {
     show: boolean,
     setShow(key: boolean): void
     id?: number
-    callback():void
+    page: string
+    callback(): void
 }
 
 
-const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow, id , callback}) => {
+const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow, id, callback, page }) => {
     const [nameFile, setNameFile] = useState('')
     const [file, setFile] = useState(null)
     const { user } = useContext(AuthContext)
@@ -45,11 +46,20 @@ const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow, id , callback})
             // if (!result.cancelled) {
             //     setImage(result.uri);
             // }
-            setNameFile(result.name.replace('.pdf', '').replace('.jpg',''))
+            setNameFile(result.name.replace('.pdf', '').replace('.jpg', ''))
             setFile(result)
             console.log(result)
         } catch (E) {
-            console.log("teste"+E);
+            console.log("teste" + E);
+        }
+    }
+
+    async function upload() {
+        if (page == 'vaccine') {
+            return await uploadFileVaccine()
+        } else {
+            return await uploadFile()
+
         }
     }
 
@@ -62,9 +72,9 @@ const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow, id , callback})
             name: file.name,
             type: '*/*'
         })
-        
-        await api.post(`exams/file`,data, {
-            
+
+        await api.post(`exams/file`, data, {
+
             headers: {
                 'Authorization': 'Bearer' + user?.token,
                 'Content-Type': 'multipart/form-data',
@@ -76,9 +86,37 @@ const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow, id , callback})
             console.log(error.message)
         })
     }
+
+    async function uploadFileVaccine() {
+        const data = new FormData()
+        data.append('id_vaccine', id)
+        data.append('name_file', nameFile)
+        data.append('file', {
+            uri: file.uri,
+            name: file.name,
+            type: '*/*'
+        })
+
+        await api.post(`vaccines/file`, data, {
+
+            headers: {
+                'Authorization': 'Bearer' + user?.token,
+                'Content-Type': 'multipart/form-data',
+            }
+        }).then(resp => {
+            setShow(false)
+            return callback()
+        }).catch(error => {
+            console.log(error.message)
+        })
+    }
+
+
     useEffect(() => {
         getPermissionAsync()
     }, [])
+
+
     return (
         <Modal animationType="slide"
             transparent={true}
@@ -103,7 +141,7 @@ const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow, id , callback})
                     <View style={styles.containerBottomButtons}>
                         <TouchableOpacity
                             activeOpacity={0.9} style={[styles.button, { backgroundColor: '#3D5089', }]}
-                            onPress={uploadFile}>
+                            onPress={upload}>
                             <Icon style={{ marginStart: 5 }} name={"check"} size={22} color="#FFC633" />
                         </TouchableOpacity>
                         <TouchableOpacity
