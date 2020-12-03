@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Text, View, StyleSheet, Image } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
@@ -8,12 +8,28 @@ import examsIcon from '../../assets/images/exams.png'
 import ButtonHome from '../../components/ButtonsHome'
 import { useNavigation } from '@react-navigation/native'
 import * as Animatable from 'react-native-animatable'
+import api from '../../services/api'
+import RecentsInterface from '../../interfaces/RecentsInterface'
 
 const Home = () => {
     const navigate = useNavigation()
     function goTo(page: string) {
         navigate.navigate(page)
     }
+
+
+    async function getRecents() {
+        await api.get('recents').then(response => {
+            const teste: [RecentsInterface] = response.data
+            console.log();
+
+        }).catch(error => {
+            console.log(error);
+        })
+    }
+    useEffect(() => {
+        getRecents()
+    }, [])
 
     return (
         <View style={styles.container}>

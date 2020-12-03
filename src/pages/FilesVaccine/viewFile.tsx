@@ -24,10 +24,10 @@ const ViewFileVaccine = () => {
 
     useEffect(() => {
         console.log(`http://192.168.100.10:2222/file/${fileReceived.page}/${user?.id}/${fileReceived.id_vaccines}/${fileReceived.name_file}`);
-        
-        if(fileReceived.name_file.includes('.pdf')){
+
+        if (fileReceived.name_file.includes('.pdf')) {
             setShowImage(false)
-        }else{
+        } else {
             setShowImage(true)
         }
 
@@ -37,13 +37,15 @@ const ViewFileVaccine = () => {
             <Header textCenter="" itemRight={<></>} funcItemRight={() => { }} />
             <LoadingModal setShow={() => setShowLoading(!showLoading)} show={showLoading} />
             {showImage ?
-                <Image
-                    style={styles.image}
-                    resizeMode='center'
-                    source={{
-                        uri: `http://192.168.100.10:2222/file/${fileReceived.page}/${user?.id}/${fileReceived.id_vaccines}/${fileReceived.name_file}`,
-                    }}
-                />
+                <View style={{ flex: 1 }}>
+                    <Image
+                        style={styles.image}
+                        resizeMode='center'
+                        source={{
+                            uri: `http://192.168.100.10:2222/file/${fileReceived.page}/${user?.id}/${fileReceived.id_vaccines}/${fileReceived.name_file}`,
+                        }}
+                    />
+                </View>
                 :
                 <PDFReader
                     source={{
@@ -53,9 +55,9 @@ const ViewFileVaccine = () => {
                     withPinchZoom={true}
                     onLoad={() => setShowLoading(true)}
                     onLoadEnd={() => setShowLoading(false)}
-                    onError={()=>console.log('erro')}
-                    
-                    //useGoogleReader={true}
+                    onError={() => console.log('erro')}
+
+                //useGoogleReader={true}
                 />
             }
         </View>
@@ -76,9 +78,8 @@ const styles = StyleSheet.create({
     },
 
     image: {
-        width: 300,
-        height: 300,
-        alignSelf: 'center'
+        flex: 1,
+        // alignSelf: 'center'
     }
 })
 
