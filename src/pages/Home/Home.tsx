@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Text, View, StyleSheet, Image } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
@@ -10,25 +10,72 @@ import { useNavigation } from '@react-navigation/native'
 import * as Animatable from 'react-native-animatable'
 import api from '../../services/api'
 import RecentsInterface from '../../interfaces/RecentsInterface'
-
+import Carousel from 'react-native-snap-carousel'
+import gymIcon from '../../assets/images/gym.png'
+import vaccinesIcon from '../../assets/images/mask.png'
+import medicinesIcon from '../../assets/images/medicines.png'
+import AuthContext from '../../providers/AuthProvider'
+import { getRecents } from '../../controller/RecentController'
+import RecentInterface from '../../interfaces/RecentInterface'
 const Home = () => {
     const navigate = useNavigation()
+    const { user } = useContext(AuthContext)
+    const [carouselItems, setCarouselItems] = useState([])
+
+
     function goTo(page: string) {
         navigate.navigate(page)
     }
 
+    function selectImage(name: string) {
+        switch (name) {
+            case 'gym':
+                return gymIcon
 
-    async function getRecents() {
-        await api.get('recents').then(response => {
-            const teste: [RecentsInterface] = response.data
-            console.log();
+            case 'exams':
+                return examsIcon
 
+            case 'vaccines':
+                return vaccinesIcon
+
+            case 'medicines':
+                return medicinesIcon
+
+            default:
+                return medicinesIcon
+        }
+    }
+
+
+    async function loadRecents() {
+        await getRecents(user).then((response:RecentInterface) => {
+            setCarouselItems(response)
         }).catch(error => {
-            console.log(error);
+            return console.log(error);
+
         })
     }
+
+
+    const _renderItem = ({ item, index }) => {
+        return (
+            <TouchableOpacity style={styles.recentActvities}>
+                <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: 'column', marginHorizontal: 30 }}>
+                        {item.title? <Text style={styles.text}>{item.title}</Text>:undefined}
+                        {item.date? <Text style={styles.text}>{item.date}</Text>:<></>}
+                        {item.doctors_name?<Text style={styles.text}>{item.doctors_name}</Text>:<></>}
+                        {item.local? <Text style={styles.text}>{item.local}</Text>:<></>}
+                        {item.day? <Text style={styles.text}>{item.day}</Text>:<></>}
+                    </View>
+                    <Animatable.Image animation="pulse" iterationDelay={1000} iterationCount="infinite" source={selectImage(item.type)} style={{ width: 90, height: 70 }} resizeMode="contain" />
+                </View>
+            </TouchableOpacity>
+        )
+    }
+
     useEffect(() => {
-        getRecents()
+        loadRecents()
     }, [])
 
     return (
@@ -40,13 +87,20 @@ const Home = () => {
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.main}>
                     <Animatable.View animation="fadeInUpBig" style={styles.recentActivitiesContainer}>
-                        <Text style={[styles.text, { fontSize: 19 }]}>Recent Activity</Text>
-                        <TouchableOpacity style={styles.recentActvities}>
-                            <View style={styles.textsRecentActivities}>
-                                <Text style={[styles.text, styles.textRecentActivitiesCard]}>test te st ets te st ets e ts te </Text>
-                            </View>
-                            <Animatable.Image animation="pulse" delay={800} source={examsIcon} style={styles.image} />
-                        </TouchableOpacity>
+                        <Text style={[styles.text, { fontSize: 19, marginBottom: 10 }]}>Recent Activity</Text>
+
+                        <View style={{ maxHeight: 150 }}>
+                            <Carousel
+                                //ref={(c) => { carousel = c; }}
+
+                                data={carouselItems}
+                                renderItem={_renderItem}
+                                sliderWidth={300}
+                                sliderHeight={100}
+                                itemWidth={300}
+                                itemHeight={100}
+                            />
+                        </View>
                     </Animatable.View >
 
 
@@ -62,7 +116,7 @@ const Home = () => {
 
                 </View>
             </ScrollView>
-        </View>
+        </View >
     )
 }
 
@@ -91,15 +145,17 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
 
+
     recentActvities: {
         borderColor: '#E9585E',
-        borderWidth: 1,
-        marginTop: 10,
-        flexDirection: 'row',
-        paddingHorizontal: 20,
-        paddingVertical: 30,
-        justifyContent: 'space-between',
-        borderRadius: 15
+        alignItems: 'center',
+        borderWidth: 2,
+        borderRadius: 15,
+        padding: 30
+    },
+
+    recentActvitiesItems: {
+
     },
 
     textsRecentActivities: {
@@ -124,7 +180,7 @@ const styles = StyleSheet.create({
     mainButtons: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: 30,
+        marginTop: 10,
         maxWidth: 400,
     }
 })
