@@ -15,7 +15,8 @@ import LoadingModal from '../../components/Loading'
 import { getAllSpecialties } from '../../controller/SpecialistController'
 import DropDownPicker from 'react-native-dropdown-picker';
 import ModalConfirm from '../../components/Alert'
-
+import DatePicker from 'react-native-datepicker'
+import InputDateCustom from '../../components/InputDateCustom'
 
 const AddExam = () => {
     const navigate = useNavigation()
@@ -31,7 +32,7 @@ const AddExam = () => {
     const [specialtiesList, setSpecialtiesList] = useState([])
     const [specialty, setSpecialty] = useState('')
 
-    function cleanFields(){
+    function cleanFields() {
         setTitle('')
         setDate('')
         setDoctorsName('')
@@ -58,7 +59,7 @@ const AddExam = () => {
 
         const data = {
             title: title,
-            date: date,
+            date: date.replace('-', '/'),
             doctors_name: doctorsName,
             description: descriptions,
             id_speciality: specialty.value
@@ -86,7 +87,7 @@ const AddExam = () => {
         <View style={styles.container}>
             <Header textCenter="New Exam" itemRight={""} funcItemRight={() => navigate.navigate('Files')} />
             <LoadingModal setShow={() => setShowLoading(showLoading)} show={showLoading} />
-            <ModalConfirm  setShow={()=>setShowModalConfirm(!showModalConfirm)} show={showModalConfirm} />
+            <ModalConfirm setShow={() => setShowModalConfirm(!showModalConfirm)} show={showModalConfirm} />
             <ScrollView>
                 <View style={styles.formContainer}>
                     <LottieView
@@ -135,7 +136,9 @@ const AddExam = () => {
                     </Animatable.View>
 
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
-                        <TextInputCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} />
+                        {/* <TextInputCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} /> */}
+                        <InputDateCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} />
+
                     </Animatable.View>
 
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
