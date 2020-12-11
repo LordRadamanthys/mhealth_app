@@ -23,6 +23,8 @@ const Gyms = () => {
     const [listGyms, setListGyms] = useState([])
     const navigate = useNavigation()
 
+
+
     async function get() {
         setShowLoading(true)
         const response = await getGyms(user).catch(error => {
@@ -48,7 +50,7 @@ const Gyms = () => {
             <View style={styles.containerInputSearch}>
                 <TextInputCustom title="Search for title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
             </View>
-            <ModalAddGym show={showModal} setShow={() => setShowModal(!showModal)} />
+            <ModalAddGym show={showModal} callback={get} setShow={() => setShowModal(!showModal)} />
             <View style={styles.main}>
                 <ScrollView showsVerticalScrollIndicator={false} >
                     {listGyms.length > 0 ? listGyms.map((gym: GymsInterface) => {

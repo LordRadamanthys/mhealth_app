@@ -1,21 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet, Modal, View, Text, TouchableOpacity } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
 import SelectDaysWeek from '../../components/SelectDaysWeek'
+import { insertGym } from '../../controller/GymController'
+import AuthContext from '../../providers/AuthProvider'
+import LoadingModal from '../../components/Loading'
 
 interface AlertInterface {
     show: boolean,
     setShow(key: boolean): void
+    callback(): void
 }
 
-const ModalAddGym: React.FC<AlertInterface> = ({ show, setShow }) => {
+const ModalAddGym: React.FC<AlertInterface> = ({ show, setShow, callback }) => {
+    const { user } = useContext(AuthContext)
     const [monday, setMonday] = useState({ text: 'Mon', select: false })
     const [tuesday, setTuesday] = useState({ text: 'Tue', select: false })
     const [wednesday, setWednesday] = useState({ text: 'Wed', select: false })
     const [thursday, setThursday] = useState({ text: 'Thu', select: false })
     const [friday, setFriday] = useState({ text: 'Fri', select: false })
     const [saturday, setSat] = useState({ text: 'Sat', select: false })
+    const [title, setTitle] = useState('')
+    const [selectedDays, setSelectedDays] = useState('')
+    const [showLoading, setShowLoading] = useState(false)
 
     function getDaysWeek() {
         const textDaysWeek = []
@@ -37,7 +45,29 @@ const ModalAddGym: React.FC<AlertInterface> = ({ show, setShow }) => {
         if (saturday.select) {
             textDaysWeek.push(saturday.text)
         }
-        console.log(textDaysWeek)
+
+        setSelectedDays(textDaysWeek.toString())
+
+    }
+
+    async function createGym() {
+        setShowLoading(true)
+        getDaysWeek()
+        const data = {
+            name: title,
+            days: selectedDays
+        }
+        console.log(data);
+
+        await insertGym(data, user).then(response => {
+            console.log(response);
+            setShowLoading(false)
+            setShow(false)
+            callback()
+        }).catch(error => {
+            console.log(error);
+            setShowLoading(false)
+        })
     }
 
     return (
@@ -47,11 +77,12 @@ const ModalAddGym: React.FC<AlertInterface> = ({ show, setShow }) => {
             onRequestClose={() => {
                 setShow(false);
             }}>
+            <LoadingModal setShow={setShowLoading} show={showLoading} />
             <View style={styles.centeredView}>
                 <View style={styles.mainView}>
                     <Text style={[styles.text, styles.title]}>New Gym</Text>
                     <View style={styles.containerText}>
-                        <TextInputCustom title="Title" value={""} onTextChangeFunc={() => { }} icon="edit-2" />
+                        <TextInputCustom title="Title" value={title} onTextChangeFunc={setTitle} icon="edit-2" />
                     </View>
 
                     <View style={styles.containerText}>
@@ -64,7 +95,7 @@ const ModalAddGym: React.FC<AlertInterface> = ({ show, setShow }) => {
                     <View style={styles.containerBottomButtons}>
                         <TouchableOpacity
                             activeOpacity={0.9} style={[styles.button, { backgroundColor: '#3D5089', }]}
-                            onPress={getDaysWeek}
+                            onPress={createGym}
                         >
                             <Icon style={{ marginStart: 5 }} name={"check"} size={22} color="#FFC633" />
                         </TouchableOpacity>

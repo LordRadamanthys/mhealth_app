@@ -6,7 +6,7 @@ import HeaderHome from '../../components/HeaderHome'
 import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import examsIcon from '../../assets/images/exams.png'
 import ButtonHome from '../../components/ButtonsHome'
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import * as Animatable from 'react-native-animatable'
 import api from '../../services/api'
 import RecentsInterface from '../../interfaces/RecentsInterface'
@@ -62,6 +62,13 @@ const Home = () => {
         }
     }
 
+    useFocusEffect(
+        React.useCallback(() => {
+            loadRecents()
+
+            return () => { };
+        }, [])
+    )
 
     async function loadRecents() {
         setProgressIndicator(true)
@@ -84,14 +91,14 @@ const Home = () => {
                             {item.date ? <Text style={[styles.text, styles.descriptionSlide]}>{`Data: ${item.date}`}</Text> : <></>}
                             {item.doctors_name ? <Text style={[styles.text, styles.descriptionSlide]}>{`Doutor(a): ${item.doctors_name}`}</Text> : <></>}
                             {item.local ? <Text style={[styles.text, styles.descriptionSlide]}>{`Local: ${item.local}`}</Text> : <></>}
-                            {item.day ? <Text style={[styles.text, styles.descriptionSlide]}>{`Dias: ${item.day}`}</Text> : <></>}
+                            {item.day ? <Text style={[styles.text, styles.descriptionSlide, {}]}>{`Dias: ${item.day}`}</Text> : <></>}
                         </View>
                         <Animatable.Image
                             animation="pulse"
                             iterationDelay={1000}
                             iterationCount="infinite"
                             source={selectImage(item.type)}
-                            style={{ width: 90, height: 70 }}
+                            style={{ width: 70, height: 70, alignSelf: 'flex-start' }}
                             resizeMode="contain"
                         />
                     </View>
@@ -121,6 +128,9 @@ const Home = () => {
                                     //ref={(c) => { carousel = c; }}
                                     layout={'stack'}
                                     layoutCardOffset={10}
+                                    autoplay={true}
+                                    autoplayInterval={5000}
+                                    loop={true}
                                     data={carouselItems}
                                     renderItem={_renderItem}
                                     sliderWidth={360}
@@ -182,6 +192,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 15,
         padding: 20,
+        minHeight: 130,
         backgroundColor: '#1D2541'
     },
 
