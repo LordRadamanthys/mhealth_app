@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
@@ -12,31 +12,58 @@ import CollapsibleView from "@eliav2/react-native-collapsible-view"
 import { ScrollView } from 'react-native-gesture-handler'
 import EmptyListComponent from '../../components/EmptyList'
 import ExpandCard from '../../components/ExpandCard'
+import { getMedicine, getAllMedicine, formatExams } from '../../controller/MedicinesController'
+import AuthContext from '../../providers/AuthProvider'
+import { getExams } from '../../controller/ExamsController'
+import AddMedicine from './addMedicine'
+import { useNavigation } from '@react-navigation/native'
 const teste = [1]
 
 const Medicines = () => {
+    const navigate = useNavigation()
+    const { user } = useContext(AuthContext)
     const [showAlertFile, setShowAlertFile] = useState(false)
     const [showAlertDelete, setShowAlertDelete] = useState(false)
-    function showModal() {
-        setShowAlertFile(!showAlertFile)
+    const [listExams, setListExams] = useState([])
+    
+
+ 
+
+    async function getAll() {
+        const response = await getAllMedicine(user).catch(error => {
+            return console.log(error);
+        })
+        //console.log(response);
     }
+
+
+    async function get(id: string) {
+        const response = await getMedicine(id, user).catch(error => {
+            return console.log(error);
+        })
+        console.log(response);
+    }
+
+    useEffect(() => {
+        
+        getAll()
+    }, [])
 
     return (
         <View style={styles.container}>
-            <ModalAddFile show={showAlertFile} setShow={setShowAlertFile} />
-            <ModalYesNo show={showAlertDelete} setShow={setShowAlertDelete} />
-            <Header textCenter="Medicines" itemRight={iconRightHeader} funcItemRight={showModal} />
+            
+            <Header textCenter="Medicines" itemRight={iconRightHeader} funcItemRight={()=>navigate.navigate('AddMedicine')} />
             <View style={styles.containerInputSearch}>
                 <TextInputCustom title="Search by title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
             </View>
             <View style={styles.main}>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    
-                    {teste != null?teste.map(t => {
+
+                    {teste != null ? teste.map(t => {
                         return (
-                            <ExpandCard image='exam' title='Loratadina' description='Lorem ipsum rhoncus cursus vestibulum, ullamcorper erat nostra leo rutrum, ullamcorper semper viverra. nulla porttitor blandit curae in proin elementum in pretium, ornare fusce consectetur pretium semper conubia nullam proin, praesent potenti mi augue et consectetur platea. enim himenaeos mollis laoreet arcu viverra lobortis, vehicula orci arcu maecenas hac aliquam euismod, nam vel ante nibh sit. condimentum aenean nam ligula porttitor euismod urna tempor per, ullamcorper non nostra risus pellentesque mollis fames sagittis, phasellus praesent sodales curabitur dictumst curabitur lobortis, himenaeos tempor consequat tortor congue a nam. curabitur nibh amet eros donec aenean ullamcorper orci et volutpat, curabitur arcu platea ad posuere fringilla nulla interdum nisi euismod, pellentesque augue maecenas posuere in porta dapibus praesent.'  />
+                            <ExpandCard image='exam' title='Loratadina' description='Lorem ipsum rhoncus cursus vestibulum, ullamcorper erat nostra leo rutrum, ullamcorper semper viverra. nulla porttitor blandit curae in proin elementum in pretium, ornare fusce consectetur pretium semper conubia nullam proin, praesent potenti mi augue et consectetur platea. enim himenaeos mollis laoreet arcu viverra lobortis, vehicula orci arcu maecenas hac aliquam euismod, nam vel ante nibh sit. condimentum aenean nam ligula porttitor euismod urna tempor per, ullamcorper non nostra risus pellentesque mollis fames sagittis, phasellus praesent sodales curabitur dictumst curabitur lobortis, himenaeos tempor consequat tortor congue a nam. curabitur nibh amet eros donec aenean ullamcorper orci et volutpat, curabitur arcu platea ad posuere fringilla nulla interdum nisi euismod, pellentesque augue maecenas posuere in porta dapibus praesent.' />
                         )
-                    }): <EmptyListComponent />}
+                    }) : <EmptyListComponent />}
                 </ScrollView>
             </View>
         </View>
