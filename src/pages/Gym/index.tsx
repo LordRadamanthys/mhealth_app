@@ -21,8 +21,9 @@ const Gyms = () => {
     const [showModal, setShowModal] = useState(false)
     const [showLoading, setShowLoading] = useState(false)
     const [listGyms, setListGyms] = useState([])
+    const [listGymsSearch, setListGymsSearch] = useState([])
     const navigate = useNavigation()
-
+    const [search, setSearch] = useState("")
 
 
     async function get() {
@@ -32,11 +33,20 @@ const Gyms = () => {
             return setShowLoading(false)
         })
         setListGyms(response)
+        setListGymsSearch(response)
         return setShowLoading(false)
     }
 
     function goToTraining(gym: GymsInterface) {
         navigate.navigate('Training', { gym: gym })
+    }
+
+    async function searchBar(text: string) {
+        setSearch(text)
+
+        var s = listGymsSearch.filter((m: GymsInterface) => m.name.includes(text))
+
+        setListGyms(s.length != 0 || text.includes("") ? s : listGymsSearch)
     }
 
     useEffect(() => {
@@ -48,7 +58,7 @@ const Gyms = () => {
             <LoadingModal setShow={() => setShowLoading(!showLoading)} show={showLoading} />
             <Header textCenter="Gyms" itemRight={iconRightHeader} funcItemRight={() => setShowModal(!showModal)} />
             <View style={styles.containerInputSearch}>
-                <TextInputCustom title="Search for title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
+                <TextInputCustom title="Search for title" value={search} security={false} icon="search" onTextChangeFunc={searchBar} />
             </View>
             <ModalAddGym show={showModal} callback={get} setShow={() => setShowModal(!showModal)} />
             <View style={styles.main}>

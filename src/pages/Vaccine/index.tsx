@@ -18,7 +18,8 @@ const Vaccines = () => {
     const { user } = useContext(AuthContext)
     const navigate = useNavigation()
     const [listVaccines, setListVaccines] = useState([])
-
+    const [listVaccinesSearch, setListVaccinesSearch] = useState([])
+    const [search, setSearch] = useState("")
 
     async function getListVaccine() {
         const response = await getVaccines(user).catch(error => {
@@ -26,11 +27,21 @@ const Vaccines = () => {
 
         })
 
-        return setListVaccines(response)
+        setListVaccines(response)
+        return setListVaccinesSearch(response)
     }
 
     function goToVaccine(vaccine: VaccinesInterface) {
         navigate.navigate("Vaccine", { data: vaccine })
+    }
+
+
+    async function searchBar(text: string) {
+        setSearch(text)
+
+        var s = listVaccinesSearch.filter((m: VaccinesInterface) => m.title.includes(text))
+
+        setListVaccines(s.length != 0 || text.includes("") ? s : listVaccinesSearch)
     }
 
     useFocusEffect(
@@ -48,7 +59,7 @@ const Vaccines = () => {
         <View style={styles.container}>
             <Header textCenter="Vaccines" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddVaccine')} />
             <View style={styles.containerInputSearch}>
-                <TextInputCustom title="Search for title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
+                <TextInputCustom title="Search for title" value={search} security={false} icon="search" onTextChangeFunc={searchBar} />
             </View>
 
             <View style={styles.main}>

@@ -20,14 +20,14 @@ const Header: React.FC<HeaderInterface> = ({ itemCenter, textCenter, itemRight, 
     }
     return (
         <View style={styles.header}>
-            <TouchableOpacity style={{ marginStart: 20, }} onPress={goBack}>
+            <TouchableOpacity onPress={goBack}>
                 <Icon name={"chevron-left"} size={40} color="#FFC633" />
             </TouchableOpacity>
             <View style={styles.containerItemCenter}>
                 <Text style={styles.titleHeader}>{itemCenter ? itemCenter : textCenter}</Text>
             </View>
             <TouchableOpacity disabled={itemRightDisabled} style={styles.containerItemRight} onPress={funcItemRight? ()=>funcItemRight() : ()=>{}}>
-                {itemRight}
+                {itemRight? itemRight: <Text>  </Text>}
             </TouchableOpacity>
         </View>
     )

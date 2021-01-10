@@ -1,4 +1,5 @@
 import { ExamsInterface } from "../interfaces/ExamsInterface";
+import MedicineInterface from "../interfaces/MedicinesInterface";
 import UserInterface from "../interfaces/UserInterface";
 import api from "../services/api";
 
@@ -11,6 +12,7 @@ export async function getMedicine(idExam: string, user: UserInterface) {
         headers: { 'Authorization': 'Bearer' + user.token }
     }).then(resp => {
         response = resp.data
+        console.log(response);
 
     }).catch(err => {
         error = err
@@ -32,13 +34,34 @@ export async function getAllMedicine(user: UserInterface) {
         headers: { 'Authorization': 'Bearer' + user.token }
     }).then(resp => {
         response = resp.data
-
     }).catch(err => {
         error = err
     })
 
     if (response) {
         return response.reverse()
+    } else {
+        throw (error)
+    }
+
+}
+
+
+export async function createMedicine(data:{}, user: UserInterface) {
+    let response = null
+    let error = null
+
+
+    await api.post(`medicines`, data,{
+        headers: { 'Authorization': 'Bearer' + user.token }
+    }).then(resp => {
+        response = resp.data
+    }).catch(err => {
+        error = err
+    })
+
+    if (response) {
+        return response
     } else {
         throw (error)
     }

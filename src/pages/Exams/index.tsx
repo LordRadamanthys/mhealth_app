@@ -11,15 +11,14 @@ import EmptyListComponent from '../../components/EmptyList'
 import AuthContext from '../../providers/AuthProvider'
 import { getExams } from '../../controller/ExamsController'
 import { ExamsInterface } from '../../interfaces/ExamsInterface'
-import { Snackbar } from 'react-native-paper'
 
 const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
 const Exams = () => {
     const { user } = useContext(AuthContext)
-    const teste = [1, 1, 1, 1, 1, 1, 1]
     const [listExams, setListExams] = useState<ExamsInterface[]>()
+    const [listExamsSearch, setListExamsSearch] = useState([])
     const [showEmptyComponent, setShowEmptyComponent] = useState(true)
-    
+    const [search, setSearch] = useState("")
     const navigate = useNavigation()
 
     useFocusEffect(
@@ -30,12 +29,23 @@ const Exams = () => {
         }, [])
     )
 
+
+    async function searchBar(text: string) {
+        setSearch(text)
+
+        var s = listExamsSearch.filter((m: ExamsInterface) => m.title.includes(text))
+
+        setListExams(s.length != 0 || text.includes("") ? s : listExamsSearch)
+
+    }
+
     async function getListExam() {
         try {
             const result = await getExams(user)
             if (result.length == 0) return setShowEmptyComponent(true)
 
             setListExams(result)
+            setListExamsSearch(result)
             setShowEmptyComponent(false)
 
         } catch (error) {
@@ -49,7 +59,7 @@ const Exams = () => {
         <View style={styles.container}>
             <Header textCenter="Exams" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddExam')} />
             <View style={styles.containerInputSearch}>
-                <TextInputCustom title="Search by title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
+                <TextInputCustom title="Search by title" value={search} security={false} icon="search" onTextChangeFunc={searchBar} />
             </View>
 
             <View style={styles.main}>

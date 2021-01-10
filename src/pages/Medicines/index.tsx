@@ -11,6 +11,7 @@ const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
 import CollapsibleView from "@eliav2/react-native-collapsible-view"
 import { ScrollView } from 'react-native-gesture-handler'
 import EmptyListComponent from '../../components/EmptyList'
+import MedicineInterface from '../../interfaces/MedicinesInterface'
 import ExpandCard from '../../components/ExpandCard'
 import { getMedicine, getAllMedicine, formatExams } from '../../controller/MedicinesController'
 import AuthContext from '../../providers/AuthProvider'
@@ -22,18 +23,20 @@ const teste = [1]
 const Medicines = () => {
     const navigate = useNavigation()
     const { user } = useContext(AuthContext)
-    const [showAlertFile, setShowAlertFile] = useState(false)
+    const [search, setSearch] = useState("")
     const [showAlertDelete, setShowAlertDelete] = useState(false)
-    const [listExams, setListExams] = useState([])
-    
+    const [listMedicines, setListMedicines] = useState([])
+    const [listMedicinesSearch, setListMedicinesSearch] = useState([])
 
- 
+
+
 
     async function getAll() {
         const response = await getAllMedicine(user).catch(error => {
             return console.log(error);
         })
-        //console.log(response);
+        setListMedicinesSearch(response)
+        return setListMedicines(response)
     }
 
 
@@ -41,27 +44,42 @@ const Medicines = () => {
         const response = await getMedicine(id, user).catch(error => {
             return console.log(error);
         })
-        console.log(response);
+        setListMedicines(response)
+        setListMedicinesSearch(response)
+
+    }
+
+    async function searchBar(text: string) {
+        setSearch(text)
+
+        var s = listMedicinesSearch.filter((m: MedicineInterface) => m.name.includes(text))
+
+        setListMedicines(s.length != 0 || text.includes("") ? s : listMedicinesSearch)
+
     }
 
     useEffect(() => {
-        
         getAll()
     }, [])
 
     return (
         <View style={styles.container}>
-            
-            <Header textCenter="Medicines" itemRight={iconRightHeader} funcItemRight={()=>navigate.navigate('AddMedicine')} />
+
+            <Header textCenter="Medicines" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddMedicine')} />
             <View style={styles.containerInputSearch}>
-                <TextInputCustom title="Search by title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
+                <TextInputCustom title="Search by title" value={search} security={false} icon="search" onTextChangeFunc={searchBar} />
             </View>
             <View style={styles.main}>
                 <ScrollView showsVerticalScrollIndicator={false}>
 
-                    {teste != null ? teste.map(t => {
+                    {listMedicines.length > 0 ? listMedicines.map((m: MedicineInterface) => {
                         return (
-                            <ExpandCard image='exam' title='Loratadina' description='Lorem ipsum rhoncus cursus vestibulum, ullamcorper erat nostra leo rutrum, ullamcorper semper viverra. nulla porttitor blandit curae in proin elementum in pretium, ornare fusce consectetur pretium semper conubia nullam proin, praesent potenti mi augue et consectetur platea. enim himenaeos mollis laoreet arcu viverra lobortis, vehicula orci arcu maecenas hac aliquam euismod, nam vel ante nibh sit. condimentum aenean nam ligula porttitor euismod urna tempor per, ullamcorper non nostra risus pellentesque mollis fames sagittis, phasellus praesent sodales curabitur dictumst curabitur lobortis, himenaeos tempor consequat tortor congue a nam. curabitur nibh amet eros donec aenean ullamcorper orci et volutpat, curabitur arcu platea ad posuere fringilla nulla interdum nisi euismod, pellentesque augue maecenas posuere in porta dapibus praesent.' />
+                            <ExpandCard
+                                key={m.id}
+                                image='exam'
+                                title={m.name}
+                                description={m.how_to_use}
+                            />
                         )
                     }) : <EmptyListComponent />}
                 </ScrollView>

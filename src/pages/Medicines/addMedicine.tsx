@@ -14,20 +14,18 @@ import { Snackbar } from 'react-native-paper'
 import LoadingModal from '../../components/Loading'
 import DropDownPicker from 'react-native-dropdown-picker';
 import ModalConfirm from '../../components/Alert'
-import { formatExams, getAllMedicine, getMedicine } from '../../controller/MedicinesController'
+import { createMedicine, formatExams, getAllMedicine, getMedicine } from '../../controller/MedicinesController'
+import MedicineInterface from '../../interfaces/MedicinesInterface'
 
 const AddMedicine = () => {
     const navigate = useNavigation()
     const { user } = useContext(AuthContext)
-    const [title, setTitle] = useState('')
-    const [date, setDate] = useState('')
-    const [doctorsName, setDoctorsName] = useState('')
+    const [name, setName] = useState('')
     const [descriptions, setDescriptions] = useState('')
     const [showLoading, setShowLoading] = useState(false)
     const [showModalConfirm, setShowModalConfirm] = useState(false)
     const [showSnackBar, setShowSnackBar] = useState(false)
     const [textSnackBar, setTextSnackBar] = useState('Ops, Ocorreu um erro!')
-    const [specialtiesList, setSpecialtiesList] = useState([])
     const [listExams, setListExams] = useState([])
     const [exams, setExams] = useState([])
 
@@ -40,40 +38,50 @@ const AddMedicine = () => {
 
     async function getListExams() {
         const response = await getExams(user).catch(error => {
-           // console.log(error);
+            // console.log(error);
         })
-        console.log(response)
-        const list = await formatExams(response).catch(er=>{
+
+        const list = await formatExams(response).catch(er => {
             console.log(er);
         })
-        console.log(list)
-        
-       setListExams(list)
-        
+
+
+        setListExams(list)
+
     }
 
-    async function getAll() {
-        const response = await getAllMedicine(user).catch(error => {
-            return console.log(error);
-        })
-        //console.log(response);
-    }
+    async function addMedicine() {
+        if (name == "" || descriptions == "" || exams == null) {
+            setTextSnackBar("Preencha todos os campos")
+            return setShowSnackBar(true)
+        }
+        setShowLoading(true)
+        const medicine: MedicineInterface = {
+            id_exams: exams.value,
+            name: name,
+            how_to_use: descriptions
+        }
 
-    async function get() {
-        const response = await getMedicine(exams.value as string, user).catch(error => {
-            return console.log(error);
+
+        const response = await createMedicine(medicine, user).catch(error => {
+            setShowLoading(false)
+            setTextSnackBar("Erro")
+            return setShowSnackBar(true)
         })
+        setShowLoading(false)
         console.log(response);
+
+
     }
 
-    
+
     useEffect(() => {
         getListExams()
     }, [])
 
     return (
         <View style={styles.container}>
-            <Header textCenter="New Medicine" itemRight={""} funcItemRight={() => navigate.navigate('Files')} />
+            <Header textCenter="New" itemRight={""} funcItemRight={() => navigate.navigate('Files')} />
             <LoadingModal setShow={() => setShowLoading(showLoading)} show={showLoading} />
             <ModalConfirm setShow={() => setShowModalConfirm(!showModalConfirm)} show={showModalConfirm} />
             <ScrollView>
@@ -87,10 +95,10 @@ const AddMedicine = () => {
                     <DropDownPicker
 
                         searchable={true}
-                        searchablePlaceholder='Pesquisar...'
+                        searchablePlaceholder='Search...'
                         searchableError={() => <Text style={{ color: '#fff' }}>Não encontrado  <Icon name='frown' size={23} color='#FFC633' /></Text>}
                         searchableStyle={{ color: '#fff' }}
-                        placeholder="Selecione um especialista"
+                        placeholder="Select an exam"
                         placeholderStyle={{ color: 'rgba(255, 255, 255, 0.5)' }}
                         containerStyle={{ height: 50, width: 290, maxWidth: 290, marginBottom: 15 }}
                         style={{
@@ -120,11 +128,7 @@ const AddMedicine = () => {
                     />
 
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
-                        <TextInputCustom title='Type the title' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
-                    </Animatable.View>
-
-                    <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
-                        <TextInputCustom title='Type the Doctors name' value={doctorsName} icon='edit-3' onTextChangeFunc={setDoctorsName} />
+                        <TextInputCustom title='Type the title' value={name} icon='edit-3' onTextChangeFunc={setName} />
                     </Animatable.View>
 
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
@@ -132,7 +136,7 @@ const AddMedicine = () => {
                     </Animatable.View>
 
                     <View style={styles.containerBottomButtons}>
-                        <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={()=>{}}>
+                        <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={addMedicine}>
                             <Text style={[styles.text, styles.buttonText,]}>Create</Text>
                             <Icon style={{ marginStart: 5 }} name={"plus"} size={22} color="#FFC633" />
                         </RectButton>
@@ -143,6 +147,7 @@ const AddMedicine = () => {
                     </View>
                 </View>
             </ScrollView>
+            
             <Snackbar
                 visible={showSnackBar}
                 onDismiss={() => setShowSnackBar(false)}

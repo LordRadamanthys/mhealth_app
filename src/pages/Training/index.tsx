@@ -14,7 +14,6 @@ import { getTraining } from '../../controller/TrainingController'
 import AuthContext from '../../providers/AuthProvider'
 import TrainingInterface from '../../interfaces/TrainingInterface'
 import LoadingModal from '../../components/Loading'
-const teste = [1]
 
 const Training = () => {
     const { user } = useContext(AuthContext)
@@ -23,6 +22,8 @@ const Training = () => {
     const [showModalAddTraining, setShowModalAddTraining] = useState(false)
     const [showLoading, setShowLoading] = useState(false)
     const [listTraining, setListTraining] = useState([])
+    const [listTrainingSearch, setListTrainingSearch] = useState([])
+    const [search, setSearch] = useState("")
 
     function showModal() {
         setShowModalAddTraining(!showModalAddTraining)
@@ -36,10 +37,17 @@ const Training = () => {
         })
 
         setListTraining(response)
+        setListTrainingSearch(response)
         return setShowLoading(false)
     }
 
+    async function searchBar(text: string) {
+        setSearch(text)
 
+        var s = listTrainingSearch.filter((m: TrainingInterface) => m.name.includes(text))
+
+        setListTraining(s.length != 0 || text.includes("") ? s : listTrainingSearch)
+    }
 
     useEffect(() => {
         get()
@@ -52,7 +60,7 @@ const Training = () => {
             <ModalAddTraining callback={() => get()} id_gym={gym.id} setShow={setShowModalAddTraining} show={showModalAddTraining} />
             <LoadingModal setShow={() => setShowLoading(!showLoading)} show={showLoading} />
             <View style={styles.containerInputSearch}>
-                <TextInputCustom title="Search by title" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
+                <TextInputCustom title="Search by title" value={search} security={false} icon="search" onTextChangeFunc={searchBar} />
             </View>
             <View style={styles.main}>
                 <ScrollView style={{ marginBottom: 150 }} showsVerticalScrollIndicator={false}>
