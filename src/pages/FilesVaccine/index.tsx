@@ -102,15 +102,15 @@ const FilesVaccine = () => {
 
                                 <RectButton
                                     activeOpacity={0.9}
-                                    rippleColor={'#FFC633'}
-                                    style={[styles.buttonFile, { backgroundColor: '#3D5089', }]}
+                                    rippleColor={'#fff'}
+                                    style={[styles.buttonFile, { backgroundColor: '#6562ff', }]}
                                     onPress={() => goToFile(file)}
                                 >
                                     <Text style={[styles.text, styles.buttonText]}>{formatText(file.name_file)}</Text>
                                 </RectButton>
                                 <RectButton
                                     activeOpacity={0.9}
-                                    rippleColor={'#FFC633'}
+                                    rippleColor={'#fff'}
                                     style={[styles.buttonDelete, { backgroundColor: '#E9585E', }]}
                                     onPress={() => deleteFileOnly(file)}
                                 >
@@ -142,7 +142,7 @@ export default FilesVaccine
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1D2541',
+        backgroundColor: '#1a1a1f',
         paddingTop: 40,
     },
 

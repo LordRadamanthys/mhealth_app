@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { StyleSheet, Modal, View, Text, TouchableOpacity } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
-import { RectButton } from 'react-native-gesture-handler'
 import TextInputCustom from '../TextInput'
-import * as ImagePicker from 'expo-image-picker'
 import Constants from 'expo-constants'
 import * as Permissions from 'expo-permissions'
 import * as DocumentPicker from 'expo-document-picker';
@@ -132,7 +130,7 @@ const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow, id, callback, p
                     </View>
                     <TouchableOpacity
                         activeOpacity={0.6}
-                        style={[styles.button, { backgroundColor: '#3D5089', alignSelf: 'flex-start', paddingHorizontal: 50 }]}
+                        style={[styles.button, { backgroundColor: '#6562ff', alignSelf: 'flex-start', paddingHorizontal: 50 }]}
                         onPress={() => pickFile()}>
                         <Text style={[styles.text, styles.buttonText]}>Search file</Text>
                         <Icon style={{ marginStart: 5 }} name={"file"} size={22} color="#FFC633" />
@@ -140,7 +138,7 @@ const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow, id, callback, p
 
                     <View style={styles.containerBottomButtons}>
                         <TouchableOpacity
-                            activeOpacity={0.9} style={[styles.button, { backgroundColor: '#3D5089', }]}
+                            activeOpacity={0.9} style={[styles.button, { backgroundColor: '#6562ff', }]}
                             onPress={upload}>
                             <Icon style={{ marginStart: 5 }} name={"check"} size={22} color="#FFC633" />
                         </TouchableOpacity>
@@ -167,15 +165,15 @@ const styles = StyleSheet.create({
         padding: 40,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: 'rgba(34, 43, 74, 0.65)'
+        backgroundColor: 'rgba(26, 26, 15, 0.65)'
     },
 
     mainView: {
         paddingHorizontal: 30,
         paddingVertical: 20,
-        backgroundColor: '#222B4A',
-        borderRadius: 25,
-        borderColor: '#E9585E',
+        backgroundColor: '#1a1a1f',
+        borderRadius: 15,
+        borderColor: '#6562ff',
         borderWidth: 2,
         alignItems: 'center',
 
@@ -200,7 +198,7 @@ const styles = StyleSheet.create({
     button: {
         marginTop: 15,
         marginHorizontal: 5,
-        borderRadius: 25,
+        borderRadius: 15,
         minWidth: 130,
         alignItems: 'center',
         justifyContent: 'center',

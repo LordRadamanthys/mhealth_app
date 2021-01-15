@@ -13,13 +13,14 @@ import { deleteFile, getFilesExam } from '../../controller/FilesExamController'
 import FileInterface from '../../interfaces/FilesInterface'
 import LoadingModal from '../../components/Loading'
 import { Snackbar } from 'react-native-paper'
-const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
+const iconRightHeader = <Icon name="plus" size={35} color="#6562ff" />
 
 const Files = () => {
     const { user } = useContext(AuthContext)
     const navigate = useNavigation()
     const routes = useRoute()
     const [listFiles, setListFiles] = useState([])
+    const [listFilesSearch, setListFilesSearch] = useState([])
     const [showAlertFile, setShowAlertFile] = useState(false)
     const [showLoading, setShowLoading] = useState(false)
     const [showAlertDelete, setShowAlertDelete] = useState(false)
@@ -27,6 +28,7 @@ const Files = () => {
     const [textSnackBar, setTextSnackBar] = useState('Ops, Ocorreu um erro')
     const id_exam = routes.params.id_exam
     const page = routes.params.page
+    const [search, setSearch] = useState("")
 
     function showModal() {
         setShowAlertFile(!showAlertFile)
@@ -69,7 +71,14 @@ const Files = () => {
             console.log(error);
 
         }
+    }
 
+    async function searchBar(text: string) {
+        setSearch(text)
+
+        var s = listFilesSearch.filter((m: FileInterface) => m.name_file.toLowerCase().includes(text.toLowerCase()))
+
+        setListFiles(s.length != 0 || text.includes("") ? s : listFilesSearch)
     }
 
     function formatText(text: string) {
@@ -100,8 +109,8 @@ const Files = () => {
 
                                 <RectButton
                                     activeOpacity={0.9}
-                                    rippleColor={'#FFC633'}
-                                    style={[styles.buttonFile, { backgroundColor: '#3D5089', }]}
+                                    rippleColor={'#fff'}
+                                    style={[styles.buttonFile, { backgroundColor: '#6562ff', }]}
                                     onPress={() => goToFile(file)}
                                 >
                                     <Text style={[styles.text, styles.buttonText]}>{formatText(file.name_file)}</Text>
@@ -140,7 +149,7 @@ export default Files
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1D2541',
+        backgroundColor: '#1a1a1f',
         paddingTop: 40,
     },
 
@@ -168,7 +177,7 @@ const styles = StyleSheet.create({
 
     buttonFile: {
         marginHorizontal: 5,
-        borderRadius: 25,
+        borderRadius: 15,
         minWidth: 250,
         justifyContent: 'flex-start',
         alignSelf: 'center',
@@ -178,7 +187,7 @@ const styles = StyleSheet.create({
     },
     buttonDelete: {
         marginHorizontal: 5,
-        borderRadius: 25,
+        borderRadius: 15,
         minWidth: 90,
         alignItems: 'center',
         justifyContent: 'center',
