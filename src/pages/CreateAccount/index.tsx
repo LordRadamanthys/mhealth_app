@@ -56,7 +56,7 @@ const CreateAccount = () => {
                 <View style={styles.createContainer}>
                     <Text style={styles.titleCreate}>Create Account</Text>
                     <TouchableOpacity onPress={() => { }} style={styles.profileImgContainer}>
-                        {/* <Image source={image ? { uri: image } : require('../../assets/perfil.jpg')} style={styles.profileImg} /> */}
+                        
                         <Image source={undefined} style={styles.profileImg} />
                     </TouchableOpacity>
 

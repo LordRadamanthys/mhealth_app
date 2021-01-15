@@ -99,10 +99,10 @@ const AddExam = () => {
                     <DropDownPicker
 
                         searchable={true}
-                        searchablePlaceholder='Pesquisar...'
+                        searchablePlaceholder='Search...'
                         searchableError={() => <Text style={{ color: '#fff' }}>Não encontrado  <Icon name='frown' size={23} color='#6562ff' /></Text>}
                         searchableStyle={{ color: '#fff' }}
-                        placeholder="Selecione um especialista"
+                        placeholder="Select an expert"
                         placeholderStyle={{ color: 'rgba(255, 255, 255, 0.5)' }}
                         containerStyle={{ height: 50, width: 290, maxWidth: 290, marginBottom: 15 }}
                         style={{

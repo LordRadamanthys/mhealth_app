@@ -52,7 +52,7 @@ const Medicines = () => {
     async function searchBar(text: string) {
         setSearch(text)
 
-        var s = listMedicinesSearch.filter((m: MedicineInterface) => m.name.includes(text))
+        var s = listMedicinesSearch.filter((m: MedicineInterface) => m.name.toLowerCase().includes(text.toLowerCase()))
 
         setListMedicines(s.length != 0 || text.includes("") ? s : listMedicinesSearch)
 

@@ -78,7 +78,7 @@ const AddVaccine = () => {
                    
 
                     <View style={styles.containerBottomButtons}>
-                        <RectButton activeOpacity={0.9} rippleColor={'#ff'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={addVaccine}>
+                        <RectButton activeOpacity={0.9} rippleColor={'#ff'} style={[styles.buttonEdit, { backgroundColor: '#6562ff', }]} onPress={addVaccine}>
                             <Text style={[styles.text, styles.buttonText,]}>Save</Text>
                             <Icon style={{ marginStart: 5 }} name={"plus"} size={22} color="#FFC633" />
                         </RectButton>

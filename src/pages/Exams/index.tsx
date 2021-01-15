@@ -33,7 +33,7 @@ const Exams = () => {
     async function searchBar(text: string) {
         setSearch(text)
 
-        var s = listExamsSearch.filter((m: ExamsInterface) => m.title.includes(text))
+        var s = listExamsSearch.filter((m: ExamsInterface) => m.title.toLowerCase().includes(text.toLowerCase()))
 
         setListExams(s.length != 0 || text.includes("") ? s : listExamsSearch)
 

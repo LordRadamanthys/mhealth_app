@@ -44,7 +44,7 @@ const Training = () => {
     async function searchBar(text: string) {
         setSearch(text)
 
-        var s = listTrainingSearch.filter((m: TrainingInterface) => m.name.includes(text))
+        var s = listTrainingSearch.filter((m: TrainingInterface) => m.name.toLowerCase().includes(text.toLowerCase()))
 
         setListTraining(s.length != 0 || text.includes("") ? s : listTrainingSearch)
     }

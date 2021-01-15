@@ -39,7 +39,7 @@ const Vaccines = () => {
     async function searchBar(text: string) {
         setSearch(text)
 
-        var s = listVaccinesSearch.filter((m: VaccinesInterface) => m.title.includes(text))
+        var s = listVaccinesSearch.filter((m: VaccinesInterface) => m.title.toLowerCase().includes(text.toLowerCase()))
 
         setListVaccines(s.length != 0 || text.includes("") ? s : listVaccinesSearch)
     }

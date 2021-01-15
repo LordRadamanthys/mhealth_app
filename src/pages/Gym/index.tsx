@@ -44,7 +44,7 @@ const Gyms = () => {
     async function searchBar(text: string) {
         setSearch(text)
 
-        var s = listGymsSearch.filter((m: GymsInterface) => m.name.includes(text))
+        var s = listGymsSearch.filter((m: GymsInterface) => m.name.toLowerCase().includes(text.toLowerCase()))
 
         setListGyms(s.length != 0 || text.includes("") ? s : listGymsSearch)
     }
