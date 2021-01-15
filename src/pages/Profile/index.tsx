@@ -19,7 +19,7 @@ const Profile = () => {
                         <Image source={undefined} style={styles.profileImg} />
                     </TouchableOpacity>
                     <View style={styles.containerInputText}>
-                        <TextInput title='E-Mail' value={"email"} onTextChangeFunc={()=>{}} icon='user' />
+                        <TextInput title='E-Mail' value={""} onTextChangeFunc={()=>{}} icon='user' />
                     </View>
                     <View style={styles.containerInputText}>
                         <TextInput title='Password' value={""} onTextChangeFunc={()=>{}} icon='key' />
@@ -39,7 +39,7 @@ const Profile = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1D2541',
+        backgroundColor: '#1a1a1f',
         paddingTop: 40,
     },
     containerInputText: {
@@ -48,13 +48,13 @@ const styles = StyleSheet.create({
 
 
     createContainer: {
-        backgroundColor: '#222B4A',
+        backgroundColor: '#1a1a1f',
         alignItems: 'center',
         padding: 30,
         marginTop: 20,
         marginHorizontal: 25,
-        borderRadius: 25,
-        borderColor: '#E9585E',
+        borderRadius: 15,
+        borderColor: '#6562ff',
         borderWidth: 2
     },
 
@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
 
     buttonCreate: {
         marginTop: 40,
-        backgroundColor: '#3D5089',
-        borderRadius: 25,
+        backgroundColor: '#6562ff',
+        borderRadius: 15,
         paddingHorizontal: 50,
         alignItems: 'center',
         flexDirection: 'row',

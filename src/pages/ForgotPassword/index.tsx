@@ -105,7 +105,7 @@ const ForgotPassword = () => {
                     />
                 </View>
 
-                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={() => confirmPinRequest()}>
+                <RectButton activeOpacity={0.9} rippleColor={'#fff'} style={styles.buttonCreate} onPress={() => confirmPinRequest()}>
                     <Text style={styles.textButtonCreate}>Confirm</Text>
                     <Icon style={{ marginStart: 10 }} name={"target"} size={22} color="#FFC633" />
                 </RectButton>
@@ -155,7 +155,7 @@ const ForgotPassword = () => {
                     <TextInput title='Confirm password' value={ConfirmNewPassword} onTextChangeFunc={setConfirmNewPassword} icon='lock' />
                 </View>
 
-                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={() => changePassword()}>
+                <RectButton activeOpacity={0.9} rippleColor={'#fff'} style={styles.buttonCreate} onPress={() => changePassword()}>
                     <Text style={styles.textButtonCreate}>Change</Text>
                     <Icon style={{ marginStart: 10 }} name={"save"} size={22} color="#FFC633" />
                 </RectButton>
@@ -199,7 +199,7 @@ export default ForgotPassword
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1D2541',
+        backgroundColor: '#1a1a1f',
         paddingTop: 40,
     },
     containerInputText: {
@@ -208,13 +208,13 @@ const styles = StyleSheet.create({
 
 
     ForgotContainer: {
-        backgroundColor: '#222B4A',
+        backgroundColor: '#1a1a1f',
         alignItems: 'center',
         padding: 30,
         marginTop: 40,
         marginHorizontal: 25,
-        borderRadius: 25,
-        borderColor: '#E9585E',
+        borderRadius: 15,
+        borderColor: '#6562ff',
         borderWidth: 2
     },
 
@@ -233,8 +233,8 @@ const styles = StyleSheet.create({
 
     buttonCreate: {
         marginTop: 40,
-        backgroundColor: '#3D5089',
-        borderRadius: 25,
+        backgroundColor: '#6562ff',
+        borderRadius: 15,
         paddingHorizontal: 50,
         alignItems: 'center',
         flexDirection: 'row',

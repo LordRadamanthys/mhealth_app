@@ -74,7 +74,7 @@ const CreateAccount = () => {
                         <TextInput title='Confirm Password' value={passwordConfirm} onTextChangeFunc={setPasswordConfirm} icon='lock' />
                     </View>
 
-                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={() => createAccount()}>
+                    <RectButton activeOpacity={0.9} rippleColor={'#fff'} style={styles.buttonCreate} onPress={() => createAccount()}>
                         <Text style={styles.textButtonCreate}>Create</Text>
                         <Icon style={{ marginStart: 10 }} name={"save"} size={22} color="#FFC633" />
                     </RectButton>
@@ -100,7 +100,7 @@ const CreateAccount = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1D2541',
+        backgroundColor: '#1a1a1f',
         paddingTop: 40,
     },
     containerInputText: {
@@ -109,13 +109,13 @@ const styles = StyleSheet.create({
 
 
     createContainer: {
-        backgroundColor: '#222B4A',
+        backgroundColor: '#1a1a1f',
         alignItems: 'center',
         padding: 30,
         marginTop: 40,
         marginHorizontal: 25,
-        borderRadius: 25,
-        borderColor: '#E9585E',
+        borderRadius: 15,
+        borderColor: '#6562ff',
         borderWidth: 2
     },
 
@@ -127,8 +127,8 @@ const styles = StyleSheet.create({
 
     buttonCreate: {
         marginTop: 40,
-        backgroundColor: '#3D5089',
-        borderRadius: 25,
+        backgroundColor: '#6562ff',
+        borderRadius: 15,
         paddingHorizontal: 50,
         alignItems: 'center',
         flexDirection: 'row',
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
         width: 80,
         borderRadius: 40,
 
-        shadowColor: "#000",
+        shadowColor: "#6562ff",
         shadowOffset: {
             width: 0,
             height: 3,
