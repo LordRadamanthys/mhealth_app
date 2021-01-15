@@ -16,7 +16,7 @@ interface TextInputCustom {
 const TextAreaCustom: React.FC<TextInputCustom> = ({ title, value, onTextChangeFunc, security, icon, editable, iconColor }) => {
     return (
         <View style={styles.containerTextInput}>
-            <Icon style={{ marginEnd: 10 }} name={icon ? icon : ""} size={20} color={iconColor ? iconColor : "#FFC633"} />
+            <Icon style={{ marginEnd: 10 }} name={icon ? icon : ""} size={20} color={iconColor ? iconColor : "#6562ff"} />
             <TextInput
                 style={styles.text}
                 placeholderTextColor={'rgba(255, 255, 255, 0.5)'}

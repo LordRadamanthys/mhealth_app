@@ -15,7 +15,7 @@ import GymsInterface from '../../interfaces/GymsInterface'
 import LoadingModal from '../../components/Loading'
 
 
-const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
+const iconRightHeader = <Icon name="plus" size={35} color="#6562ff" />
 const Gyms = () => {
     const { user } = useContext(AuthContext)
     const [showModal, setShowModal] = useState(false)
@@ -81,7 +81,7 @@ const Gyms = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1D2541',
+        backgroundColor: '#1a1a1f',
         paddingTop: 40,
     },
 

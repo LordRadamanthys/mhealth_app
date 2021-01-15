@@ -36,7 +36,7 @@ const MainButton: React.FC<MainButtonInterface> = ({ text, image, action, childr
     return (
 
         <View style={styles.border}>
-            <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.recentActvities} onPress={() => action()}>
+            <RectButton activeOpacity={0.9} rippleColor={'#fff'} style={styles.recentActvities} onPress={() => action()}>
                 <View style={styles.textsRecentActivities}>
                     <Text style={styles.textRecentActivitiesCard}>{text}</Text>
                     {children}
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     border: {
         borderRadius: 10,
         borderWidth: 2,
-        borderColor: '#E9585E',
+        borderColor: '#6562ff',
         // backgroundColor:'#3D5089'
     },
 
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 20,
         justifyContent: 'space-between',
-        borderRadius: 15
+        borderRadius: 10
     },
 
     textsRecentActivities: {

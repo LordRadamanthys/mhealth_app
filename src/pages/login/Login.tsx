@@ -48,7 +48,7 @@ const Login = () => {
                 <Animatable.Image animation="pulse" style={{ width: 100, height: 100 }} source={logoApp} resizeMode='contain' />
             </View>
             <ScrollView>
-                <View style={styles.loginContainer}>
+                <Animatable.View  animation="fadeInUp"  style={styles.loginContainer}>
                     <Text style={styles.titleLogin}>Login</Text>
                     <LottieView
                         autoPlay
@@ -72,20 +72,20 @@ const Login = () => {
                     >
                         <Text style={styles.forgotPassword}>Forgot password</Text>
                         <Animatable.View animation="rubberBand" delay={1000}>
-                            <Icon style={{ marginEnd: 10 }} name={"help-circle"} size={22} color="#FFC633" />
+                            <Icon style={{ marginEnd: 10 }} name={"help-circle"} size={22} color="#6562ff" />
                         </Animatable.View>
                     </TouchableOpacity>
 
-                    <RectButton enabled={enabledAllButtons} activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonLogin} onPress={loginUser}>
+                    <RectButton enabled={enabledAllButtons} activeOpacity={0.9} rippleColor={'#fff'} style={styles.buttonLogin} onPress={loginUser}>
                         <Text style={styles.textButtonLogin}>Login</Text>
                         {enabledAllButtons ?
                             <Icon style={{ marginStart: 10 }} name={"arrow-right"} size={22} color="#FFC633" />
                             :
                             <ActivityIndicator style={{ marginStart: 10 }} color='#FFC633' size={22} />}
                     </RectButton>
-                </View>
+                </Animatable.View>
 
-                <RectButton enabled={enabledAllButtons} activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonCreateAccount]} onPress={goToCreateAccount}>
+                <RectButton enabled={enabledAllButtons} activeOpacity={0.9} rippleColor={'#fff'} style={[styles.buttonCreateAccount]} onPress={goToCreateAccount}>
                     <Text style={styles.textButtonLogin}>Create account</Text>
                     <Icon style={{ marginStart: 10 }} name={"user-plus"} size={22} color="#FFC633" />
                 </RectButton>
@@ -111,7 +111,7 @@ const Login = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1D2541',
+        backgroundColor: '#1a1a1f',
         paddingTop: 20,
     },
     containerInputText: {
@@ -123,13 +123,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     loginContainer: {
-        backgroundColor: '#222B4A',
+        backgroundColor: '#1a1a1f',
         alignItems: 'center',
         padding: 30,
         marginTop: 20,
         marginHorizontal: 25,
-        borderRadius: 25,
-        borderColor: '#E9585E',
+        borderRadius: 15,
+        borderColor: '#6562ff',
         borderWidth: 2
     },
 
@@ -145,8 +145,8 @@ const styles = StyleSheet.create({
     },
     buttonLogin: {
         marginTop: 40,
-        backgroundColor: '#3D5089',
-        borderRadius: 25,
+        backgroundColor: '#6562ff',
+        borderRadius: 15,
         paddingHorizontal: 50,
         alignItems: 'center',
         flexDirection: 'row',
@@ -154,14 +154,14 @@ const styles = StyleSheet.create({
     },
 
     buttonCreateAccount: {
-        backgroundColor: '#3D5089',
-        borderRadius: 25,
+        backgroundColor: '#6562ff',
+        borderRadius: 15,
         paddingHorizontal: 50,
         alignContent: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
         marginHorizontal: 40,
-        marginVertical: 20,
+        marginVertical: 30,
         paddingVertical: 15
     },
 

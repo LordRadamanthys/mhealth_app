@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
 import Header from '../../components/Header'
-const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
+const iconRightHeader = <Icon name="plus" size={35} color="#6562ff" />
 import { ScrollView } from 'react-native-gesture-handler'
 import EmptyListComponent from '../../components/EmptyList'
 import ExpandCard from '../../components/ExpandCard'
@@ -105,7 +105,7 @@ export default Training
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1D2541',
+        backgroundColor: '#1a1a1f',
         paddingTop: 40,
     },
 

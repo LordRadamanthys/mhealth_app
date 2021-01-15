@@ -39,9 +39,11 @@ const ButtonHome: React.FC<ButtonHomeInterface> = ({ text, image, action, childr
     return (
 
         <Animatable.View animation="fadeInUp"  style={styles.border}>
-            <RectButton style={styles.container} activeOpacity={0.9} rippleColor={'#FFC633'} onPress={()=>action()} >
+            <RectButton style={styles.container} activeOpacity={0.9} rippleColor={'#fff'} onPress={()=>action()} >
                 <Text style={styles.text}>{text}</Text>
-                <Animatable.Image  animation="pulse" delay={800} source={selectImage(image)} style={{ width: 90, height: 70 }} resizeMode="contain" />
+                <Animatable.Image  animation="pulse"
+                            iterationDelay={1000}
+                            iterationCount="infinite"  source={selectImage(image)} style={{ width: 90, height: 70 }} resizeMode="contain" />
             </RectButton>
         </Animatable.View>
     )
@@ -58,19 +60,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: '#E9585E',
+        borderColor: '#6562ff',
 
     },
 
     border: {
         borderRadius: 10,
         borderWidth: 2,
-        borderColor: '#E9585E',
+        borderColor: '#6562ff',
         marginHorizontal: 20
     },
     text: {
         color: '#D8DFFD',
-        fontSize: 16,
+        fontSize: 19,
         marginVertical: 20
     },
 })

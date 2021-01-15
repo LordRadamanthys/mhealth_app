@@ -26,7 +26,7 @@ const ExpandCard: React.FC<ExpandCardInterface> = ({ image, title, description, 
 
     return (
         <Animatable.View animation="fadeInUp" style={styles.containerButtons}>
-            <CollapsibleView style={[styles.buttonFile, { backgroundColor: '#3D5089' }]}
+            <CollapsibleView style={[styles.buttonFile, { backgroundColor: '#1a1a1f' }]}
                 title={<Text style={[styles.text, styles.title]}>{title}</Text>}
                 collapsibleContainerStyle={{ borderRadius: 5 }}
                 noArrow={true}
@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
     },
     buttonFile: {
         borderRadius: 15,
+        borderColor:"#6562ff",
         paddingHorizontal: 20,
         paddingVertical: 30,
         alignItems: 'center',

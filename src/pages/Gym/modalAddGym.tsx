@@ -94,7 +94,7 @@ const ModalAddGym: React.FC<AlertInterface> = ({ show, setShow, callback }) => {
 
                     <View style={styles.containerBottomButtons}>
                         <TouchableOpacity
-                            activeOpacity={0.9} style={[styles.button, { backgroundColor: '#3D5089', }]}
+                            activeOpacity={0.9} style={[styles.button, { backgroundColor: '#6562ff', }]}
                             onPress={createGym}
                         >
                             <Icon style={{ marginStart: 5 }} name={"check"} size={22} color="#FFC633" />
@@ -122,15 +122,15 @@ const styles = StyleSheet.create({
         padding: 40,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: 'rgba(34, 43, 74, 0.65)'
+        backgroundColor: 'rgba(26, 26, 15, 0.65)'
     },
 
     mainView: {
         paddingHorizontal: 30,
         paddingVertical: 20,
-        backgroundColor: '#222B4A',
+        backgroundColor: '#1a1a1f',
         borderRadius: 25,
-        borderColor: '#E9585E',
+        borderColor: '#6562ff',
         borderWidth: 2,
         alignItems: 'center',
 

@@ -84,9 +84,9 @@ const Home = () => {
     const _renderItem = ({ item, index }) => {
         return (
             <View style={styles.border}>
-                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.recentActvities} onPress={() => goToPageItem(item)}>
+                <RectButton activeOpacity={0.9} rippleColor={'#fff'} style={styles.recentActvities} onPress={() => goToPageItem(item)}>
                     <View style={{ flexDirection: 'row' }}>
-                        <View style={{ flexDirection: 'column', marginHorizontal: 30 }}>
+                        <View style={{ flexDirection: 'column', marginHorizontal: 10 }}>
                             {item.title ? <Text style={[styles.text, styles.descriptionSlide, { fontSize: 23 }]}>{item.title}</Text> : undefined}
                             {item.date ? <Text style={[styles.text, styles.descriptionSlide]}>{`Data: ${item.date}`}</Text> : <></>}
                             {item.doctors_name ? <Text style={[styles.text, styles.descriptionSlide]}>{`Doutor(a): ${item.doctors_name}`}</Text> : <></>}
@@ -166,7 +166,7 @@ export default Home
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1D2541',
+        backgroundColor: '#1a1a1f',
         paddingTop: 20,
     },
 
@@ -190,15 +190,15 @@ const styles = StyleSheet.create({
 
     recentActvities: {
         alignItems: 'center',
-        borderRadius: 15,
+       
+        borderRadius: 10,
         padding: 20,
         minHeight: 130,
-        backgroundColor: '#1D2541'
+        backgroundColor: '#1a1a1f'
     },
 
     border: {
-        borderColor: '#E9585E',
-
+        borderColor: '#6562ff',
         borderWidth: 2,
         borderRadius: 15,
     },

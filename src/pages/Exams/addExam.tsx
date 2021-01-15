@@ -100,7 +100,7 @@ const AddExam = () => {
 
                         searchable={true}
                         searchablePlaceholder='Pesquisar...'
-                        searchableError={() => <Text style={{ color: '#fff' }}>Não encontrado  <Icon name='frown' size={23} color='#FFC633' /></Text>}
+                        searchableError={() => <Text style={{ color: '#fff' }}>Não encontrado  <Icon name='frown' size={23} color='#6562ff' /></Text>}
                         searchableStyle={{ color: '#fff' }}
                         placeholder="Selecione um especialista"
                         placeholderStyle={{ color: 'rgba(255, 255, 255, 0.5)' }}
@@ -116,13 +116,13 @@ const AddExam = () => {
                         itemStyle={{
                             justifyContent: 'flex-start',
                         }}
-                        arrowColor='#FFC633'
+                        arrowColor='#6562ff'
                         arrowSize={23}
                         activeLabelStyle={{ color: '#fff' }}
                         selectedLabelStyle={{ color: '#fff' }}
                         labelStyle={{ color: '#fff', fontSize: 14 }}
                         dropDownStyle={{
-                            backgroundColor: 'rgba(29, 37, 65, 0.95)',
+                            backgroundColor: 'rgba(26, 26, 15, 0.95)',
                             marginBottom: 100,
                             borderWidth: 0
                         }}
@@ -150,11 +150,11 @@ const AddExam = () => {
                     </Animatable.View>
 
                     <View style={styles.containerBottomButtons}>
-                        <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={createExam}>
+                        <RectButton activeOpacity={0.9} rippleColor={'#fff'} style={[styles.buttonEdit, { backgroundColor: '#6562ff', }]} onPress={createExam}>
                             <Text style={[styles.text, styles.buttonText,]}>Create</Text>
                             <Icon style={{ marginStart: 5 }} name={"plus"} size={22} color="#FFC633" />
                         </RectButton>
-                        <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => navigate.goBack()}>
+                        <RectButton activeOpacity={0.9} rippleColor={'#fff'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => navigate.goBack()}>
                             <Text style={[styles.text, styles.buttonText]}>Cancel</Text>
                             <Icon style={{ marginStart: 5 }} name={"x"} size={22} color="#FFC633" />
                         </RectButton>
@@ -181,19 +181,19 @@ const AddExam = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1D2541',
+        backgroundColor: '#1a1a1f',
         paddingTop: 40,
     },
 
     formContainer: {
-        backgroundColor: '#222B4A',
+        backgroundColor: '#1a1a1f',
         alignItems: 'center',
         paddingHorizontal: 30,
         paddingTop: 20,
         marginTop: 20,
         marginHorizontal: 20,
-        borderRadius: 25,
-        borderColor: '#E9585E',
+        borderRadius: 15,
+        borderColor: '#6562ff',
         borderWidth: 2,
     },
     containerMainButton: {
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
 
     buttonEdit: {
         marginTop: 15,
-        borderRadius: 25,
+        borderRadius: 15,
         minWidth: 130,
         alignItems: 'center',
         justifyContent: 'center',

@@ -17,7 +17,7 @@ import { deleteExamAndFiles, update } from '../../controller/ExamsController'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { getAllSpecialties } from '../../controller/SpecialistController'
 import { Snackbar } from 'react-native-paper'
-const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
+const iconRightHeader = <Icon name="plus" size={35} color="#6562ff" />
 
 
 const Exam = () => {
@@ -149,7 +149,7 @@ const Exam = () => {
                     <View style={styles.formContainer}>
                         <ModalConfirm show={showAlert} setShow={setshowAlert} />
                         <Animatable.View animation={!enabledEdit ? 'rubberBand' : 'bounceIn'}>
-                            <Icon style={{ marginBottom: 15 }} name={!enabledEdit ? 'lock' : 'unlock'} size={24} color={!enabledEdit ? "#FFC633" : "#E9585E"} />
+                            <Icon style={{ marginBottom: 15 }} name={!enabledEdit ? 'lock' : 'unlock'} size={24} color={!enabledEdit ? "#6562ff" : "#E9585E"} />
                         </Animatable.View>
                         <ModalYesNo show={showAlertDelete} setShow={setshowAlertDelete} onOkPress={deleteExam} />
                         {!enabledEdit ?
@@ -186,7 +186,7 @@ const Exam = () => {
 
                                 searchable={true}
                                 searchablePlaceholder='Pesquisar...'
-                                searchableError={() => <Text style={{ color: '#fff' }}>Não encontrado  <Icon name='frown' size={23} color='#FFC633' /></Text>}
+                                searchableError={() => <Text style={{ color: '#fff' }}>Não encontrado  <Icon name='frown' size={23} color='#6562ff' /></Text>}
                                 searchableStyle={{ color: '#fff' }}
                                 placeholder="Selecione um especialista"
                                 placeholderStyle={{ color: 'rgba(255, 255, 255, 0.5)' }}
@@ -202,7 +202,7 @@ const Exam = () => {
                                 itemStyle={{
                                     justifyContent: 'flex-start',
                                 }}
-                                arrowColor={!enabledEdit ? "#FFC633" : "#E9585E"}
+                                arrowColor={!enabledEdit ? "#6562ff" : "#E9585E"}
                                 arrowSize={23}
                                 activeLabelStyle={{ color: '#fff' }}
                                 selectedLabelStyle={{ color: '#fff' }}
@@ -219,7 +219,7 @@ const Exam = () => {
                         <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
                             <TextInputCustom title='Type the title' value={title}
                                 icon='edit-3'
-                                iconColor={!enabledEdit ? "#FFC633" : "#E9585E"}
+                                iconColor={!enabledEdit ? "#6562ff" : "#E9585E"}
                                 onTextChangeFunc={setTitle} editable={enabledEdit}
                             />
                         </Animatable.View>
@@ -228,7 +228,7 @@ const Exam = () => {
                             <TextInputCustom title='Type date' value={date}
                                 icon='calendar'
                                 onTextChangeFunc={setDate}
-                                iconColor={!enabledEdit ? "#FFC633" : "#E9585E"}
+                                iconColor={!enabledEdit ? "#6562ff" : "#E9585E"}
                                 editable={enabledEdit}
                                 
                             />
@@ -238,7 +238,7 @@ const Exam = () => {
                             <TextInputCustom title='Type the Doctors name' value={doctorsName}
                                 icon='edit-3'
                                 onTextChangeFunc={setDoctorsName}
-                                iconColor={!enabledEdit ? "#FFC633" : "#E9585E"}
+                                iconColor={!enabledEdit ? "#6562ff" : "#E9585E"}
                                 editable={enabledEdit}
                             />
                         </Animatable.View>
@@ -247,28 +247,28 @@ const Exam = () => {
                             <TextAreaCustom title='Type Description' value={descriptions}
                                 icon='type'
                                 onTextChangeFunc={setDescriptions}
-                                iconColor={!enabledEdit ? "#FFC633" : "#E9585E"}
+                                iconColor={!enabledEdit ? "#6562ff" : "#E9585E"}
                                 editable={enabledEdit}
                             />
                         </Animatable.View>
 
-                        <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonFiles} onPress={() => goToFiles(exam.id)}>
+                        <RectButton activeOpacity={0.9} rippleColor={'#fff'} style={styles.buttonFiles} onPress={() => goToFiles(exam.id)}>
                             <Text style={[styles.text, styles.buttonText]}>Files</Text>
                             <Text style={[styles.text, styles.buttonText]}>total: {files}  <Icon name={"paperclip"} size={22} color="#FFC633" /></Text>
                         </RectButton>
 
                         <View style={styles.containerBottomButtons}>
                             {!enabledEdit ?
-                                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'}
-                                    style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]}
+                                <RectButton activeOpacity={0.9} rippleColor={'#fff'}
+                                    style={[styles.buttonEdit, { backgroundColor: '#6562ff', }]}
                                     onPress={() => setEnabledEdit(!enabledEdit)}
                                 >
                                     <Text style={[styles.text, styles.buttonText,]}>Edit</Text>
                                     <Icon style={{ marginStart: 5 }} name={"edit-2"} size={22} color="#FFC633" />
                                 </RectButton>
                                 :
-                                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'}
-                                    style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]}
+                                <RectButton activeOpacity={0.9} rippleColor={'#fff'}
+                                    style={[styles.buttonEdit, { backgroundColor: '#6562ff', }]}
                                     onPress={() => updateExam()}
                                 >
                                     <Text style={[styles.text, styles.buttonText,]}>Save</Text>
@@ -279,7 +279,7 @@ const Exam = () => {
 
 
                             {!enabledEdit ?
-                                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'}
+                                <RectButton activeOpacity={0.9} rippleColor={'#fff'}
                                     style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]}
                                     onPress={() => showMyAlertDelete()}
                                 >
@@ -287,7 +287,7 @@ const Exam = () => {
                                     <Icon style={{ marginStart: 5 }} name={"trash"} size={22} color="#FFC633" />
                                 </RectButton>
                                 :
-                                <RectButton activeOpacity={0.9} rippleColor={'#FFC633'}
+                                <RectButton activeOpacity={0.9} rippleColor={'#fff'}
                                     style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]}
                                     onPress={() => blockTextInputs()}
                                 >
@@ -320,19 +320,19 @@ const Exam = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1D2541',
+        backgroundColor: '#1a1a1f',
         paddingTop: 40,
     },
 
     formContainer: {
-        backgroundColor: '#222B4A',
+        backgroundColor: '#1a1a1f',
         alignItems: 'center',
         paddingHorizontal: 30,
         paddingTop: 50,
         marginTop: 20,
         marginHorizontal: 20,
-        borderRadius: 25,
-        borderColor: '#E9585E',
+        borderRadius: 15,
+        borderColor: '#6562ff',
         borderWidth: 2
     },
     containerMainButton: {
@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
 
     buttonEdit: {
         marginTop: 15,
-        borderRadius: 25,
+        borderRadius: 15,
         minWidth: 130,
         alignItems: 'center',
         justifyContent: 'center',
@@ -356,8 +356,8 @@ const styles = StyleSheet.create({
 
     buttonFiles: {
         marginTop: 10,
-        backgroundColor: '#3D5089',
-        borderRadius: 25,
+        backgroundColor: '#6562ff',
+        borderRadius: 15,
         width: '100%',
         paddingHorizontal: 30,
         alignItems: 'center',

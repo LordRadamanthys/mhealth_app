@@ -25,7 +25,7 @@ const ModalConfirm: React.FC<AlertInterface> = ({ show, setShow }) => {
 
                     <TouchableOpacity
                         activeOpacity={0.6}
-                        style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]}
+                        style={[styles.buttonEdit, { backgroundColor: '#6562ff', }]}
                         onPress={() => setShow(false)}>
                         <Icon style={{ marginStart: 5 }} name={"check"} size={22} color="#FFC633" />
                     </TouchableOpacity>
@@ -46,14 +46,14 @@ const styles = StyleSheet.create({
         padding: 40,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: 'rgba(34, 43, 74, 0.65)'
+        backgroundColor: 'rgba(26, 26, 15, 0.65)'
     },
 
     mainView: {
         paddingHorizontal: 40,
         paddingVertical: 20,
-        backgroundColor: '#222B4A',
-        borderRadius: 25,
+        backgroundColor: '#1a1a1f',
+        borderRadius: 15,
         borderColor: '#E9585E',
         borderWidth: 2,
         alignItems: 'center',
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
 
     buttonEdit: {
         marginTop: 15,
-        borderRadius: 25,
+        borderRadius: 15,
         minWidth: 130,
         alignItems: 'center',
         justifyContent: 'center',

@@ -7,7 +7,7 @@ import ModalAddFile from '../../components/ModalAddFile'
 import ModalYesNo from '../../components/ModalYesNo'
 import * as Animatable from 'react-native-animatable'
 import examsIcon from '../../assets/images/medicines.png'
-const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
+const iconRightHeader = <Icon name="plus" size={35} color="#6562ff" />
 import CollapsibleView from "@eliav2/react-native-collapsible-view"
 import { ScrollView } from 'react-native-gesture-handler'
 import EmptyListComponent from '../../components/EmptyList'
@@ -93,7 +93,7 @@ export default Medicines
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1D2541',
+        backgroundColor: '#1a1a1f',
         paddingTop: 40,
     },
 
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
 
 
     buttonFile: {
-        borderRadius: 20,
+        borderRadius: 15,
         paddingHorizontal: 50,
         paddingVertical: 30,
         alignItems: 'center',

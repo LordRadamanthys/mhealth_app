@@ -24,7 +24,7 @@ const HeaderHome: React.FC<HeaderHomeInterface> = ({ itemCenter, itemRight, func
             </View>
             <Animatable.View animation="swing" iterationCount={2}>
                 <TouchableOpacity style={{ padding: 10 }} onPress={() => funcItemRight()}>
-                    <Icon style={{ marginEnd: 10 }} name={"settings"} size={35} color="#FFC633" />
+                    <Icon style={{ marginEnd: 10 }} name={"settings"} size={35} color="#6562ff" />
                 </TouchableOpacity>
             </Animatable.View>
         </View>

@@ -112,7 +112,7 @@ const AddMedicine = () => {
                         itemStyle={{
                             justifyContent: 'flex-start',
                         }}
-                        arrowColor='#FFC633'
+                        arrowColor='#6562ff'
                         arrowSize={23}
                         activeLabelStyle={{ color: '#fff' }}
                         selectedLabelStyle={{ color: '#fff' }}
@@ -136,11 +136,11 @@ const AddMedicine = () => {
                     </Animatable.View>
 
                     <View style={styles.containerBottomButtons}>
-                        <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={addMedicine}>
+                        <RectButton activeOpacity={0.9} rippleColor={'#fff'} style={[styles.buttonEdit, { backgroundColor: '#6562ff', }]} onPress={addMedicine}>
                             <Text style={[styles.text, styles.buttonText,]}>Create</Text>
                             <Icon style={{ marginStart: 5 }} name={"plus"} size={22} color="#FFC633" />
                         </RectButton>
-                        <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => navigate.goBack()}>
+                        <RectButton activeOpacity={0.9} rippleColor={'#fff'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => navigate.goBack()}>
                             <Text style={[styles.text, styles.buttonText]}>Cancel</Text>
                             <Icon style={{ marginStart: 5 }} name={"x"} size={22} color="#FFC633" />
                         </RectButton>
@@ -168,19 +168,19 @@ const AddMedicine = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1D2541',
+        backgroundColor: '#1a1a1f',
         paddingTop: 40,
     },
 
     formContainer: {
-        backgroundColor: '#222B4A',
+        backgroundColor: '#1a1a1f',
         alignItems: 'center',
         paddingHorizontal: 30,
         paddingTop: 20,
         marginTop: 20,
         marginHorizontal: 20,
-        borderRadius: 25,
-        borderColor: '#E9585E',
+        borderRadius: 15,
+        borderColor: '#6562ff',
         borderWidth: 2,
     },
     containerMainButton: {
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
 
     buttonEdit: {
         marginTop: 15,
-        borderRadius: 25,
+        borderRadius: 15,
         minWidth: 130,
         alignItems: 'center',
         justifyContent: 'center',

@@ -12,7 +12,7 @@ import AuthContext from '../../providers/AuthProvider'
 import { getExams } from '../../controller/ExamsController'
 import { ExamsInterface } from '../../interfaces/ExamsInterface'
 
-const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
+const iconRightHeader = <Icon name="plus" size={35} color="#6562ff" />
 const Exams = () => {
     const { user } = useContext(AuthContext)
     const [listExams, setListExams] = useState<ExamsInterface[]>()
@@ -84,7 +84,7 @@ const Exams = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1D2541',
+        backgroundColor: '#1a1a1f',
         paddingTop: 40,
     },
 

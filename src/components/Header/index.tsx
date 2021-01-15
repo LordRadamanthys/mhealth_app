@@ -21,7 +21,7 @@ const Header: React.FC<HeaderInterface> = ({ itemCenter, textCenter, itemRight, 
     return (
         <View style={styles.header}>
             <TouchableOpacity onPress={goBack}>
-                <Icon name={"chevron-left"} size={40} color="#FFC633" />
+                <Icon name={"chevron-left"} size={40} color="#6562ff" />
             </TouchableOpacity>
             <View style={styles.containerItemCenter}>
                 <Text style={styles.titleHeader}>{itemCenter ? itemCenter : textCenter}</Text>
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     },
 
     titleHeader: {
-        color: '#fff',
+        color: '#D8DFFD',
         marginStart: 0,
         fontSize: 24
     },

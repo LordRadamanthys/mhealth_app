@@ -78,11 +78,11 @@ const AddVaccine = () => {
                    
 
                     <View style={styles.containerBottomButtons}>
-                        <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={addVaccine}>
+                        <RectButton activeOpacity={0.9} rippleColor={'#ff'} style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]} onPress={addVaccine}>
                             <Text style={[styles.text, styles.buttonText,]}>Save</Text>
                             <Icon style={{ marginStart: 5 }} name={"plus"} size={22} color="#FFC633" />
                         </RectButton>
-                        <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => { }}>
+                        <RectButton activeOpacity={0.9} rippleColor={'#ff'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => { }}>
                             <Text style={[styles.text, styles.buttonText]}>Cancel</Text>
                             <Icon style={{ marginStart: 5 }} name={"x"} size={22} color="#FFC633" />
                         </RectButton>
@@ -96,19 +96,19 @@ const AddVaccine = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1D2541',
+        backgroundColor: '#1a1a1f',
         paddingTop: 40,
     },
 
     formContainer: {
-        backgroundColor: '#222B4A',
+        backgroundColor: '#1a1a1f',
         alignItems: 'center',
         paddingHorizontal: 30,
         paddingTop: 20,
         marginTop: 20,
         marginHorizontal: 20,
-        borderRadius: 25,
-        borderColor: '#E9585E',
+        borderRadius: 15,
+        borderColor: '#6562ff',
         borderWidth: 2
     },
 
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
 
     buttonEdit: {
         marginTop: 10,
-        borderRadius: 25,
+        borderRadius: 15,
         minWidth: 130,
         alignItems: 'center',
         justifyContent: 'center',
@@ -131,8 +131,8 @@ const styles = StyleSheet.create({
     },
 
     buttonFiles: {
-        backgroundColor: '#3D5089',
-        borderRadius: 25,
+        backgroundColor: '#6562ff',
+        borderRadius: 15,
         width: '100%',
         paddingHorizontal: 30,
         alignItems: 'center',

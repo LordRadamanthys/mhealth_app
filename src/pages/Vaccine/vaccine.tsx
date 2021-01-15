@@ -14,7 +14,7 @@ import { Snackbar } from 'react-native-paper'
 import { deleteVaccineAndFiles, updateVaccine } from '../../controller/VaccinesController'
 import LoadingModal from '../../components/Loading'
 import { getFilesVaccine } from '../../controller/FilesVaccineController'
-const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
+const iconRightHeader = <Icon name="plus" size={35} color="#6562ff" />
 
 const Vaccine = () => {
     const { user } = useContext(AuthContext)
@@ -109,26 +109,26 @@ const Vaccine = () => {
                     <ModalConfirm show={showAlert} setShow={setshowAlert} />
                     <ModalYesNo show={showAlertDelete} setShow={setshowAlertDelete} onOkPress={deleteVaccine} />
                     <Animatable.View animation={!enabledEdit ? 'rubberBand' : 'bounceIn'}>
-                        <Icon style={{ marginBottom: 20 }} name={!enabledEdit ? 'lock' : 'unlock'} size={24} color={!enabledEdit ? "#FFC633" : "#E9585E"} />
+                        <Icon style={{ marginBottom: 20 }} name={!enabledEdit ? 'lock' : 'unlock'} size={24} color={!enabledEdit ? "#6562ff" : "#E9585E"} />
                     </Animatable.View>
 
                     <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
-                        <TextInputCustom editable={enabledEdit} iconColor={!enabledEdit ? "#FFC633" : "#E9585E"} title='Type the title' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
+                        <TextInputCustom editable={enabledEdit} iconColor={!enabledEdit ? "#6562ff" : "#E9585E"} title='Type the title' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
                     </Animatable.View>
 
                     <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
-                        <TextInputCustom editable={enabledEdit} iconColor={!enabledEdit ? "#FFC633" : "#E9585E"} title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} />
+                        <TextInputCustom editable={enabledEdit} iconColor={!enabledEdit ? "#6562ff" : "#E9585E"} title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} />
                     </Animatable.View>
 
                     <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
-                        <TextInputCustom editable={enabledEdit} iconColor={!enabledEdit ? "#FFC633" : "#E9585E"} title='Type date return' value={dateReturn} icon='calendar' onTextChangeFunc={setDateReturn} />
+                        <TextInputCustom editable={enabledEdit} iconColor={!enabledEdit ? "#6562ff" : "#E9585E"} title='Type date return' value={dateReturn} icon='calendar' onTextChangeFunc={setDateReturn} />
                     </Animatable.View>
 
                     <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
-                        <TextInputCustom editable={enabledEdit} iconColor={!enabledEdit ? "#FFC633" : "#E9585E"} title='local' value={local} icon='map-pin' onTextChangeFunc={setLocal} />
+                        <TextInputCustom editable={enabledEdit} iconColor={!enabledEdit ? "#6562ff" : "#E9585E"} title='local' value={local} icon='map-pin' onTextChangeFunc={setLocal} />
                     </Animatable.View>
 
-                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonFiles} onPress={() => navigate.navigate('FilesVaccine', { id_vaccine: vaccine.id })}>
+                    <RectButton activeOpacity={0.9} rippleColor={'#fff'} style={styles.buttonFiles} onPress={() => navigate.navigate('FilesVaccine', { id_vaccine: vaccine.id })}>
                         <Text style={[styles.text, styles.buttonText]}>Files</Text>
                         <Text style={[styles.text, styles.buttonText]}>{`total: ${totalFiles}`}  <Icon name={"paperclip"} size={22} color="#FFC633" /></Text>
                     </RectButton>
@@ -138,8 +138,8 @@ const Vaccine = () => {
 
                             <RectButton
                                 activeOpacity={0.9}
-                                rippleColor={'#FFC633'}
-                                style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]}
+                                rippleColor={'#fff'}
+                                style={[styles.buttonEdit, { backgroundColor: '#6562ff', }]}
                                 onPress={() => setEnabledEdit(!enabledEdit)}
                             >
                                 <Text style={[styles.text, styles.buttonText,]}>Edit</Text>
@@ -148,7 +148,7 @@ const Vaccine = () => {
 
                             <RectButton
                                 activeOpacity={0.9}
-                                rippleColor={'#FFC633'}
+                                rippleColor={'#fff'}
                                 style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]}
                                 onPress={() => showMyAlertDelete()}
                             >
@@ -163,8 +163,8 @@ const Vaccine = () => {
 
                             <RectButton
                                 activeOpacity={0.9}
-                                rippleColor={'#FFC633'}
-                                style={[styles.buttonEdit, { backgroundColor: '#3D5089', }]}
+                                rippleColor={'#fff'}
+                                style={[styles.buttonEdit, { backgroundColor: '#6562ff', }]}
                                 onPress={saveVaccine}
                             >
                                 <Text style={[styles.text, styles.buttonText,]}>Save</Text>
@@ -173,7 +173,7 @@ const Vaccine = () => {
 
                             <RectButton
                                 activeOpacity={0.9}
-                                rippleColor={'#FFC633'}
+                                rippleColor={'#fff'}
                                 style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]}
                                 onPress={() => setEnabledEdit(!enabledEdit)}
                             >
@@ -218,8 +218,8 @@ const styles = StyleSheet.create({
         paddingTop: 50,
         marginTop: 20,
         marginHorizontal: 20,
-        borderRadius: 25,
-        borderColor: '#E9585E',
+        borderRadius: 15,
+        borderColor: '#6562ff',
         borderWidth: 2
     },
     containerMainButton: {
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
 
     buttonEdit: {
         marginTop: 15,
-        borderRadius: 25,
+        borderRadius: 15,
         minWidth: 130,
         alignItems: 'center',
         justifyContent: 'center',
@@ -242,8 +242,8 @@ const styles = StyleSheet.create({
     },
 
     buttonFiles: {
-        backgroundColor: '#3D5089',
-        borderRadius: 25,
+        backgroundColor: '#6562ff',
+        borderRadius: 15,
         width: '100%',
         paddingHorizontal: 30,
         alignItems: 'center',

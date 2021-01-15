@@ -11,7 +11,7 @@ import EmptyListComponent from '../../components/EmptyList'
 import { getVaccines } from '../../controller/VaccinesController'
 import AuthContext from '../../providers/AuthProvider'
 import VaccinesInterface from '../../interfaces/VaccinesInterface'
-const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
+const iconRightHeader = <Icon name="plus" size={35} color="#6562ff" />
 
 
 const Vaccines = () => {
@@ -83,7 +83,7 @@ const Vaccines = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1D2541',
+        backgroundColor: '#1a1a1f',
         paddingTop: 40,
     },
 

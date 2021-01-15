@@ -25,7 +25,7 @@ const ModalYesNo: React.FC<AlertInterface> = ({ show, setShow, onOkPress }) => {
 
                     <View style={styles.containerBottomButtons}>
                         <TouchableOpacity
-                             style={[styles.button, { backgroundColor: '#3D5089', }]}
+                             style={[styles.button, { backgroundColor: '#6562ff', }]}
                             onPress={onOkPress}>
                             <Icon style={{ marginStart: 5 }} name={"check"} size={22} color="#FFC633" />
                         </TouchableOpacity>
@@ -52,15 +52,15 @@ const styles = StyleSheet.create({
         padding: 40,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: 'rgba(34, 43, 74, 0.65)'
+        backgroundColor: 'rgba(26, 26, 15, 0.65)'
     },
 
     mainView: {
         paddingHorizontal: 20,
         paddingVertical: 20,
-        backgroundColor: '#222B4A',
-        borderRadius: 25,
-        borderColor: '#E9585E',
+        backgroundColor: '#1a1a1f',
+        borderRadius: 15,
+        borderColor: '#6562ff',
         borderWidth: 2,
         alignItems: 'center',
 
