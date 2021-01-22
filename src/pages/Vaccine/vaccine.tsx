@@ -207,12 +207,12 @@ const Vaccine = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1D2541',
+        backgroundColor: '#1a1a1f',
         paddingTop: 40,
     },
 
     formContainer: {
-        backgroundColor: '#222B4A',
+        backgroundColor: '#1a1a1f',
         alignItems: 'center',
         paddingHorizontal: 30,
         paddingTop: 50,

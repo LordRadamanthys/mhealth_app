@@ -168,7 +168,7 @@ const Exam = () => {
                                 itemStyle={{
                                     justifyContent: 'flex-start',
                                 }}
-                                arrowColor='#FFC633'
+                                arrowColor='#6562ff'
                                 arrowSize={23}
                                 activeLabelStyle={{ color: '#fff' }}
                                 selectedLabelStyle={{ color: '#fff' }}
@@ -185,12 +185,12 @@ const Exam = () => {
                             <DropDownPicker
 
                                 searchable={true}
-                                searchablePlaceholder='Pesquisar...'
+                                searchablePlaceholder='Search...'
                                 searchableError={() => <Text style={{ color: '#fff' }}>Não encontrado  <Icon name='frown' size={23} color='#6562ff' /></Text>}
                                 searchableStyle={{ color: '#fff' }}
                                 placeholder="Selecione um especialista"
                                 placeholderStyle={{ color: 'rgba(255, 255, 255, 0.5)' }}
-                                containerStyle={{ height: 50, width: 290, maxWidth: 290, marginBottom: 15 }}
+                                containerStyle={{ height: 50, width: 290, maxWidth: 295, marginBottom: 15 }}
                                 style={{
                                     backgroundColor: 'rgba(255, 255, 255, 0.09)',
                                     borderWidth: 0,
@@ -208,7 +208,7 @@ const Exam = () => {
                                 selectedLabelStyle={{ color: '#fff' }}
                                 labelStyle={{ color: '#fff', fontSize: 14 }}
                                 dropDownStyle={{
-                                    backgroundColor: 'rgba(29, 37, 65, 0.95)',
+                                    backgroundColor: 'rgba(26, 26, 15, 0.95)',
                                     marginBottom: 100,
                                     borderWidth: 0
                                 }}

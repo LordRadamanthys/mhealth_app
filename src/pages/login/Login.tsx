@@ -61,7 +61,7 @@ const Login = () => {
                     </View>
 
                     <View style={styles.containerInputText}>
-                        <TextInput title='Password' value={password} onTextChangeFunc={setPassword} icon='key' />
+                        <TextInput title='Password' security={true} value={password} onTextChangeFunc={setPassword} icon='key' />
                     </View>
 
                     <TouchableOpacity
