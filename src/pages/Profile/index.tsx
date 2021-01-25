@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Text, View, StyleSheet, Image } from 'react-native'
 import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import TextInput from '../../components/TextInput'
@@ -6,7 +6,14 @@ import { Feather as Icon } from '@expo/vector-icons'
 import logoApp from '../../../assets/logo.png'
 import Header from '../../components/Header'
 
+import AuthContext from '../../providers/AuthProvider'
+
 const Profile = () => {
+    const {user, clearUser} = useContext(AuthContext)
+
+    async function logout_user(){
+       clearUser()
+    }
 
     return (
         <View style={styles.container}>
@@ -28,6 +35,10 @@ const Profile = () => {
                     <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={()=>{}}>
                         <Text style={styles.textButtonCreate}>Edit</Text>
                         <Icon style={{ marginStart: 10 }} name={"save"} size={22} color="#FFC633" />
+                    </RectButton>
+                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonCreate, {backgroundColor:'#E9585E'}]} onPress={logout_user}>
+                        <Text style={styles.textButtonCreate}>Logout</Text>
+                        <Icon style={{ marginStart: 10 }} name={"x"} size={22} color="#FFC633" />
                     </RectButton>
                 </View>
             </ScrollView>

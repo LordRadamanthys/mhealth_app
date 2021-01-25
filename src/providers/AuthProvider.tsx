@@ -1,7 +1,6 @@
-import React, { createContext, useState, useEffect } from 'react'
+import React, { createContext, useState } from 'react'
 import AsyncStorage from '@react-native-community/async-storage'
 import UserInterface from '../interfaces/UserInterface'
-import Axios from 'axios'
 import ProviderLoginInterface from '../interfaces/ProviderLoginInterface'
 import api from '../services/api'
 const AuthContext = createContext<ProviderLoginInterface>({} as ProviderLoginInterface)
@@ -18,7 +17,9 @@ export const AuthProvider: React.FC = ({ children }) => {
         let error = 'Erro de conexão'
         await api.post('login', data)
             .then(resp => {
+                
                 setUser(resp.data)
+                console.log(user);
             }).catch(err => {
                 try {
                     error = err.response.data.message
@@ -28,14 +29,27 @@ export const AuthProvider: React.FC = ({ children }) => {
                 }
                 throw (error)
             })
-
-
-
-
     }
 
+  
+
     async function clearUser() {
-        setUser(null)
+        console.log(user.token );
+        
+        await api.post('logout',{}, {
+            headers: { 'Authorization': 'Bearer' + user.token }
+        }).then(response => {
+            setUser(null)
+        }).catch(error => {
+            if (error.response.data.message) {
+    
+                throw (error.response.data.message)
+            } else {
+    
+                throw ('Ops, tente novamente')
+            }
+    
+        })
         await AsyncStorage.clear()
     }
 

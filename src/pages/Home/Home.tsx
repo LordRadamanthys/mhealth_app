@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Text, View, StyleSheet, ActivityIndicator } from 'react-native'
-import { Feather as Icon } from '@expo/vector-icons'
+import { Text, View, StyleSheet } from 'react-native'
 import TextInputCustom from '../../components/TextInput'
 import HeaderHome from '../../components/HeaderHome'
 import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
@@ -8,7 +7,6 @@ import examsIcon from '../../assets/images/exams.png'
 import ButtonHome from '../../components/ButtonsHome'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import * as Animatable from 'react-native-animatable'
-import api from '../../services/api'
 import RecentsInterface from '../../interfaces/RecentsInterface'
 import Carousel from 'react-native-snap-carousel'
 import gymIcon from '../../assets/images/gym.png'
@@ -18,6 +16,7 @@ import AuthContext from '../../providers/AuthProvider'
 import { getRecents } from '../../controller/RecentController'
 import RecentInterface from '../../interfaces/RecentInterface'
 import LoadingModal from '../../components/Loading'
+
 const Home = () => {
     const navigate = useNavigation()
     const { user } = useContext(AuthContext)
@@ -62,19 +61,14 @@ const Home = () => {
         }
     }
 
-    useFocusEffect(
-        React.useCallback(() => {
-            loadRecents()
-
-            return () => { };
-        }, [])
-    )
 
     async function loadRecents() {
         setProgressIndicator(true)
         await getRecents(user).then((response: RecentInterface) => {
             setCarouselItems(response)
-            setProgressIndicator(false)
+            console.log(response);
+            
+            return setProgressIndicator(false)
         }).catch(error => {
             console.log(error)
             return setProgressIndicator(false)
@@ -107,6 +101,13 @@ const Home = () => {
         )
     }
 
+    useFocusEffect(
+        React.useCallback(() => {
+            loadRecents()
+            return () => { };
+        }, [])
+    )
+
     useEffect(() => {
         loadRecents()
     }, [])
@@ -118,14 +119,13 @@ const Home = () => {
                 <TextInputCustom title="Search" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
-                {!progressIndicator ?
-                    <View style={styles.main}>
+                <View style={styles.main}>
+                    {carouselItems.length > 0 ?
                         <Animatable.View animation="fadeInUpBig" style={styles.recentActivitiesContainer}>
                             <Text style={[styles.text, { fontSize: 19, marginBottom: 10 }]}>Recent activities</Text>
 
                             <View style={{ maxHeight: 150 }}>
                                 <Carousel
-                                    //ref={(c) => { carousel = c; }}
                                     layout={'stack'}
                                     layoutCardOffset={10}
                                     autoplay={true}
@@ -139,23 +139,22 @@ const Home = () => {
                                     itemHeight={100}
                                 />
                             </View>
-                        </Animatable.View >
+                        </Animatable.View > :
+                        <LoadingModal setShow={() => setProgressIndicator(progressIndicator)} show={progressIndicator} />
+                    }
 
 
-                        <View style={styles.mainButtons}>
-                            <ButtonHome text="Exams" action={() => goTo('Exams')} image="exams" />
-                            <ButtonHome text="Gym" action={() => goTo('Gyms')} image="gym" />
-                        </View>
-                        <View style={styles.mainButtons}>
-                            <ButtonHome text="Vaccines" action={() => goTo('Vaccines')} image="vaccines" />
-                            <ButtonHome text="Medicines" action={() => goTo('Medicines')} image="medicines" />
-                        </View>
-
-
+                    <View style={styles.mainButtons}>
+                        <ButtonHome text="Exams" action={() => goTo('Exams')} image="exams" />
+                        <ButtonHome text="Gym" action={() => goTo('Gyms')} image="gym" />
                     </View>
-                    :
-                    <LoadingModal setShow={() => setProgressIndicator(progressIndicator)} show={progressIndicator} />
-                }
+                    <View style={styles.mainButtons}>
+                        <ButtonHome text="Vaccines" action={() => goTo('Vaccines')} image="vaccines" />
+                        <ButtonHome text="Medicines" action={() => goTo('Medicines')} image="medicines" />
+                    </View>
+
+                </View>
+
             </ScrollView>
         </View >
     )
@@ -190,7 +189,7 @@ const styles = StyleSheet.create({
 
     recentActvities: {
         alignItems: 'center',
-       
+
         borderRadius: 10,
         padding: 20,
         minHeight: 130,

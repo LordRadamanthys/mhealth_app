@@ -6,16 +6,20 @@ export async function getRecents(user: UserInterface) {
     let response = null
     let error = null
 
+    try {
+        await api.get(`recents`, {
+            headers: { 'Authorization': 'Bearer' + user.token }
+        }).then(resp => {
+            response = resp.data
+            return response
+        }).catch(err => {
+            return err
+        })
 
-    await api.get(`recents`, {
-        headers: { 'Authorization': 'Bearer' + user.token }
-    }).then(resp => {
-        response = resp.data
-
-    }).catch(err => {
-        error = err
-    })
-
+       
+    } catch (e) {
+        return e
+    }
     if (response) {
         return response
     } else {

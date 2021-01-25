@@ -8,6 +8,10 @@ import Header from '../../components/Header'
 import { Snackbar } from 'react-native-paper'
 import { createUser } from '../../controller/UserController'
 import ModalConfirm from '../../components/Alert'
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+import Constants from 'expo-constants'
+import LoadingModal from '../../components/Loading'
 
 const CreateAccount = () => {
     const [name, setName] = useState('')
@@ -17,6 +21,35 @@ const CreateAccount = () => {
     const [showSnackBar, setShowSnackBar] = useState(false)
     const [textSnackBar, setTextSnackBar] = useState('Ops, Ocorreu um erro')
     const [showModalConfirm, setSHowModalConfirm] = useState(false)
+    const [showLoading, setShowLoading] = useState(false)
+    const [image, setImage] = useState('')
+
+    const getPermissionAsync = async () => {
+        if (Constants.platform?.android) {
+            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            if (status !== 'granted') {
+                alert('Preciso de permissão para acessar seus arquivos, para você escolher sua foto');
+            }
+        }
+    }
+
+
+    const _pickImage = async () => {
+        try {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                aspect: [4, 3],
+                quality: 1,
+            });
+            if (!result.cancelled) {
+                setImage(result.uri);
+            }
+
+            console.log(image)
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
 
     async function createAccount() {
         if (!verifyPassword()) {
@@ -24,14 +57,17 @@ const CreateAccount = () => {
             return setShowSnackBar(true)
         }
 
-        await createUser(name, email, password)
+        setShowLoading(true)
+        await createUser(name, email, password, image)
             .then(resp => {
                 setSHowModalConfirm(true)
                 cleanFields()
+                setShowLoading(false)
             })
             .catch(err => {
                 console.log(err);
                 setTextSnackBar(err)
+                setShowLoading(false)
                 return setShowSnackBar(true)
             })
     }
@@ -46,18 +82,23 @@ const CreateAccount = () => {
         setEmail('')
         setPassword('')
         setPasswordConfirm('')
+        setImage('')
     }
 
+
+    useEffect(() => {
+        getPermissionAsync()
+    }, [])
     return (
         <View style={styles.container}>
             <Header itemRightDisabled={true} itemRight={<Image style={{ width: 80, height: 170 }} source={logoApp} resizeMode='contain' />} />
             <ModalConfirm setShow={setSHowModalConfirm} show={showModalConfirm} />
+            <LoadingModal setShow={setShowLoading} show={showLoading} />
             <ScrollView>
                 <View style={styles.createContainer}>
                     <Text style={styles.titleCreate}>Create Account</Text>
-                    <TouchableOpacity onPress={() => { }} style={styles.profileImgContainer}>
-                        
-                        <Image source={undefined} style={styles.profileImg} />
+                    <TouchableOpacity onPress={_pickImage} style={styles.profileImgContainer}>
+                        <Image source={image!='' ? { uri: image } : undefined} style={styles.profileImg} />
                     </TouchableOpacity>
 
                     <View style={styles.containerInputText}>

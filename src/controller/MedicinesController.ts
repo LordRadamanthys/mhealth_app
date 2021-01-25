@@ -13,7 +13,6 @@ export async function getMedicine(idExam: string, user: UserInterface) {
     }).then(resp => {
         response = resp.data
         console.log(response);
-
     }).catch(err => {
         error = err
     })

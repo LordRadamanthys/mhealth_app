@@ -69,7 +69,7 @@ const Files = () => {
             return setShowLoading(false)
         } catch (error) {
             console.log(error);
-
+            setShowLoading(false)
         }
     }
 

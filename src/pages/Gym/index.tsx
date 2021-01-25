@@ -28,12 +28,18 @@ const Gyms = () => {
 
     async function get() {
         setShowLoading(true)
-        const response = await getGyms(user).catch(error => {
-            console.log("sas" + error)
+        await getGyms(user).then(response=>{
+            setListGyms(response)
+            setListGymsSearch(response)
+            console.log("kljlkjkljkl"+response);
+            return
+        }).catch(error => {
+            console.log(listGyms)
             return setShowLoading(false)
         })
-        setListGyms(response)
-        setListGymsSearch(response)
+         
+         
+        
         return setShowLoading(false)
     }
 

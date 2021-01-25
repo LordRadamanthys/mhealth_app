@@ -6,19 +6,25 @@ export async function getGyms(user: UserInterface) {
     let error = null
 
 
-    await api.get(`gym`, {
-        headers: { 'Authorization': 'Bearer' + user.token }
-    }).then(resp => {
-        response = resp.data
+    try {
+        await api.get(`gym`, {
+            headers: { 'Authorization': 'Bearer' + user.token }
+        }).then(resp => {
+            response = resp.data
 
-    }).catch(err => {
-        error = err
-    })
+        }).catch(err => {
+            error = err.message
+        })
+        
+        if (response) {
+            return response.reverse()
+        } else {
+        
+            throw ('')
+        }
+    } catch (e) {
+        throw ('')
 
-    if (response) {
-        return response.reverse()
-    } else {
-        throw (error)
     }
 }
 
@@ -27,8 +33,8 @@ export async function insertGym(data: {}, user: UserInterface) {
     let error = null
 
 
-    await api.post(`gym`, data,{
-        
+    await api.post(`gym`, data, {
+
         headers: { 'Authorization': 'Bearer' + user.token }
     }).then(resp => {
         response = resp.data

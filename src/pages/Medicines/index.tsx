@@ -32,11 +32,13 @@ const Medicines = () => {
 
 
     async function getAll() {
-        const response = await getAllMedicine(user).catch(error => {
+        await getAllMedicine(user).then(response=>{
+            setListMedicinesSearch(response)
+            return setListMedicines(response)
+        }).catch(error => {
             return console.log(error);
         })
-        setListMedicinesSearch(response)
-        return setListMedicines(response)
+        
     }
 
 
