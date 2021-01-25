@@ -1,48 +1,131 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Text, View, StyleSheet, Image } from 'react-native'
 import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import TextInput from '../../components/TextInput'
 import { Feather as Icon } from '@expo/vector-icons'
 import logoApp from '../../../assets/logo.png'
 import Header from '../../components/Header'
-
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+import Constants from 'expo-constants'
 import AuthContext from '../../providers/AuthProvider'
+import { Snackbar } from 'react-native-paper'
+import { updateUser } from '../../controller/UserController'
 
 const Profile = () => {
-    const {user, clearUser} = useContext(AuthContext)
-
-    async function logout_user(){
-       clearUser()
+    const { user, clearUser } = useContext(AuthContext)
+    const [name, setName] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [image, setImage] = useState('')
+    const [showSnackBar, setShowSnackBar] = useState(false)
+    const [textSnackBar, setTextSnackBar] = useState('Ops, Ocorreu um erro')
+    async function logout_user() {
+        clearUser()
     }
+    const getPermissionAsync = async () => {
+        if (Constants.platform?.android) {
+            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            if (status !== 'granted') {
+                alert('Preciso de permissão para acessar seus arquivos, para você escolher sua foto');
+            }
+        }
+    }
+
+
+    const _pickImage = async () => {
+        try {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                aspect: [4, 3],
+                quality: 1,
+            });
+            if (!result.cancelled) {
+                setImage(result.uri);
+            }
+
+            console.log(image)
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    
+    async function editUser() {
+        if (name == '') {
+            setTextSnackBar('Preencha o campo nome')
+            return setShowSnackBar(true)
+        }
+
+        if (password != '') {
+            if (password != confirmPassword) {
+                setTextSnackBar('Preencha os campos de senha')
+                return setShowSnackBar(true)
+            }
+        }
+
+
+
+        await updateUser(user,name, password, image).then(response => {
+
+        }).catch(error => {
+            console.log(error);
+            
+            setTextSnackBar(error)
+            return setShowSnackBar(true)
+        })
+    }
+
+
+    useEffect(() => {
+        setName(user?.name)
+        //setName(user?.password)
+        getPermissionAsync()
+    }, [])
 
     return (
         <View style={styles.container}>
-            <Header itemRightDisabled={true} itemRight={<Image style={{ width: 80, height: 170 }}  source={logoApp} resizeMode='contain' />}/>
+            <Header itemRightDisabled={true} itemRight={<Image style={{ width: 80, height: 170 }} source={logoApp} resizeMode='contain' />} />
 
             <ScrollView>
                 <View style={styles.createContainer}>
-                    <Text style={styles.titleCreate}>Mateus Lima</Text>
-                    <TouchableOpacity onPress={() => { }} style={styles.profileImgContainer}>
-                        <Image source={undefined} style={styles.profileImg} />
+                    <Text style={styles.titleCreate}>{user?.name}</Text>
+                    <TouchableOpacity onPress={_pickImage} style={styles.profileImgContainer}>
+                        <Image source={image != '' ? { uri: image } : { uri: `http://192.168.100.10:2222/user/image/${user?.id}` }} style={styles.profileImg} />
                     </TouchableOpacity>
                     <View style={styles.containerInputText}>
-                        <TextInput title='E-Mail' value={""} onTextChangeFunc={()=>{}} icon='user' />
+                        <TextInput title='E-Mail' value={name} onTextChangeFunc={setName} icon='user' />
                     </View>
                     <View style={styles.containerInputText}>
-                        <TextInput title='Password' value={""} onTextChangeFunc={()=>{}} icon='key' />
+                        <TextInput title='Password' value={password} security={true} onTextChangeFunc={setPassword} icon='key' />
                     </View>
-                  
-                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={()=>{}}>
+                    <View style={styles.containerInputText}>
+                        <TextInput title='Confirm password' value={confirmPassword} security={true} onTextChangeFunc={setConfirmPassword} icon='key' />
+                    </View>
+
+                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={editUser}>
                         <Text style={styles.textButtonCreate}>Edit</Text>
                         <Icon style={{ marginStart: 10 }} name={"save"} size={22} color="#FFC633" />
                     </RectButton>
-                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonCreate, {backgroundColor:'#E9585E'}]} onPress={logout_user}>
+                    <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonCreate, { backgroundColor: '#E9585E' }]} onPress={logout_user}>
                         <Text style={styles.textButtonCreate}>Logout</Text>
                         <Icon style={{ marginStart: 10 }} name={"x"} size={22} color="#FFC633" />
                     </RectButton>
                 </View>
             </ScrollView>
+            <Snackbar
+                visible={showSnackBar}
+                onDismiss={() => setShowSnackBar(false)}
+                duration={5000}
+                style={{ alignSelf: 'center', width: '90%', backgroundColor: '#E9585E' }}
+                action={{
+                    label: 'Ok',
+                    onPress: () => {
 
+                    },
+                }}>
+                {textSnackBar}
+            </Snackbar>
         </View>
     )
 }

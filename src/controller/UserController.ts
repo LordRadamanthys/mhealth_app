@@ -41,3 +41,37 @@ export async function createUser(name: string, email: string, password: string, 
 
 }
 
+
+export async function updateUser(user:UserInterface,name: string, password: string, image: any) {
+    if(password != ""){
+        if (!verifyPassword(password)) throw ('Senha fraca')
+    }
+  
+   
+    var data = new FormData()
+    data.append('name', name)
+    data.append('password', password)
+    if (image) {
+        data.append('image', {
+            uri: image,
+            name: `profile.jpg`,
+            type: 'image/jpg'
+        })
+    }
+
+    await api.put('user', data, {
+        headers: { 'Authorization': 'Bearer' + user.token }
+    }).then(response => {
+        return 'Usuario atualizado'
+    }).catch(error => {
+        if (error.response.data.message) {
+
+            throw (error.response.data.message)
+        } else {
+
+            throw ('Ops, tente novamente')
+        }
+
+    })
+
+}
