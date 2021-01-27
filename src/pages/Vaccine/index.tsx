@@ -109,7 +109,8 @@ const styles = StyleSheet.create({
 
     subTitles: {
         color: '#D8DFFD',
-        marginVertical: 2
+        marginVertical: 2,
+        fontFamily: 'Nunito_600SemiBold'
     }
 })
 

@@ -47,14 +47,16 @@ const styles = StyleSheet.create({
     text: {
         padding: 5,
         color: '#fff',
-        fontSize: 15
+        fontSize: 15,
+        fontFamily: 'Nunito_400Regular',
     },
 
     textSelected: {
         padding: 5,
         color: '#FFC633',
         fontSize: 15,
-        fontWeight: 'bold'
+       // fontWeight: 'bold',
+        fontFamily: 'Nunito_600SemiBold',
     },
 
     containerTextInput: {

@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
         color: '#D8DFFD',
         marginStart: 20,
         marginEnd: 50,
-        fontSize: 21
+        fontSize: 21,
+        fontFamily: 'Nunito_600SemiBold'
     },
 
     containerItemCenter: {

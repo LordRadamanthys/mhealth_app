@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
     titleHeader: {
         color: '#D8DFFD',
         marginStart: 0,
-        fontSize: 24
+        fontSize: 24,
+        fontFamily: 'Nunito_700Bold'
     },
 
     containerItemCenter: {

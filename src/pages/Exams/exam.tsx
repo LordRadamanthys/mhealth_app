@@ -155,7 +155,7 @@ const Exam = () => {
                         {!enabledEdit ?
                             <DropDownPicker
                                 placeholder={specialty.label}
-                                placeholderStyle={{ color: '#fff' }}
+                                placeholderStyle={{ fontFamily: 'Nunito_400Regular', color: '#fff' }}
                                 containerStyle={{ height: 50, width: 290, maxWidth: 290, marginBottom: 15 }}
                                 style={{
                                     backgroundColor: 'rgba(255, 255, 255, 0.09)',
@@ -186,7 +186,7 @@ const Exam = () => {
 
                                 searchable={true}
                                 searchablePlaceholder='Search...'
-                                searchableError={() => <Text style={{ color: '#fff' }}>Não encontrado  <Icon name='frown' size={23} color='#6562ff' /></Text>}
+                                searchableError={() => <Text style={{ fontFamily: 'Nunito_400Regular', color: '#fff' }}>Não encontrado  <Icon name='frown' size={23} color='#6562ff' /></Text>}
                                 searchableStyle={{ color: '#fff' }}
                                 placeholder="Selecione um especialista"
                                 placeholderStyle={{ color: 'rgba(255, 255, 255, 0.5)' }}
@@ -351,7 +351,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        paddingVertical: 15
+        paddingVertical: 15,
+        
     },
 
     buttonFiles: {
@@ -367,11 +368,13 @@ const styles = StyleSheet.create({
     },
 
     text: {
-        color: '#D8DFFD'
+        color: '#D8DFFD',
+        fontFamily: 'Nunito_400Regular'
     },
 
     buttonText: {
-        fontSize: 17
+        fontSize: 17,
+        fontFamily: 'Nunito_700Bold'
     },
 
     containerBottomButtons: {

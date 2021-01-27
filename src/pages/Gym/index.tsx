@@ -73,7 +73,7 @@ const Gyms = () => {
                         return (
                             <Animatable.View animation="fadeInUp" style={styles.containerMainButton} key={gym.id}>
                                 <MainButton text={gym.name} image="gym" action={() => goToTraining(gym)} >
-                                    <Text style={{ color: '#fff' }}>{gym.days}</Text>
+                                    <Text style={{ fontFamily: 'Nunito_400Regular', color: '#fff' }}>{gym.days}</Text>
                                 </MainButton>
                             </Animatable.View>
                         )

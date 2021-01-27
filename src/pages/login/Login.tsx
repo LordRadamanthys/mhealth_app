@@ -136,11 +136,13 @@ const styles = StyleSheet.create({
     titleLogin: {
         color: '#D8DFFD',
         fontSize: 34,
-        marginBottom: 20
+        marginBottom: 20,
+        fontFamily: 'Nunito_700Bold'
     },
     forgotPassword: {
         color: '#D8DFFD',
-        marginHorizontal: 10
+        marginHorizontal: 10,
+        fontFamily: 'Nunito_600SemiBold'
 
     },
     buttonLogin: {
@@ -150,7 +152,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 50,
         alignItems: 'center',
         flexDirection: 'row',
-        paddingVertical: 15
+        paddingVertical: 15,
+        fontFamily: 'Nunito_700Bold'
     },
 
     buttonCreateAccount: {
@@ -168,6 +171,7 @@ const styles = StyleSheet.create({
     textButtonLogin: {
         color: '#D8DFFD',
         fontSize: 18,
+        fontFamily: 'Nunito_400Regular'
     },
 
     containerForgotPassword: {

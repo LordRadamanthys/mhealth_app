@@ -34,6 +34,7 @@ const LoadingModal: React.FC<AlertInterface> = ({ show, setShow }) => {
 }
 export default LoadingModal
 
+
 const styles = StyleSheet.create({
     centeredView: {
         flex: 1,
@@ -61,6 +62,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         marginBottom: 40,
+        fontFamily: 'Nunito_600SemiBold', 
     },
 
     description: {

@@ -73,7 +73,8 @@ const styles = StyleSheet.create({
     text: {
         color: '#D8DFFD',
         fontSize: 19,
-        marginVertical: 20
+        marginVertical: 20,
+        fontFamily: 'Nunito_600SemiBold'
     },
 })
 

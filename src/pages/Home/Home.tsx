@@ -205,20 +205,24 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         maxWidth: '70%',
+        fontFamily: 'Nunito_600SemiBold'
     },
 
     text: {
-        color: '#D8DFFD'
+        color: '#D8DFFD',
+        fontFamily: 'Nunito_400Regular'
     },
     descriptionSlide: {
         fontSize: 17,
         marginTop: 3,
         marginHorizontal: 10,
+        fontFamily: 'Nunito_400Regular'
 
     },
 
     textRecentActivitiesCard: {
-        fontSize: 16
+        fontSize: 16,
+        fontFamily: 'Nunito_400Regular'
     },
 
     image: {

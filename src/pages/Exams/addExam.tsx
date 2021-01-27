@@ -100,8 +100,8 @@ const AddExam = () => {
 
                         searchable={true}
                         searchablePlaceholder='Search...'
-                        searchableError={() => <Text style={{ color: '#fff' }}>Não encontrado  <Icon name='frown' size={23} color='#6562ff' /></Text>}
-                        searchableStyle={{ color: '#fff' }}
+                        searchableError={() => <Text style={{ fontFamily: 'Nunito_400Regular', color: '#fff' }}>Não encontrado  <Icon name='frown' size={23} color='#6562ff' /></Text>}
+                        searchableStyle={{ fontFamily: 'Nunito_400Regular', color: '#fff' }}
                         placeholder="Select an expert"
                         placeholderStyle={{ color: 'rgba(255, 255, 255, 0.5)' }}
                         containerStyle={{ height: 50, width: 290, maxWidth: 290, marginBottom: 15 }}
@@ -217,11 +217,13 @@ const styles = StyleSheet.create({
 
 
     text: {
-        color: '#D8DFFD'
+        color: '#D8DFFD',
+        fontFamily: 'Nunito_400Regular'
     },
 
     buttonText: {
-        fontSize: 17
+        fontSize: 17,
+        fontFamily: 'Nunito_700Bold'
     },
 
     containerBottomButtons: {

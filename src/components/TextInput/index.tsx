@@ -62,7 +62,8 @@ const styles = StyleSheet.create({
 
     text: {
         color: 'white',
-        width: '95%'
+        width: '95%',
+        fontFamily: 'Nunito_400Regular'
     }
 })
 export default TextInputCustom

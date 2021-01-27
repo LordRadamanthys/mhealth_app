@@ -124,7 +124,8 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 24,
-        marginBottom: 40
+        marginBottom: 40,
+        fontFamily: 'Nunito_700Bold'
     },
 
     description: {

@@ -59,20 +59,24 @@ const styles = StyleSheet.create({
 
     },
     text: {
-        color: '#D8DFFD'
+        color: '#D8DFFD',
+        
     },
     title: {
         fontSize: 24,
-        marginBottom: 40
+        marginBottom: 40,
+        fontFamily: 'Nunito_600SemiBold'
     },
 
     description: {
         fontSize: 20,
-        marginBottom: 30
+        marginBottom: 30,
+        fontFamily: 'Nunito_400Regular'
     },
 
     buttonText: {
-        fontSize: 17
+        fontSize: 17,
+        fontFamily: 'Nunito_700Bold'
     },
 
     buttonEdit: {
@@ -82,7 +86,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        paddingVertical: 15
+        paddingVertical: 15,
+        
     },
 
 

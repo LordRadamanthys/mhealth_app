@@ -154,7 +154,8 @@ const styles = StyleSheet.create({
     titleCreate: {
         color: '#D8DFFD',
         fontSize: 26,
-        marginBottom: 20
+        marginBottom: 20,
+        fontFamily: 'Nunito_600SemiBold'
     },
 
     buttonCreate: {
@@ -171,6 +172,7 @@ const styles = StyleSheet.create({
     textButtonCreate: {
         color: '#D8DFFD',
         fontSize: 18,
+        fontFamily: 'Nunito_700Bold'
     },
 
 

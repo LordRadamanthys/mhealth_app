@@ -124,10 +124,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
     },
 
-    text: {
-        color: '#D8DFFD'
-    },
-
+ 
     buttonText: {
         fontSize: 17,
         alignSelf: 'center',

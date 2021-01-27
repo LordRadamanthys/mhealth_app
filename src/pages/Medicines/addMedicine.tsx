@@ -212,7 +212,8 @@ const styles = StyleSheet.create({
     },
 
     buttonText: {
-        fontSize: 17
+        fontSize: 17,
+        fontFamily: 'Nunito_700Bold'
     },
 
     containerBottomButtons: {
