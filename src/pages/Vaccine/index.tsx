@@ -11,6 +11,7 @@ import EmptyListComponent from '../../components/EmptyList'
 import { getVaccines } from '../../controller/VaccinesController'
 import AuthContext from '../../providers/AuthProvider'
 import VaccinesInterface from '../../interfaces/VaccinesInterface'
+import LoadingModal from '../../components/Loading'
 const iconRightHeader = <Icon name="plus" size={35} color="#6562ff" />
 
 
@@ -20,15 +21,19 @@ const Vaccines = () => {
     const [listVaccines, setListVaccines] = useState([])
     const [listVaccinesSearch, setListVaccinesSearch] = useState([])
     const [search, setSearch] = useState("")
+    const [showLoading, setShowLoading] = useState(false)
 
     async function getListVaccine() {
-        const response = await getVaccines(user).catch(error => {
-            return console.log(error);
-
+        setShowLoading(true)
+        await getVaccines(user).then(response=>{
+            setListVaccines(response)
+            setListVaccinesSearch(response)
+            return setShowLoading(false)
+        }).catch(error => {
+            return setShowLoading(false)
         })
 
-        setListVaccines(response)
-        return setListVaccinesSearch(response)
+        
     }
 
     function goToVaccine(vaccine: VaccinesInterface) {
@@ -58,6 +63,7 @@ const Vaccines = () => {
     return (
         <View style={styles.container}>
             <Header textCenter="Vaccines" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddVaccine')} />
+            <LoadingModal setShow={setShowLoading} show={showLoading}/>
             <View style={styles.containerInputSearch}>
                 <TextInputCustom title="Search for title" value={search} security={false} icon="search" onTextChangeFunc={searchBar} />
             </View>

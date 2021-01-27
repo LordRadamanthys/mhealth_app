@@ -11,6 +11,7 @@ import ExpandCard from '../../components/ExpandCard'
 import { getMedicine, getAllMedicine, formatExams } from '../../controller/MedicinesController'
 import AuthContext from '../../providers/AuthProvider'
 import { useNavigation } from '@react-navigation/native'
+import LoadingModal from '../../components/Loading'
 const teste = [1]
 
 const Medicines = () => {
@@ -18,6 +19,7 @@ const Medicines = () => {
     const { user } = useContext(AuthContext)
     const [search, setSearch] = useState("")
     const [showAlertDelete, setShowAlertDelete] = useState(false)
+    const [showLoading, setShowLoading] = useState(false)
     const [listMedicines, setListMedicines] = useState([])
     const [listMedicinesSearch, setListMedicinesSearch] = useState([])
 
@@ -36,11 +38,12 @@ const Medicines = () => {
 
 
     async function get(id: string) {
-        const response = await getMedicine(id, user).catch(error => {
-            return console.log(error);
+        await getMedicine(id, user).then(response=>{
+            setListMedicines(response)
+            setListMedicinesSearch(response)
+        }).catch(error => {
+            return 
         })
-        setListMedicines(response)
-        setListMedicinesSearch(response)
 
     }
 
@@ -61,6 +64,7 @@ const Medicines = () => {
         <View style={styles.container}>
 
             <Header textCenter="Medicines" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddMedicine')} />
+            <LoadingModal show={showLoading} setShow={setShowLoading}/>
             <View style={styles.containerInputSearch}>
                 <TextInputCustom title="Search by title" value={search} security={false} icon="search" onTextChangeFunc={searchBar} />
             </View>

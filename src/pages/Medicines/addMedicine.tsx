@@ -38,11 +38,13 @@ const AddMedicine = () => {
 
     async function getListExams() {
         await getExams(user).then(response => {
-            const list =  formatExams(response).catch(er => {
-              return  console.log("list erro ");
+            formatExams(response).then(list => {
+                setListExams(list)
+            }).catch(er => {
+                return console.log("list erro ");
 
             })
-            setListExams(list)
+
         }).catch(error => {
             setListExams([])
         })
@@ -71,7 +73,7 @@ const AddMedicine = () => {
             return setShowSnackBar(true)
         })
         setShowLoading(false)
-      //  console.log(response);
+        //  console.log(response);
 
 
     }

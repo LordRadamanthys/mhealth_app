@@ -31,14 +31,16 @@ const Training = () => {
 
     async function get() {
         setShowLoading(true)
-        const response = await getTraining(gym, user).catch(err => {
+        await getTraining(gym, user).then(response => {
+            setListTraining(response)
+            setListTrainingSearch(response)
+            return setShowLoading(false)
+        }).catch(err => {
             console.log(err)
             return setShowLoading(false)
         })
 
-        setListTraining(response)
-        setListTrainingSearch(response)
-        return setShowLoading(false)
+
     }
 
     async function searchBar(text: string) {
