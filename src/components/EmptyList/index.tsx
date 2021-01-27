@@ -9,7 +9,7 @@ const EmptyListComponent = () => {
         <View style={styles.container}>
             <Animatable.View animation='bounce' style={{ alignItems: 'center' }}>
                 <ImageEmptyList />
-                <Text style={styles.text}>Ops, não temos nada no momento...</Text>
+                <Text style={styles.text}>Oops, we have nothing at the moment ...</Text>
             </Animatable.View>
         </View>
     )

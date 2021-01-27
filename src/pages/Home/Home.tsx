@@ -66,12 +66,10 @@ const Home = () => {
         setProgressIndicator(true)
         await getRecents(user).then((response: RecentInterface) => {
             setCarouselItems(response)
-            console.log(response);
-            console.log(user?.id);
-            
+           
             return setProgressIndicator(false)
         }).catch(error => {
-            console.log(error)
+            
             return setProgressIndicator(false)
         })
     }

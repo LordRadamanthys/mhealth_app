@@ -50,16 +50,16 @@ const Profile = () => {
         }
     }
 
-    
+
     async function editUser() {
         if (name == '') {
-            setTextSnackBar('Preencha o campo nome')
+            setTextSnackBar('Fill in all fields')
             return setShowSnackBar(true)
         }
 
         if (password != '') {
             if (password != confirmPassword) {
-                setTextSnackBar('Preencha os campos de senha')
+                setTextSnackBar('Fill in the password fields')
                 return setShowSnackBar(true)
             }
         }
@@ -69,8 +69,7 @@ const Profile = () => {
         await updateUser(user,name, password, image).then(response => {
 
         }).catch(error => {
-            console.log(error);
-            
+           
             setTextSnackBar(error)
             return setShowSnackBar(true)
         })

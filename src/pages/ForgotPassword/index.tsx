@@ -28,14 +28,14 @@ const ForgotPassword = () => {
 
 
     const [showSnackBar, setShowSnackBar] = useState(false)
-    const [textSnackBar, setTextSnackBar] = useState('Ops, Ocorreu um erro ao fazer o login, verifique seu dados')
+    const [textSnackBar, setTextSnackBar] = useState('Ops, error signing in')
 
     const EmailConfirmComponent = () => {
         const [email, setEmail] = useState('')
 
         async function sendEmail() {
             if (email == '') {
-                setTextSnackBar('Preencha o campo email')
+                setTextSnackBar('Fill in the email')
                 return setShowSnackBar(true)
             }
 
@@ -56,7 +56,9 @@ const ForgotPassword = () => {
         return (
             <View style={styles.ForgotContainer}>
                 <ImagePin width={250} height={150} />
-                <Text style={styles.description}>Enviaremos um código de confirmação para seu e-mail</Text>
+                <Text style={styles.description}>
+                    We will send a confirmation code to your email.
+                    </Text>
                 <View style={styles.containerInputText}>
                     <TextInput title='E-Mail' value={email} onTextChangeFunc={setEmail} icon='user' />
                 </View>
@@ -95,7 +97,7 @@ const ForgotPassword = () => {
         return (
             <View style={styles.ForgotContainer}>
                 <ImagePinConfirm width={250} height={150} />
-                <Text style={styles.description}>Enviamos um codigo para seu email, digite-o abaixo para confirmarmos que é voce mesmo.</Text>
+                <Text style={styles.description}>We sent a code to your email, type it below to confirm that it is you.</Text>
                 <View style={styles.containerInputText}>
                     <TextInput title='Type de code' value={pin}
                         onTextChangeFunc={(text: string) => setPin(text.replace('.', '').replace(',', ''))}
@@ -121,11 +123,11 @@ const ForgotPassword = () => {
 
         async function changePassword() {
             if (newPassword == '' || ConfirmNewPassword == '') {
-                setTextSnackBar('Preencha os campos')
+                setTextSnackBar('Fill in all fields')
                 return setShowSnackBar(true)
             }
             if (newPassword != ConfirmNewPassword) {
-                setTextSnackBar('Senhas não são iguais')
+                setTextSnackBar('Passwords are not the same')
                 return setShowSnackBar(true)
             }
             setLoading(true)
@@ -146,7 +148,9 @@ const ForgotPassword = () => {
         return (
             <View style={styles.ForgotContainer}>
                 <ImageChangePassword width={250} height={150} />
-                <Text style={styles.description}>Digite uma nova senha, ideal é que ela tenha numeros, letras maiusculas e minusculas e caracteres especiais.</Text>
+                <Text style={styles.description}>
+                    Enter a new password, ideally it has numbers, uppercase, lowercase and special characters.
+                    </Text>
                 <View style={styles.containerInputText}>
                     <TextInput title='Type your new password' value={newPassword} onTextChangeFunc={setNewPassword} icon='lock' />
                 </View>

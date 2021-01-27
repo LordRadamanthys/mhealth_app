@@ -28,7 +28,7 @@ const AddExam = () => {
     const [showLoading, setShowLoading] = useState(false)
     const [showModalConfirm, setShowModalConfirm] = useState(false)
     const [showSnackBar, setShowSnackBar] = useState(false)
-    const [textSnackBar, setTextSnackBar] = useState('Ops, Ocorreu um erro!')
+    const [textSnackBar, setTextSnackBar] = useState('Oops, houston, we have a problem!')
     const [specialtiesList, setSpecialtiesList] = useState([])
     const [specialty, setSpecialty] = useState('')
 
@@ -52,7 +52,7 @@ const AddExam = () => {
 
     async function createExam() {
         if (title == '' || date == '' || doctorsName == '' || descriptions == '' || specialty == '') {
-            setTextSnackBar('Preencha todos os campos')
+            setTextSnackBar('Fill in all fields')
             return setShowSnackBar(true)
         }
         setShowLoading(true)
@@ -85,7 +85,7 @@ const AddExam = () => {
 
     return (
         <View style={styles.container}>
-            <Header textCenter="New Exam" itemRight={""} funcItemRight={() => navigate.navigate('Files')} />
+            <Header textCenter="New exam" itemRight={""} funcItemRight={() => navigate.navigate('Files')} />
             <LoadingModal setShow={() => setShowLoading(showLoading)} show={showLoading} />
             <ModalConfirm setShow={() => setShowModalConfirm(!showModalConfirm)} show={showModalConfirm} />
             <ScrollView>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { Text, View, StyleSheet, ActivityIndicator } from 'react-native'
 import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { Feather as Icon } from '@expo/vector-icons'
@@ -18,7 +18,7 @@ const Login = () => {
     const [enabledAllButtons, setEnabledAllButtons] = useState(true)
     const [disableButtonForgotPassword, setDisableButtonForgotPassword] = useState(false)
     const [showSnackBar, setShowSnackBar] = useState(false)
-    const [textSnackBar, setTextSnackBar] = useState('Ops, Ocorreu um erro ao fazer o login, verifique seu dados')
+    const [textSnackBar, setTextSnackBar] = useState('Oops, error signing in')
 
     function goToCreateAccount() {
         navigate.navigate('CreateAccount')
@@ -27,7 +27,7 @@ const Login = () => {
 
     async function loginUser() {
         if (email === '' || password === '') {
-            setTextSnackBar('Preencha todos os campos')
+            setTextSnackBar('Fill in all fields')
             return setShowSnackBar(true)
         }
         setEnabledAllButtons(false)

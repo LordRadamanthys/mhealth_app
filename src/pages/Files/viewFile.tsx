@@ -1,12 +1,9 @@
 
 import React, { useContext, useEffect, useState } from 'react';
 import { View, StyleSheet, Image } from 'react-native'
-import { WebView } from 'react-native-webview';
 import PDFReader from 'rn-pdf-reader-js'
 import Header from '../../components/Header';
-import { Feather as Icon } from '@expo/vector-icons'
 import LoadingModal from '../../components/Loading';
-import api from '../../services/api';
 import AuthContext from '../../providers/AuthProvider';
 import { useRoute } from '@react-navigation/native';
 import FileInterface from '../../interfaces/FilesInterface';

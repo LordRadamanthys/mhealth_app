@@ -14,7 +14,7 @@ export const AuthProvider: React.FC = ({ children }) => {
             email,
             password
         }
-        let error = 'Erro de conexão'
+        let error = 'Network error'
         await api.post('login', data)
             .then(resp => {
                 
@@ -45,7 +45,7 @@ export const AuthProvider: React.FC = ({ children }) => {
                 throw (error.response.data.message)
             } else {
     
-                throw ('Ops, tente novamente')
+                throw ('Oops, try again')
             }
     
         })

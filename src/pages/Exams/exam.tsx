@@ -37,7 +37,7 @@ const Exam = () => {
     const [files, setFiles] = useState(0)
     const exam = routes.params.data as ExamsInterface
     const [showSnackBar, setShowSnackBar] = useState(false)
-    const [textSnackBar, setTextSnackBar] = useState('Ops, Ocorreu um erro!')
+    const [textSnackBar, setTextSnackBar] = useState('Oops, houston, we have a problem')
 
     function showMyAlertDelete() {
         setshowAlertDelete(!showAlertDelete)
@@ -65,7 +65,7 @@ const Exam = () => {
 
     async function updateExam() {
         if (title == '' || date == '' || doctorsName == '' || descriptions == '' || specialty == '') {
-            setTextSnackBar('Preencha todos os campos')
+            setTextSnackBar('Fill in all fields')
             return setShowSnackBar(true)
         }
 

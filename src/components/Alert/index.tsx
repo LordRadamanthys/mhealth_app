@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { StyleSheet, Modal, View, Text, TouchableOpacity } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
-import { RectButton } from 'react-native-gesture-handler'
 
 interface AlertInterface {
     show: boolean,
@@ -19,9 +18,9 @@ const ModalConfirm: React.FC<AlertInterface> = ({ show, setShow }) => {
             }}>
             <View style={styles.centeredView}>
                 <View style={styles.mainView}>
-                    <Text style={[styles.text, styles.title]}>Alert</Text>
+                    <Text style={[styles.text, styles.title]}>Message</Text>
                     <Icon name="smile" size={50} color='#FFC633' />
-                    <Text style={[styles.text, styles.description]}>Done!</Text>
+                    <Text style={[styles.text, styles.description]}>All done!</Text>
 
                     <TouchableOpacity
                         activeOpacity={0.6}

@@ -24,10 +24,7 @@ const AddVaccine = () => {
     const [showAlert, setshowAlert] = useState(false)
     const [showLogin, setShowLogin] = useState(false)
 
-    function showMyAlertConfirm() {
-        setshowAlert(!showAlert)
-    }
-
+    
     async function addVaccine() {
         if (title == '' || date == '' || local == '' ) return console.log('err');
         setShowLogin(true)
@@ -51,7 +48,7 @@ const AddVaccine = () => {
 
     return (
         <View style={styles.container}>
-            <Header textCenter="New Vaccine" itemRight={""} />
+            <Header textCenter="New vaccine" itemRight={""} />
             <LoadingModal setShow={() => setShowLogin(showLogin)} show={showLogin} />
             <ScrollView>
                 <View style={styles.formContainer}>

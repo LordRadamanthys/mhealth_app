@@ -38,9 +38,12 @@ export async function getAllMedicine(user: UserInterface) {
     })
 
     if (response) {
+        console.log(response);
+        
         return response.reverse()
     } else {
-        throw (error)
+        console.log("error");
+        throw ( "error")
     }
 
 }

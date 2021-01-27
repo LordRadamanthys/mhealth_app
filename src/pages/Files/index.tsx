@@ -50,7 +50,7 @@ const Files = () => {
                 return setShowLoading(false)
             })
         getFiles()
-        setTextSnackBar("Deletado com sucesso")
+        setTextSnackBar("Successfully deleted")
         return setShowSnackBar(true)
     }
 

@@ -37,22 +37,24 @@ const AddMedicine = () => {
     }
 
     async function getListExams() {
-        const response = await getExams(user).catch(error => {
-            // console.log(error);
+        await getExams(user).then(response => {
+            const list =  formatExams(response).catch(er => {
+              return  console.log("list erro ");
+
+            })
+            setListExams(list)
+        }).catch(error => {
+            setListExams([])
         })
 
-        const list = await formatExams(response).catch(er => {
-            console.log(er);
-        })
 
 
-        setListExams(list)
 
     }
 
     async function addMedicine() {
         if (name == "" || descriptions == "" || exams == null) {
-            setTextSnackBar("Preencha todos os campos")
+            setTextSnackBar("Fill in all fields")
             return setShowSnackBar(true)
         }
         setShowLoading(true)
@@ -69,7 +71,7 @@ const AddMedicine = () => {
             return setShowSnackBar(true)
         })
         setShowLoading(false)
-        console.log(response);
+      //  console.log(response);
 
 
     }
@@ -96,7 +98,7 @@ const AddMedicine = () => {
 
                         searchable={true}
                         searchablePlaceholder='Search...'
-                        searchableError={() => <Text style={{ color: '#fff' }}>Não encontrado  <Icon name='frown' size={23} color='#FFC633' /></Text>}
+                        searchableError={() => <Text style={{ color: '#fff' }}>Not found<Icon name='frown' size={23} color='#FFC633' /></Text>}
                         searchableStyle={{ color: '#fff' }}
                         placeholder="Select an exam"
                         placeholderStyle={{ color: 'rgba(255, 255, 255, 0.5)' }}
@@ -147,7 +149,7 @@ const AddMedicine = () => {
                     </View>
                 </View>
             </ScrollView>
-            
+
             <Snackbar
                 visible={showSnackBar}
                 onDismiss={() => setShowSnackBar(false)}

@@ -77,7 +77,7 @@ const Training = () => {
                                     <TextInputCustom
                                         editable={false}
                                         title="Number moviments"
-                                        value={`Numero de movimentos: ${training.number_moviments}`}
+                                        value={`Number moviments: ${training.number_moviments}`}
                                         onTextChangeFunc={() => { }}
                                         icon="activity"
                                     />
@@ -86,7 +86,7 @@ const Training = () => {
                                 <View style={{ marginVertical: 10 }}>
                                     <TextInputCustom editable={false}
                                         title="Number repetitions"
-                                        value={`Numero de repetições: ${training.number_repetitions}`}
+                                        value={`Number repetitions: ${training.number_repetitions}`}
                                         onTextChangeFunc={() => { }}
                                         icon="activity"
                                     />

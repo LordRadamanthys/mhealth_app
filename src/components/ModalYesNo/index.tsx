@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Modal, View, Text, TouchableOpacity } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
-import { RectButton } from 'react-native-gesture-handler'
-import TextInputCustom from '../TextInput'
+
 
 interface AlertInterface {
     show: boolean,
@@ -21,7 +20,7 @@ const ModalYesNo: React.FC<AlertInterface> = ({ show, setShow, onOkPress }) => {
             }}>
             <View style={styles.centeredView}>
                 <View style={styles.mainView}>
-                    <Text style={[styles.text, styles.title]}>You really want delete this file?</Text>
+                    <Text style={[styles.text, styles.title]}>You really want to delete this file?</Text>
 
                     <View style={styles.containerBottomButtons}>
                         <TouchableOpacity

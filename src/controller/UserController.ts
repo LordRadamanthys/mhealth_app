@@ -34,7 +34,7 @@ export async function createUser(name: string, email: string, password: string, 
             throw (error.response.data.message)
         } else {
 
-            throw ('Ops, tente novamente')
+            throw ('Oops, try again later')
         }
 
     })
@@ -42,36 +42,39 @@ export async function createUser(name: string, email: string, password: string, 
 }
 
 
-export async function updateUser(user:UserInterface,name: string, password: string, image: any) {
-    if(password != ""){
+export async function updateUser(user: UserInterface, name: string, password: string, image: any) {
+    if (password != "") {
         if (!verifyPassword(password)) throw ('Senha fraca')
     }
-  
-   
-    var data = new FormData()
-    data.append('name', name)
-    data.append('password', password)
-    if (image) {
-        data.append('image', {
-            uri: image,
-            name: `profile.jpg`,
-            type: 'image/jpg'
-        })
-    }
 
-    await api.put('user', data, {
-        headers: { 'Authorization': 'Bearer' + user.token }
-    }).then(response => {
-        return 'Usuario atualizado'
-    }).catch(error => {
-        if (error.response.data.message) {
+    try {
+        var data = new FormData()
+        data.append('name', name)
+        data.append('password', password)
 
-            throw (error.response.data.message)
+        if (image != '') {
+            data.append('image', {
+                uri: image,
+                name: `profile.jpg`,
+                type: 'image/jpg'
+            })
         } else {
-
-            throw ('Ops, tente novamente')
+            image = ""
+            data.append('image', image)
         }
 
-    })
 
+        await api.put('user', data, {
+            headers: { 'Authorization': 'Bearer' + user.token }
+        }).then(response => {
+            return 'Usuario atualizado'
+        }).catch(error => {
+
+            throw ('Oops, try again later')
+
+
+        })
+    } catch (e) {
+        throw ('Oops, try again later')
+    }
 }

@@ -23,7 +23,7 @@ const ModalAddTraining: React.FC<AlertInterface> = ({ show, setShow, id_gym, cal
     const [showLoading, setShowLoading] = useState(false)
 
     async function addTraining() {
-        if (name === '' || numberMoviments === '' || numberRepetitions === '' || description === '') return console.log('Preencha os campos');
+        if (name === '' || numberMoviments === '' || numberRepetitions === '' || description === '') return console.log('Fill in the fields');
         setShowLoading(true)
         const data = {
             id_gym: id_gym,

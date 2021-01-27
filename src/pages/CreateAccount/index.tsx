@@ -28,7 +28,7 @@ const CreateAccount = () => {
         if (Constants.platform?.android) {
             const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
             if (status !== 'granted') {
-                alert('Preciso de permissão para acessar seus arquivos, para você escolher sua foto');
+                alert('I need permission to access your files, so you can choose your photo.');
             }
         }
     }
@@ -53,7 +53,7 @@ const CreateAccount = () => {
 
     async function createAccount() {
         if (!verifyPassword()) {
-            setTextSnackBar('Verifique as senhas')
+            setTextSnackBar('Verify the passwords')
             return setShowSnackBar(true)
         }
 

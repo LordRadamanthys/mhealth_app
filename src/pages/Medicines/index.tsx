@@ -3,20 +3,13 @@ import { View, Text, StyleSheet } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
 import Header from '../../components/Header'
-import ModalAddFile from '../../components/ModalAddFile'
-import ModalYesNo from '../../components/ModalYesNo'
-import * as Animatable from 'react-native-animatable'
-import examsIcon from '../../assets/images/medicines.png'
 const iconRightHeader = <Icon name="plus" size={35} color="#6562ff" />
-import CollapsibleView from "@eliav2/react-native-collapsible-view"
 import { ScrollView } from 'react-native-gesture-handler'
 import EmptyListComponent from '../../components/EmptyList'
 import MedicineInterface from '../../interfaces/MedicinesInterface'
 import ExpandCard from '../../components/ExpandCard'
 import { getMedicine, getAllMedicine, formatExams } from '../../controller/MedicinesController'
 import AuthContext from '../../providers/AuthProvider'
-import { getExams } from '../../controller/ExamsController'
-import AddMedicine from './addMedicine'
 import { useNavigation } from '@react-navigation/native'
 const teste = [1]
 
@@ -36,7 +29,7 @@ const Medicines = () => {
             setListMedicinesSearch(response)
             return setListMedicines(response)
         }).catch(error => {
-            return console.log(error);
+            return 
         })
         
     }

@@ -62,7 +62,7 @@ const Vaccine = () => {
 
     async function saveVaccine() {
         if (title == '' || date == '' || local == '') {
-            setTextSnackBar('Virifique se preencheu corretamanete os campos Title, Date e local')
+            setTextSnackBar('Make sure you have correctly filled in the Title, Date and Location fields')
             return setShowSnackBar(true)
         }
         setShowLoading(true)

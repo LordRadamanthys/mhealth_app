@@ -23,7 +23,7 @@ const LoadingModal: React.FC<AlertInterface> = ({ show, setShow }) => {
                         <ImageLoading />
                     </Animatable.View>
                     <ActivityIndicator size={100} color='#ddd' />
-                    <Text style={[styles.text, styles.title]}>Um momento</Text>
+                    <Text style={[styles.text, styles.title]}>Wait a moment</Text>
                     <View style={styles.containerBottomButtons}>
                         
                     </View>
