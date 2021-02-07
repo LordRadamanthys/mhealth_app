@@ -7,6 +7,7 @@ import * as Permissions from 'expo-permissions'
 import * as DocumentPicker from 'expo-document-picker';
 import api from '../../services/api'
 import AuthContext from '../../providers/AuthProvider'
+import LoadingModal from '../Loading'
 
 
 interface AlertInterface {
@@ -22,6 +23,7 @@ const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow, id, callback, p
     const [nameFile, setNameFile] = useState('')
     const [file, setFile] = useState(null)
     const { user } = useContext(AuthContext)
+    const [showLogin, setShowLogin] = useState(false)
 
 
     const getPermissionAsync = async () => {
@@ -41,9 +43,7 @@ const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow, id, callback, p
         };
         try {
             let result = await DocumentPicker.getDocumentAsync(pickerOptions)
-            // if (!result.cancelled) {
-            //     setImage(result.uri);
-            // }
+           
             setNameFile(result.name.replace('.pdf', '').replace('.jpg', ''))
             setFile(result)
             console.log(result)
@@ -53,11 +53,10 @@ const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow, id, callback, p
     }
 
     async function upload() {
-        if (page == 'vaccine') {
+        if (page == 'vaccines') {
             return await uploadFileVaccine()
         } else {
             return await uploadFile()
-
         }
     }
 
@@ -70,7 +69,7 @@ const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow, id, callback, p
             name: file.name,
             type: '*/*'
         })
-
+        setShowLogin(true)
         await api.post(`exams/file`, data, {
 
             headers: {
@@ -78,9 +77,11 @@ const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow, id, callback, p
                 'Content-Type': 'multipart/form-data',
             }
         }).then(resp => {
+            setShowLogin(false)
             setShow(false)
             return callback()
         }).catch(error => {
+            setShowLogin(false)
             console.log(error.message)
         })
     }
@@ -94,7 +95,7 @@ const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow, id, callback, p
             name: file.name,
             type: '*/*'
         })
-
+        setShowLogin(true)
         await api.post(`vaccines/file`, data, {
 
             headers: {
@@ -102,9 +103,11 @@ const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow, id, callback, p
                 'Content-Type': 'multipart/form-data',
             }
         }).then(resp => {
+            setShowLogin(false)
             setShow(false)
             return callback()
         }).catch(error => {
+            setShowLogin(false)
             console.log(error.message)
         })
     }
@@ -122,6 +125,7 @@ const ModalAddFile: React.FC<AlertInterface> = ({ show, setShow, id, callback, p
             onRequestClose={() => {
                 setShow(false);
             }}>
+                <LoadingModal setShow={() => setShowLogin(showLogin)} show={showLogin} />
             <View style={styles.centeredView}>
                 <View style={styles.mainView}>
                     <Text style={[styles.text, styles.title]}>New File</Text>

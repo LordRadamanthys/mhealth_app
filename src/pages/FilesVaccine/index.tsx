@@ -9,13 +9,11 @@ import ModalYesNo from '../../components/ModalYesNo'
 import EmptyListComponent from '../../components/EmptyList'
 import AuthContext from '../../providers/AuthProvider'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { deleteFile, getFilesExam } from '../../controller/FilesExamController'
-import FileInterface from '../../interfaces/FilesInterface'
 import LoadingModal from '../../components/Loading'
 import { Snackbar } from 'react-native-paper'
 import { deleteFileVaccine, getFilesVaccine } from '../../controller/FilesVaccineController'
 import FileVaccineInterface from '../../interfaces/FilesVaccineInterface'
-const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
+const iconRightHeader = <Icon name="plus" size={35} color="#6562ff" />
 
 const FilesVaccine = () => {
     const { user } = useContext(AuthContext)
@@ -40,24 +38,23 @@ const FilesVaccine = () => {
             id_file: file.id,
             name_file: file.name_file
         }
-        
+
         setShowLoading(true)
 
-        await deleteFileVaccine(data, user)
-            .catch(error => {
-                setTextSnackBar(error)
-                setShowSnackBar(true)
-                return setShowLoading(false)
-            })
-        getFiles()
-        setTextSnackBar("Successfully deleted")
-        return setShowSnackBar(true)
+        await deleteFileVaccine(data, user).then(response => {
+            getFiles()
+            setTextSnackBar("Successfully deleted")
+            return setShowSnackBar(true)
+        }).catch(error => {
+            setTextSnackBar("error")
+            setShowSnackBar(true)
+            return setShowLoading(false)
+        })
+
     }
 
     function goToFile(file: FileVaccineInterface) {
-       
-
-        file.page = 'vaccine'
+        file.page = 'vaccines'
         navigate.navigate('ViewFileVaccine', { data: file })
     }
 
@@ -69,9 +66,7 @@ const FilesVaccine = () => {
             return setShowLoading(false)
         } catch (error) {
             console.log(error);
-
         }
-
     }
 
     function formatText(text: string) {
@@ -85,7 +80,7 @@ const FilesVaccine = () => {
 
     return (
         <View style={styles.container}>
-            <ModalAddFile show={showAlertFile} setShow={setShowAlertFile} id={id_vaccine} callback={() => getFiles()} page='vaccine' />
+            <ModalAddFile show={showAlertFile} setShow={setShowAlertFile} id={id_vaccine} callback={() => getFiles()} page='vaccines' />
             <ModalYesNo show={showAlertDelete} setShow={setShowAlertDelete} onOkPress={() => { }} />
             <LoadingModal setShow={() => setShowLoading(!showLoading)} show={showLoading} />
             <Header textCenter="Files" itemRight={iconRightHeader} funcItemRight={showModal} />
@@ -170,7 +165,7 @@ const styles = StyleSheet.create({
 
     buttonFile: {
         marginHorizontal: 5,
-        borderRadius: 25,
+        borderRadius: 15,
         minWidth: 250,
         justifyContent: 'flex-start',
         alignSelf: 'center',
@@ -180,7 +175,7 @@ const styles = StyleSheet.create({
     },
     buttonDelete: {
         marginHorizontal: 5,
-        borderRadius: 25,
+        borderRadius: 15,
         minWidth: 90,
         alignItems: 'center',
         justifyContent: 'center',

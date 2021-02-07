@@ -19,7 +19,7 @@ const ViewFileVaccine = () => {
     const fileReceived: FileVaccineInterface = route.params.data
 
     useEffect(() => {
-        console.log(`http://192.168.100.10:2222/file/${fileReceived.page}/${user?.id}/${fileReceived.id_vaccines}/${fileReceived.name_file}`);
+        console.log(`${user?.link_files}${user?.id}/${fileReceived.page}/${fileReceived.id_vaccines}/${fileReceived.name_file}`);
 
         if (fileReceived.name_file.includes('.pdf')) {
             setShowImage(false)
@@ -38,14 +38,14 @@ const ViewFileVaccine = () => {
                         style={styles.image}
                         resizeMode='center'
                         source={{
-                            uri: `http://192.168.100.10:2222/file/${fileReceived.page}/${user?.id}/${fileReceived.id_vaccines}/${fileReceived.name_file}`,
+                            uri: `${user?.link_files}${user?.id}/${fileReceived.page}/${fileReceived.id_vaccines}/${fileReceived.name_file}`
                         }}
                     />
                 </View>
                 :
                 <PDFReader
                     source={{
-                        uri: `http://192.168.100.10:2222/file/${fileReceived.page}/${user?.id}/${fileReceived.id_vaccines}/${fileReceived.name_file}`,
+                        uri: `${user?.link_files}${user?.id}/${fileReceived.page}/${fileReceived.id_vaccines}/${fileReceived.name_file}`
                     }}
                     webviewStyle={{ flex: 1 }}
                     withPinchZoom={true}

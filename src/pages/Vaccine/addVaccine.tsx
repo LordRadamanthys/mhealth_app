@@ -3,53 +3,58 @@ import { View, Text, StyleSheet } from 'react-native'
 import Header from '../../components/Header'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInputCustom from '../../components/TextInput'
-import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
-import { useNavigation } from '@react-navigation/native'
-import TextAreaCustom from '../../components/TextAreaCustom'
+import { RectButton, ScrollView } from 'react-native-gesture-handler'
 import ModalConfirm from '../../components/Alert'
 import LottieView from 'lottie-react-native'
 import * as Animatable from 'react-native-animatable'
 import { insertVaccine } from '../../controller/VaccinesController'
 import AuthContext from '../../providers/AuthProvider'
 import LoadingModal from '../../components/Loading'
-const iconRightHeader = <Icon name="plus" size={35} color="#FFC633" />
+import InputDateCustom from '../../components/InputDateCustom'
 
 const AddVaccine = () => {
     const { user } = useContext(AuthContext)
-    const navigate = useNavigation()
     const [title, setTitle] = useState('')
     const [date, setDate] = useState('')
     const [dateReturn, setDateReturn] = useState('')
     const [local, setLocal] = useState('')
     const [showAlert, setshowAlert] = useState(false)
     const [showLogin, setShowLogin] = useState(false)
+    const [showModalConfirm, setShowModalConfirm] = useState(false)
 
-    
     async function addVaccine() {
-        if (title == '' || date == '' || local == '' ) return console.log('err');
+        if (title == '' || date == '' || local == '') return console.log('err');
         setShowLogin(true)
         const data = {
             title: title,
-            date: date,
-            date_return: dateReturn,
+            date: date.replace('-', '/').replace('-', '/'),
+            date_return: dateReturn.replace('-', '/').replace('-', '/'),
             local: local,
         }
 
-        const response = await insertVaccine(data, user).catch(error => {
+        await insertVaccine(data, user).then(response => {
+            setShowLogin(false)
+            cleanFields()
+            return setShowModalConfirm(true)
+        }).catch(error => {
             console.log(error);
             setShowLogin(false)
         })
-        setShowLogin(false)
-        console.log(response);
-
     }
 
-
+    function cleanFields() {
+        setTitle('')
+        setDate('')
+        setDateReturn('')
+        setTitle('')
+        setLocal('')
+    }
 
     return (
         <View style={styles.container}>
             <Header textCenter="New vaccine" itemRight={""} />
             <LoadingModal setShow={() => setShowLogin(showLogin)} show={showLogin} />
+            <ModalConfirm setShow={() => setShowModalConfirm(!showModalConfirm)} show={showModalConfirm} />
             <ScrollView>
                 <View style={styles.formContainer}>
 
@@ -64,15 +69,17 @@ const AddVaccine = () => {
                         <TextInputCustom title='Type the title' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
                     </Animatable.View>
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
-                        <TextInputCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} />
+                        {/* <TextInputCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} /> */}
+                        <InputDateCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} />
                     </Animatable.View>
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
-                        <TextInputCustom title='Type date return' value={dateReturn} icon='calendar' onTextChangeFunc={setDateReturn} />
+                        {/* <TextInputCustom title='Type date return' value={dateReturn} icon='calendar' onTextChangeFunc={setDateReturn} /> */}
+                        <InputDateCustom title='Type date return' value={dateReturn} icon='calendar' onTextChangeFunc={setDateReturn} />
                     </Animatable.View>
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
                         <TextInputCustom title='local' value={local} icon='map-pin' onTextChangeFunc={setLocal} />
                     </Animatable.View>
-                   
+
 
                     <View style={styles.containerBottomButtons}>
                         <RectButton activeOpacity={0.9} rippleColor={'#ff'} style={[styles.buttonEdit, { backgroundColor: '#6562ff', }]} onPress={addVaccine}>

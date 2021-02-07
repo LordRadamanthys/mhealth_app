@@ -43,20 +43,19 @@ const Files = () => {
         }
         setShowLoading(true)
 
-        await deleteFile(data, user)
-            .catch(error => {
-                setTextSnackBar(error)
-                setShowSnackBar(true)
-                return setShowLoading(false)
-            })
-        getFiles()
-        setTextSnackBar("Successfully deleted")
-        return setShowSnackBar(true)
+        await deleteFile(data, user).then(response => {
+            getFiles()
+            setTextSnackBar("Successfully deleted")
+            return setShowSnackBar(true)
+        }).catch(error => {
+            setTextSnackBar("erro")
+            setShowSnackBar(true)
+            return setShowLoading(false)
+        })
+
     }
 
     function goToFile(file: FileInterface) {
-       
-
         file.page = page
         navigate.navigate('ViewFile', { data: file })
     }
