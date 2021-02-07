@@ -37,13 +37,15 @@ const ViewFile = () => {
                     style={styles.image}
                     resizeMode='center'
                     source={{
-                        uri: `http://192.168.100.10:2222/file/${fileReceived.page}/${user?.id}/${fileReceived.id_exams}/${fileReceived.name_file}`,
+                        // uri: `http://192.168.100.10:2222/file/${fileReceived.page}/${user?.id}/${fileReceived.id_exams}/${fileReceived.name_file}`,
+                        uri: `${user?.link_files}${user?.id}/${fileReceived.page}/${fileReceived.id_exams}/${fileReceived.name_file}`
                     }}
                 />
                 :
                 <PDFReader
                     source={{
-                        uri: `http://192.168.100.10:2222/file/${fileReceived.page}/${user?.id}/${fileReceived.id_exams}/${fileReceived.name_file}`,
+                        // uri: `http://192.168.100.10:2222/file/${fileReceived.page}/${user?.id}/${fileReceived.id_exams}/${fileReceived.name_file}`,
+                        uri: `${user?.link_files}${user?.id}/${fileReceived.page}/${fileReceived.id_exams}/${fileReceived.name_file}`,
                     }}
                     webviewStyle={{ flex: 1 }}
                     withPinchZoom={true}

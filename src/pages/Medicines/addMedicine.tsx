@@ -67,12 +67,13 @@ const AddMedicine = () => {
         }
 
 
-        const response = await createMedicine(medicine, user).catch(error => {
+        await createMedicine(medicine, user).catch(error => {
             setShowLoading(false)
             setTextSnackBar("Erro")
             return setShowSnackBar(true)
         })
         setShowLoading(false)
+        setShowModalConfirm(true)
         //  console.log(response);
 
 
@@ -87,7 +88,7 @@ const AddMedicine = () => {
         <View style={styles.container}>
             <Header textCenter="New" itemRight={""} funcItemRight={() => navigate.navigate('Files')} />
             <LoadingModal setShow={() => setShowLoading(showLoading)} show={showLoading} />
-            <ModalConfirm setShow={() => setShowModalConfirm(!showModalConfirm)} show={showModalConfirm} />
+            <ModalConfirm setShow={setShowModalConfirm} show={showModalConfirm} />
             <ScrollView>
                 <View style={styles.formContainer}>
                     <LottieView

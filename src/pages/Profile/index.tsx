@@ -66,10 +66,10 @@ const Profile = () => {
 
 
 
-        await updateUser(user,name, password, image).then(response => {
+        await updateUser(user, name, password, image).then(response => {
 
         }).catch(error => {
-           
+
             setTextSnackBar(error)
             return setShowSnackBar(true)
         })
@@ -77,6 +77,8 @@ const Profile = () => {
 
 
     useEffect(() => {
+        console.log(`${user?.link_files}${user?.id}/Group 19.png`);
+        
         setName(user?.name)
         //setName(user?.password)
         getPermissionAsync()
@@ -90,7 +92,7 @@ const Profile = () => {
                 <View style={styles.createContainer}>
                     <Text style={styles.titleCreate}>{user?.name}</Text>
                     <TouchableOpacity onPress={_pickImage} style={styles.profileImgContainer}>
-                        <Image source={image != '' ? { uri: image } : { uri: `http://192.168.100.10:2222/user/image/${user?.id}` }} style={styles.profileImg} />
+                        <Image source={image != '' ? { uri: image } : { uri: `${user?.link_files}${user?.id}/profile.jpg` }} style={styles.profileImg} />
                     </TouchableOpacity>
                     <View style={styles.containerInputText}>
                         <TextInput title='E-Mail' value={name} onTextChangeFunc={setName} icon='user' />

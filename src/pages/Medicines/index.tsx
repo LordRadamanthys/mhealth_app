@@ -10,7 +10,7 @@ import MedicineInterface from '../../interfaces/MedicinesInterface'
 import ExpandCard from '../../components/ExpandCard'
 import { getMedicine, getAllMedicine, formatExams } from '../../controller/MedicinesController'
 import AuthContext from '../../providers/AuthProvider'
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import LoadingModal from '../../components/Loading'
 const teste = [1]
 
@@ -56,6 +56,12 @@ const Medicines = () => {
 
     }
 
+    useFocusEffect(
+        React.useCallback(() => {
+            getAll()
+            return () => { };
+        }, [])
+    )
     useEffect(() => {
         getAll()
     }, [])
