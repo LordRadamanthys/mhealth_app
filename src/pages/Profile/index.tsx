@@ -11,12 +11,15 @@ import Constants from 'expo-constants'
 import AuthContext from '../../providers/AuthProvider'
 import { Snackbar } from 'react-native-paper'
 import { updateUser } from '../../controller/UserController'
+import { Switch } from 'react-native-paper';
+import AsyncStorage from '@react-native-community/async-storage'
 
 const Profile = () => {
     const { user, clearUser } = useContext(AuthContext)
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [isSwitch, setIsSwitch] = useState(false)
     const [image, setImage] = useState('')
     const [showSnackBar, setShowSnackBar] = useState(false)
     const [textSnackBar, setTextSnackBar] = useState('Ops, Ocorreu um erro')
@@ -64,8 +67,6 @@ const Profile = () => {
             }
         }
 
-
-
         await updateUser(user, name, password, image).then(response => {
 
         }).catch(error => {
@@ -76,9 +77,31 @@ const Profile = () => {
     }
 
 
+    async function getIsTouchId() {
+        try {
+            const touchId = await AsyncStorage.getItem('@touchId') as String
+            console.log(touchId);
+
+            if (!touchId) {
+                setIsSwitch(false)
+            } else {
+                setIsSwitch(true)
+            }
+
+        } catch (e) {
+            // error reading value
+        }
+    }
+
+    async function turnOnFingerPrint(value: any) {
+        console.log(value)
+        setIsSwitch(value)
+        await AsyncStorage.setItem('@touchId', String(value))
+    }
+
+
     useEffect(() => {
-        console.log(`${user?.link_files}${user?.id}/Group 19.png`);
-        
+        getIsTouchId()
         setName(user?.name)
         //setName(user?.password)
         getPermissionAsync()
@@ -103,7 +126,11 @@ const Profile = () => {
                     <View style={styles.containerInputText}>
                         <TextInput title='Confirm password' value={confirmPassword} security={true} onTextChangeFunc={setConfirmPassword} icon='key' />
                     </View>
-
+                    <View style={[styles.containerInputText, { flexDirection: "row" }, styles.containerTextInput]}>
+                        <Icon style={{ marginEnd: 10 }} name={"lock"} size={20} color={"#6562ff"} />
+                        <Text style={styles.textLock}>Login with touch ID    </Text>
+                        <Switch value={isSwitch} onValueChange={(value) => turnOnFingerPrint(value)} color="#6562ff" />
+                    </View>
                     <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={editUser}>
                         <Text style={styles.textButtonCreate}>Edit</Text>
                         <Icon style={{ marginStart: 10 }} name={"save"} size={22} color="#FFC633" />
@@ -140,8 +167,22 @@ const styles = StyleSheet.create({
     containerInputText: {
         marginTop: 30,
     },
-
-
+    containerTextInput: {
+        flexDirection: 'row',
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        backgroundColor: 'rgba(255, 255, 255, 0.09)',
+        borderRadius: 10,
+        width: '105%',
+        alignSelf: 'center',
+        paddingHorizontal: 15,
+        fontSize: 16,
+    },
+    textLock: {
+        color: 'rgba(255, 255, 255, 0.5)',
+        fontFamily: 'Nunito_400Regular'
+    },
     createContainer: {
         backgroundColor: '#1a1a1f',
         alignItems: 'center',
@@ -161,7 +202,7 @@ const styles = StyleSheet.create({
     },
 
     buttonCreate: {
-        marginTop: 40,
+        marginTop: 20,
         backgroundColor: '#6562ff',
         borderRadius: 15,
         paddingHorizontal: 50,

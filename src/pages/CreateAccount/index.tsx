@@ -109,10 +109,10 @@ const CreateAccount = () => {
                         <TextInput title='E-Mail' value={email} onTextChangeFunc={setEmail} icon='mail' />
                     </View>
                     <View style={styles.containerInputText}>
-                        <TextInput title='Password' value={password} onTextChangeFunc={setPassword} icon='lock' />
+                        <TextInput title='Password' value={password}  security={true} onTextChangeFunc={setPassword} icon='lock' />
                     </View>
                     <View style={styles.containerInputText}>
-                        <TextInput title='Confirm Password' value={passwordConfirm} onTextChangeFunc={setPasswordConfirm} icon='lock' />
+                        <TextInput title='Confirm Password' security={true} value={passwordConfirm} onTextChangeFunc={setPasswordConfirm} icon='lock' />
                     </View>
 
                     <RectButton activeOpacity={0.9} rippleColor={'#fff'} style={styles.buttonCreate} onPress={() => createAccount()}>

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Text, View, StyleSheet, ActivityIndicator } from 'react-native'
 import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { Feather as Icon } from '@expo/vector-icons'
@@ -9,9 +9,11 @@ import LottieView from 'lottie-react-native'
 import * as Animatable from 'react-native-animatable'
 import AuthContext from '../../providers/AuthProvider'
 import { Snackbar } from 'react-native-paper';
+import AsyncStorage from '@react-native-community/async-storage'
+import * as LocalAuthentication from 'expo-local-authentication'
 
 const Login = () => {
-    const { login } = useContext(AuthContext)
+    const { login, getData } = useContext(AuthContext)
     const navigate = useNavigation()
     const [email, setEmail] = useState('mateus@teste.com')
     const [password, setPassword] = useState('123456')
@@ -19,6 +21,8 @@ const Login = () => {
     const [disableButtonForgotPassword, setDisableButtonForgotPassword] = useState(false)
     const [showSnackBar, setShowSnackBar] = useState(false)
     const [textSnackBar, setTextSnackBar] = useState('Oops, error signing in')
+    const [failedCount, setFailedCount] = useState(0)
+    const [touchId, setTouchId] = useState("")
 
     function goToCreateAccount() {
         navigate.navigate('CreateAccount')
@@ -38,9 +42,40 @@ const Login = () => {
             setDisableButtonForgotPassword(false)
             setShowSnackBar(true)
         })
-
     }
 
+    let scanFingerPrint = async () => {
+        try {
+            let results = await LocalAuthentication.authenticateAsync();
+            if (results.success) {
+
+                // setModalVisible(false)
+                // setAuthenticated(true)
+                // setFailedCount(0)
+                getData()
+                console.log("foi");
+            } else {
+                console.log("n");
+                setFailedCount(failedCount + 1)
+
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    async function isTouchIdOn() {
+        const value = await AsyncStorage.getItem('@touchId') as String
+
+        if (value != "") {
+            scanFingerPrint()
+        }
+    }
+    useEffect(() => {
+        isTouchIdOn()
+
+        //getData()
+    }, [])
 
     return (
         <View style={styles.container} >
@@ -48,7 +83,7 @@ const Login = () => {
                 <Animatable.Image animation="pulse" style={{ width: 100, height: 100 }} source={logoApp} resizeMode='contain' />
             </View>
             <ScrollView>
-                <Animatable.View  animation="fadeInUp"  style={styles.loginContainer}>
+                <Animatable.View animation="fadeInUp" style={styles.loginContainer}>
                     <Text style={styles.titleLogin}>Login</Text>
                     <LottieView
                         autoPlay

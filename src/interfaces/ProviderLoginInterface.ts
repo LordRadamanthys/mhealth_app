@@ -5,4 +5,5 @@ export default interface ProviderLoginInterface{
     user: UserInterface | null
     login(email: string, password: string): Promise<void>
     clearUser(): void
+    getData(): void
 }
