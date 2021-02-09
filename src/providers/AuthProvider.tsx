@@ -44,21 +44,28 @@ export const AuthProvider: React.FC = ({ children }) => {
             const email = await AsyncStorage.getItem('@email')
             const password = await AsyncStorage.getItem('@password')
             if (email !== null && password !== null) {
-                login(email, password)
+                try {
+                    await login(email, password)
+                } catch (err) {
+                    throw err
+
+                }
             }
 
         } catch (e) {
-            // error reading value
+            throw e
         }
     }
 
     async function cleanPreferences() {
-        await AsyncStorage.clear()
+        await AsyncStorage.setItem('@email', "")
+        await AsyncStorage.setItem('@password', "")
+        await AsyncStorage.setItem('@touchId', "false")
+        // await AsyncStorage.clear()
     }
 
 
     async function clearUser() {
-        console.log(user.token);
 
         await api.post('logout', {}, {
             headers: { 'Authorization': 'Bearer' + user.token }

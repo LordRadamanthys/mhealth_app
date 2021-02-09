@@ -1,7 +1,8 @@
 import React from 'react'
 import { StyleSheet, Modal, View, Text, TouchableOpacity } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
-
+import ImageDone from '../../svg/image_done'
+import * as Animatable from 'react-native-animatable'
 interface AlertInterface {
     show: boolean,
     setShow(key: boolean): void
@@ -18,8 +19,11 @@ const ModalConfirm: React.FC<AlertInterface> = ({ show, setShow }) => {
             }}>
             <View style={styles.centeredView}>
                 <View style={styles.mainView}>
-                    <Text style={[styles.text, styles.title]}>Message</Text>
-                    <Icon name="smile" size={50} color='#FFC633' />
+                    
+                    <Animatable.View animation='pulse' iterationCount='infinite' iterationDelay={1000}>
+                        <ImageDone />
+                    </Animatable.View>
+                    
                     <Text style={[styles.text, styles.description]}>All done!</Text>
 
                     <TouchableOpacity
@@ -60,7 +64,7 @@ const styles = StyleSheet.create({
     },
     text: {
         color: '#D8DFFD',
-        
+
     },
     title: {
         fontSize: 24,
@@ -69,7 +73,7 @@ const styles = StyleSheet.create({
     },
 
     description: {
-        fontSize: 20,
+        fontSize: 23,
         marginBottom: 30,
         fontFamily: 'Nunito_400Regular'
     },
@@ -87,7 +91,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'row',
         paddingVertical: 15,
-        
+
     },
 
 

@@ -5,6 +5,7 @@ import { RectButton } from 'react-native-gesture-handler'
 import TextInputCustom from '../TextInput'
 import * as Animatable from 'react-native-animatable'
 import ImageLoading from '../../svg/image_loading'
+import NewImageLoading from '../../svg/new_image_loading'
 interface AlertInterface {
     show: boolean,
     setShow(key: boolean): void
@@ -20,7 +21,7 @@ const LoadingModal: React.FC<AlertInterface> = ({ show, setShow }) => {
             <View style={styles.centeredView}>
                 <View style={styles.mainView}>
                     <Animatable.View animation='pulse' iterationCount='infinite' iterationDelay={1000}>
-                        <ImageLoading />
+                        <NewImageLoading />
                     </Animatable.View>
                     <ActivityIndicator size={100} color='#ddd' />
                     <Text style={[styles.text, styles.title]}>Wait a moment</Text>

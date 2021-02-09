@@ -15,8 +15,8 @@ import * as LocalAuthentication from 'expo-local-authentication'
 const Login = () => {
     const { login, getData } = useContext(AuthContext)
     const navigate = useNavigation()
-    const [email, setEmail] = useState('mateus@teste.com')
-    const [password, setPassword] = useState('123456')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const [enabledAllButtons, setEnabledAllButtons] = useState(true)
     const [disableButtonForgotPassword, setDisableButtonForgotPassword] = useState(false)
     const [showSnackBar, setShowSnackBar] = useState(false)
@@ -48,26 +48,30 @@ const Login = () => {
         try {
             let results = await LocalAuthentication.authenticateAsync();
             if (results.success) {
+                try {
+                    await getData()
 
-                // setModalVisible(false)
-                // setAuthenticated(true)
-                // setFailedCount(0)
-                getData()
-                console.log("foi");
+                } catch (err) {
+                    setTextSnackBar(err)
+                    setShowSnackBar(true)
+                }
             } else {
-                console.log("n");
                 setFailedCount(failedCount + 1)
-
             }
         } catch (e) {
-            console.log(e);
+            console.log("catch");
+            setTextSnackBar(e)
+            setShowSnackBar(true)
         }
     };
 
     async function isTouchIdOn() {
         const value = await AsyncStorage.getItem('@touchId') as String
-
-        if (value != "") {
+        const email = await AsyncStorage.getItem('@email')
+        const password = await AsyncStorage.getItem('@password')
+        if (value == "true") {
+            setEmail(email)
+            setPassword(password)
             scanFingerPrint()
         }
     }

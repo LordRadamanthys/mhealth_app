@@ -82,7 +82,7 @@ const Profile = () => {
             const touchId = await AsyncStorage.getItem('@touchId') as String
             console.log(touchId);
 
-            if (!touchId) {
+            if (touchId == "false") {
                 setIsSwitch(false)
             } else {
                 setIsSwitch(true)
