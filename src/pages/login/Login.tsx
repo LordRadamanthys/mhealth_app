@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { Text, View, StyleSheet, ActivityIndicator } from 'react-native'
+import { Text, View, StyleSheet, ActivityIndicator, Platform } from 'react-native'
 import { RectButton, ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { Feather as Icon } from '@expo/vector-icons'
 import TextInput from '../../components/TextInput'
@@ -11,7 +11,9 @@ import AuthContext from '../../providers/AuthProvider'
 import { Snackbar } from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage'
 import * as LocalAuthentication from 'expo-local-authentication'
-
+import * as Notifications from 'expo-notifications';
+import Constants from 'expo-constants';
+import Permissions from 'expo-permissions';
 const Login = () => {
     const { login, getData } = useContext(AuthContext)
     const navigate = useNavigation()
@@ -23,6 +25,49 @@ const Login = () => {
     const [textSnackBar, setTextSnackBar] = useState('Oops, error signing in')
     const [failedCount, setFailedCount] = useState(0)
     const [touchId, setTouchId] = useState("")
+
+    async function registerForPushNotificationsAsync() {
+        let token;
+        // const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
+        // if (status != 'granted') {
+        //     const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
+        // }
+        // if (status != "granted") {
+        //     alert('fail')
+        //     return
+        // }
+        // token = (await Notifications.getExpoPushTokenAsync()).data
+        if (Constants.isDevice) {
+          const { status: existingStatus } = await Notifications.getPermissionsAsync();
+          let finalStatus = existingStatus;
+          if (existingStatus !== 'granted') {
+            const { status } = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+          }
+          if (finalStatus !== 'granted') {
+            alert('Failed to get push token for push notification!');
+            return;
+          }
+          token = (await Notifications.getExpoPushTokenAsync()).data;
+          console.log(token);
+        } else {
+          alert('Must use physical device for Push Notifications');
+        }
+
+        if (Platform.OS === 'android') {
+          Notifications.setNotificationChannelAsync('default', {
+            name: 'default',
+            importance: Notifications.AndroidImportance.MAX,
+            vibrationPattern: [0, 250, 250, 250],
+            lightColor: '#FF231F7C',
+          });
+        }
+
+        return token;
+    }
+
+
+
 
     function goToCreateAccount() {
         navigate.navigate('CreateAccount')
@@ -75,9 +120,11 @@ const Login = () => {
             scanFingerPrint()
         }
     }
-    useEffect(() => {
-        isTouchIdOn()
 
+
+    useEffect(() => {
+        //isTouchIdOn()
+        registerForPushNotificationsAsync().then(token => console.log(token)).catch(e => console.log(e))
         //getData()
     }, [])
 

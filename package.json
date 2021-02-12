@@ -43,7 +43,8 @@
     "react-native-web": "~0.13.7",
     "react-native-webview": "^10.10.2",
     "rn-pdf-reader-js": "^4.1.1",
-    "expo-local-authentication": "~9.3.0"
+    "expo-local-authentication": "~9.3.0",
+    "expo-notifications": "~0.7.2"
   },
   "devDependencies": {
     "@types/react": "~16.9.35",
