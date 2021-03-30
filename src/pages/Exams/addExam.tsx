@@ -85,7 +85,7 @@ const AddExam = () => {
 
     return (
         <View style={styles.container}>
-            <Header textCenter="New exam" itemRight={""} funcItemRight={() => navigate.navigate('Files')} />
+            <Header textCenter="Novo exame" itemRight={""} funcItemRight={() => navigate.navigate('Files')} />
             <LoadingModal setShow={() => setShowLoading(showLoading)} show={showLoading} />
             <ModalConfirm setShow={() => setShowModalConfirm(!showModalConfirm)} show={showModalConfirm} />
             <ScrollView>
@@ -99,10 +99,10 @@ const AddExam = () => {
                     <DropDownPicker
 
                         searchable={true}
-                        searchablePlaceholder='Search...'
+                        searchablePlaceholder='Pesquise...'
                         searchableError={() => <Text style={{ fontFamily: 'Nunito_400Regular', color: '#fff' }}>Não encontrado  <Icon name='frown' size={23} color='#6562ff' /></Text>}
                         searchableStyle={{ fontFamily: 'Nunito_400Regular', color: '#fff' }}
-                        placeholder="Select an expert"
+                        placeholder="Selecione um especialista"
                         placeholderStyle={{ color: 'rgba(255, 255, 255, 0.5)' }}
                         containerStyle={{ height: 50, width: 290, maxWidth: 290, marginBottom: 15 }}
                         style={{
@@ -132,30 +132,30 @@ const AddExam = () => {
                     />
 
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
-                        <TextInputCustom title='Type the title' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
+                        <TextInputCustom title='Digite o titulo do exame' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
                     </Animatable.View>
 
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
                         {/* <TextInputCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} /> */}
-                        <InputDateCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} />
+                        <InputDateCustom title='Selecione a data' value={date} icon='calendar' onTextChangeFunc={setDate} />
 
                     </Animatable.View>
 
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
-                        <TextInputCustom title='Type the Doctors name' value={doctorsName} icon='edit-3' onTextChangeFunc={setDoctorsName} />
+                        <TextInputCustom title='Digite o nome do(a) doutor(a)' value={doctorsName} icon='edit-3' onTextChangeFunc={setDoctorsName} />
                     </Animatable.View>
 
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
-                        <TextAreaCustom title='Type Description' value={descriptions} icon='type' onTextChangeFunc={setDescriptions} />
+                        <TextAreaCustom title='Digite uma descrição' value={descriptions} icon='type' onTextChangeFunc={setDescriptions} />
                     </Animatable.View>
 
                     <View style={styles.containerBottomButtons}>
                         <RectButton activeOpacity={0.9} rippleColor={'#fff'} style={[styles.buttonEdit, { backgroundColor: '#6562ff', }]} onPress={createExam}>
-                            <Text style={[styles.text, styles.buttonText,]}>Create</Text>
+                            <Text style={[styles.text, styles.buttonText,]}>Adicionar</Text>
                             <Icon style={{ marginStart: 5 }} name={"plus"} size={22} color="#FFC633" />
                         </RectButton>
                         <RectButton activeOpacity={0.9} rippleColor={'#fff'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => navigate.goBack()}>
-                            <Text style={[styles.text, styles.buttonText]}>Cancel</Text>
+                            <Text style={[styles.text, styles.buttonText]}>Cancelar</Text>
                             <Icon style={{ marginStart: 5 }} name={"x"} size={22} color="#FFC633" />
                         </RectButton>
                     </View>

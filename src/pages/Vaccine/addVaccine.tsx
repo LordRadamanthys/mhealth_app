@@ -52,7 +52,7 @@ const AddVaccine = () => {
 
     return (
         <View style={styles.container}>
-            <Header textCenter="New vaccine" itemRight={""} />
+            <Header textCenter="Adicionar vacina" itemRight={""} />
             <LoadingModal setShow={() => setShowLogin(showLogin)} show={showLogin} />
             <ModalConfirm setShow={() => setShowModalConfirm(!showModalConfirm)} show={showModalConfirm} />
             <ScrollView>
@@ -66,28 +66,28 @@ const AddVaccine = () => {
                     />
                     <ModalConfirm show={showAlert} setShow={setshowAlert} />
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
-                        <TextInputCustom title='Type the title' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
+                        <TextInputCustom title='Digite o nome' value={title} icon='edit-3' onTextChangeFunc={setTitle} />
                     </Animatable.View>
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
                         {/* <TextInputCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} /> */}
-                        <InputDateCustom title='Type date' value={date} icon='calendar' onTextChangeFunc={setDate} />
+                        <InputDateCustom title='Selecione uma data' value={date} icon='calendar' onTextChangeFunc={setDate} />
                     </Animatable.View>
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
                         {/* <TextInputCustom title='Type date return' value={dateReturn} icon='calendar' onTextChangeFunc={setDateReturn} /> */}
-                        <InputDateCustom title='Type date return' value={dateReturn} icon='calendar' onTextChangeFunc={setDateReturn} />
+                        <InputDateCustom title='Selecione a data de retorno' value={dateReturn} icon='calendar' onTextChangeFunc={setDateReturn} />
                     </Animatable.View>
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
-                        <TextInputCustom title='local' value={local} icon='map-pin' onTextChangeFunc={setLocal} />
+                        <TextInputCustom title='local da vacinação' value={local} icon='map-pin' onTextChangeFunc={setLocal} />
                     </Animatable.View>
 
 
                     <View style={styles.containerBottomButtons}>
                         <RectButton activeOpacity={0.9} rippleColor={'#ff'} style={[styles.buttonEdit, { backgroundColor: '#6562ff', }]} onPress={addVaccine}>
-                            <Text style={[styles.text, styles.buttonText,]}>Save</Text>
+                            <Text style={[styles.text, styles.buttonText,]}>Salvar</Text>
                             <Icon style={{ marginStart: 5 }} name={"plus"} size={22} color="#FFC633" />
                         </RectButton>
                         <RectButton activeOpacity={0.9} rippleColor={'#ff'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => { }}>
-                            <Text style={[styles.text, styles.buttonText]}>Cancel</Text>
+                            <Text style={[styles.text, styles.buttonText]}>Cancelar</Text>
                             <Icon style={{ marginStart: 5 }} name={"x"} size={22} color="#FFC633" />
                         </RectButton>
                     </View>

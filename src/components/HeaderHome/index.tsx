@@ -20,7 +20,7 @@ const HeaderHome: React.FC<HeaderHomeInterface> = ({ itemCenter, itemRight, func
     return (
         <View style={styles.header}>
             <View style={styles.containerItemCenter}>
-                <Text style={styles.titleHeader}>Hi, what do you want to do?</Text>
+                <Text style={styles.titleHeader}>Olá, oque você deseja fazer?</Text>
             </View>
             <Animatable.View animation="swing" iterationCount={2}>
                 <TouchableOpacity style={{ padding: 10 }} onPress={() => funcItemRight()}>

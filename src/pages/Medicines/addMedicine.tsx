@@ -56,7 +56,7 @@ const AddMedicine = () => {
 
     async function addMedicine() {
         if (name == "" || descriptions == "" || exams == null) {
-            setTextSnackBar("Fill in all fields")
+            setTextSnackBar("Preencha todos os campos")
             return setShowSnackBar(true)
         }
         setShowLoading(true)
@@ -86,7 +86,7 @@ const AddMedicine = () => {
 
     return (
         <View style={styles.container}>
-            <Header textCenter="New" itemRight={""} funcItemRight={() => navigate.navigate('Files')} />
+            <Header textCenter="Novo remédio" itemRight={""} funcItemRight={() => navigate.navigate('Files')} />
             <LoadingModal setShow={() => setShowLoading(showLoading)} show={showLoading} />
             <ModalConfirm setShow={setShowModalConfirm} show={showModalConfirm} />
             <ScrollView>
@@ -100,10 +100,10 @@ const AddMedicine = () => {
                     <DropDownPicker
 
                         searchable={true}
-                        searchablePlaceholder='Search...'
-                        searchableError={() => <Text style={{ color: '#fff' }}>Not found<Icon name='frown' size={23} color='#FFC633' /></Text>}
+                        searchablePlaceholder='Pesquise...'
+                        searchableError={() => <Text style={{ color: '#fff' }}>Nada encontrado<Icon name='frown' size={23} color='#FFC633' /></Text>}
                         searchableStyle={{ color: '#fff' }}
-                        placeholder="Select an exam"
+                        placeholder="Selecione um exame"
                         placeholderStyle={{ color: 'rgba(255, 255, 255, 0.5)' }}
                         containerStyle={{ height: 50, width: 290, maxWidth: 290, marginBottom: 15 }}
                         style={{
@@ -133,20 +133,20 @@ const AddMedicine = () => {
                     />
 
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
-                        <TextInputCustom title='Type the title' value={name} icon='edit-3' onTextChangeFunc={setName} />
+                        <TextInputCustom title='Digite o nome do remédio' value={name} icon='edit-3' onTextChangeFunc={setName} />
                     </Animatable.View>
 
                     <Animatable.View animation="bounceIn" style={styles.formInputContainer}>
-                        <TextAreaCustom title='Type Description' value={descriptions} icon='type' onTextChangeFunc={setDescriptions} />
+                        <TextAreaCustom title='Digite uma descrição' value={descriptions} icon='type' onTextChangeFunc={setDescriptions} />
                     </Animatable.View>
 
                     <View style={styles.containerBottomButtons}>
                         <RectButton activeOpacity={0.9} rippleColor={'#fff'} style={[styles.buttonEdit, { backgroundColor: '#6562ff', }]} onPress={addMedicine}>
-                            <Text style={[styles.text, styles.buttonText,]}>Create</Text>
+                            <Text style={[styles.text, styles.buttonText,]}>Novo</Text>
                             <Icon style={{ marginStart: 5 }} name={"plus"} size={22} color="#FFC633" />
                         </RectButton>
                         <RectButton activeOpacity={0.9} rippleColor={'#fff'} style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]} onPress={() => navigate.goBack()}>
-                            <Text style={[styles.text, styles.buttonText]}>Cancel</Text>
+                            <Text style={[styles.text, styles.buttonText]}>Cancelar</Text>
                             <Icon style={{ marginStart: 5 }} name={"x"} size={22} color="#FFC633" />
                         </RectButton>
                     </View>

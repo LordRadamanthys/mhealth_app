@@ -49,7 +49,7 @@ const InputDateCustom: React.FC<TextInputCustom> = ({ title, value, onTextChange
                 style={{ width: '100%', placeholderTextColor: 'rgba(255, 255, 255, 0.5)', colorDateInput: '#fff' }}
                 date={value}
                 mode="date"
-                placeholder="select date"
+                placeholder={title}
                 customStyles={{
                     dateInput: {
                         borderWidth: 0,

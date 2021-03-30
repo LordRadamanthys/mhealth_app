@@ -115,13 +115,13 @@ const Home = () => {
         <View style={styles.container}>
             <HeaderHome funcItemRight={() => navigate.navigate("Profile")} />
             <View style={styles.containerInputSearch}>
-                <TextInputCustom title="Search" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
+                <TextInputCustom title="Pesquise" value="" security={false} icon="search" onTextChangeFunc={() => { }} />
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.main}>
                     {carouselItems.length > 0 ?
                         <Animatable.View animation="fadeInUpBig" style={styles.recentActivitiesContainer}>
-                            <Text style={[styles.text, { fontSize: 19, marginBottom: 10 }]}>Recent activities</Text>
+                            <Text style={[styles.text, { fontSize: 19, marginBottom: 10 }]}>Atividades recentes</Text>
 
                             <View style={{ maxHeight: 150 }}>
                                 <Carousel
@@ -144,12 +144,12 @@ const Home = () => {
 
 
                     <View style={styles.mainButtons}>
-                        <ButtonHome text="Exams" action={() => goTo('Exams')} image="exams" />
-                        <ButtonHome text="Gym" action={() => goTo('Gyms')} image="gym" />
+                        <ButtonHome text="Exames" action={() => goTo('Exams')} image="exams" />
+                        <ButtonHome text="Treinos" action={() => goTo('Gyms')} image="gym" />
                     </View>
                     <View style={styles.mainButtons}>
-                        <ButtonHome text="Vaccines" action={() => goTo('Vaccines')} image="vaccines" />
-                        <ButtonHome text="Medicines" action={() => goTo('Medicines')} image="medicines" />
+                        <ButtonHome text="Vacinas" action={() => goTo('Vaccines')} image="vaccines" />
+                        <ButtonHome text="Remedios" action={() => goTo('Medicines')} image="medicines" />
                     </View>
 
                 </View>

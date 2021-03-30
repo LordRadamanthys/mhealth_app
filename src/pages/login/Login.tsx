@@ -83,7 +83,7 @@ const Login = () => {
 
     async function loginUser() {
         if (email === '' || password === '') {
-            setTextSnackBar('Fill in all fields')
+            setTextSnackBar('Preencha todos os campos')
             return setShowSnackBar(true)
         }
         setEnabledAllButtons(false)
@@ -130,9 +130,9 @@ const Login = () => {
 
 
     useEffect(() => {
-        //isTouchIdOn()
+        isTouchIdOn()
         registerForPushNotificationsAsync().then(token => console.log(token)).catch(e => console.log(e))
-        //getData()
+        getData()
     }, [])
 
     return (
@@ -154,7 +154,7 @@ const Login = () => {
                     </View>
 
                     <View style={styles.containerInputText}>
-                        <TextInput title='Password' security={true} value={password} onTextChangeFunc={setPassword} icon='key' />
+                        <TextInput title='Digite sua senha' security={true} value={password} onTextChangeFunc={setPassword} icon='key' />
                     </View>
 
                     <TouchableOpacity
@@ -163,7 +163,7 @@ const Login = () => {
                         activeOpacity={0.6}
                         onPress={() => navigate.navigate('ForgotPassword')}
                     >
-                        <Text style={styles.forgotPassword}>Forgot password</Text>
+                        <Text style={styles.forgotPassword}>Esqueci a senha</Text>
                         <Animatable.View animation="rubberBand" delay={1000}>
                             <Icon style={{ marginEnd: 10 }} name={"help-circle"} size={22} color="#6562ff" />
                         </Animatable.View>
@@ -179,7 +179,7 @@ const Login = () => {
                 </Animatable.View>
 
                 <RectButton enabled={enabledAllButtons} activeOpacity={0.9} rippleColor={'#fff'} style={[styles.buttonCreateAccount]} onPress={goToCreateAccount}>
-                    <Text style={styles.textButtonLogin}>Create account</Text>
+                    <Text style={styles.textButtonLogin}>Criar conta</Text>
                     <Icon style={{ marginStart: 10 }} name={"user-plus"} size={22} color="#FFC633" />
                 </RectButton>
             </ScrollView>

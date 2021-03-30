@@ -185,7 +185,7 @@ const Exam = () => {
                             <DropDownPicker
 
                                 searchable={true}
-                                searchablePlaceholder='Search...'
+                                searchablePlaceholder='Pesquisa...'
                                 searchableError={() => <Text style={{ fontFamily: 'Nunito_400Regular', color: '#fff' }}>Não encontrado  <Icon name='frown' size={23} color='#6562ff' /></Text>}
                                 searchableStyle={{ color: '#fff' }}
                                 placeholder="Selecione um especialista"
@@ -217,7 +217,7 @@ const Exam = () => {
                                 onChangeItem={(item) => setSpecialty(item)}
                             />}
                         <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
-                            <TextInputCustom title='Type the title' value={title}
+                            <TextInputCustom title='Digite um Titulo' value={title}
                                 icon='edit-3'
                                 iconColor={!enabledEdit ? "#6562ff" : "#E9585E"}
                                 onTextChangeFunc={setTitle} editable={enabledEdit}
@@ -225,7 +225,7 @@ const Exam = () => {
                         </Animatable.View>
 
                         <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
-                            <TextInputCustom title='Type date' value={date}
+                            <TextInputCustom title='Selecione uma data' value={date}
                                 icon='calendar'
                                 onTextChangeFunc={setDate}
                                 iconColor={!enabledEdit ? "#6562ff" : "#E9585E"}
@@ -235,7 +235,7 @@ const Exam = () => {
                         </Animatable.View>
 
                         <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
-                            <TextInputCustom title='Type the Doctors name' value={doctorsName}
+                            <TextInputCustom title='Digite o nome do(a) doutor(a)' value={doctorsName}
                                 icon='edit-3'
                                 onTextChangeFunc={setDoctorsName}
                                 iconColor={!enabledEdit ? "#6562ff" : "#E9585E"}
@@ -244,7 +244,7 @@ const Exam = () => {
                         </Animatable.View>
 
                         <Animatable.View animation="fadeInUp" style={styles.formInputContainer}>
-                            <TextAreaCustom title='Type Description' value={descriptions}
+                            <TextAreaCustom title='Digite uma descrição' value={descriptions}
                                 icon='type'
                                 onTextChangeFunc={setDescriptions}
                                 iconColor={!enabledEdit ? "#6562ff" : "#E9585E"}
@@ -253,7 +253,7 @@ const Exam = () => {
                         </Animatable.View>
 
                         <RectButton activeOpacity={0.9} rippleColor={'#fff'} style={styles.buttonFiles} onPress={() => goToFiles(exam.id)}>
-                            <Text style={[styles.text, styles.buttonText]}>Files</Text>
+                            <Text style={[styles.text, styles.buttonText]}>Arquivos</Text>
                             <Text style={[styles.text, styles.buttonText]}>total: {files}  <Icon name={"paperclip"} size={22} color="#FFC633" /></Text>
                         </RectButton>
 
@@ -263,7 +263,7 @@ const Exam = () => {
                                     style={[styles.buttonEdit, { backgroundColor: '#6562ff', }]}
                                     onPress={() => setEnabledEdit(!enabledEdit)}
                                 >
-                                    <Text style={[styles.text, styles.buttonText,]}>Edit</Text>
+                                    <Text style={[styles.text, styles.buttonText,]}>Editar</Text>
                                     <Icon style={{ marginStart: 5 }} name={"edit-2"} size={22} color="#FFC633" />
                                 </RectButton>
                                 :
@@ -271,7 +271,7 @@ const Exam = () => {
                                     style={[styles.buttonEdit, { backgroundColor: '#6562ff', }]}
                                     onPress={() => updateExam()}
                                 >
-                                    <Text style={[styles.text, styles.buttonText,]}>Save</Text>
+                                    <Text style={[styles.text, styles.buttonText,]}>Salvar</Text>
                                     <Icon style={{ marginStart: 5 }} name={"save"} size={22} color="#FFC633" />
                                 </RectButton>
                             }
@@ -283,7 +283,7 @@ const Exam = () => {
                                     style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]}
                                     onPress={() => showMyAlertDelete()}
                                 >
-                                    <Text style={[styles.text, styles.buttonText]}>Delete</Text>
+                                    <Text style={[styles.text, styles.buttonText]}>Apagar</Text>
                                     <Icon style={{ marginStart: 5 }} name={"trash"} size={22} color="#FFC633" />
                                 </RectButton>
                                 :
@@ -291,7 +291,7 @@ const Exam = () => {
                                     style={[styles.buttonEdit, { backgroundColor: '#E9585E', }]}
                                     onPress={() => blockTextInputs()}
                                 >
-                                    <Text style={[styles.text, styles.buttonText]}>Cancel</Text>
+                                    <Text style={[styles.text, styles.buttonText]}>Cancelar</Text>
                                     <Icon style={{ marginStart: 5 }} name={"x"} size={22} color="#FFC633" />
                                 </RectButton>
                             }

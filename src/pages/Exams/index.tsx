@@ -57,9 +57,9 @@ const Exams = () => {
     }
     return (
         <View style={styles.container}>
-            <Header textCenter="Exams" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddExam')} />
+            <Header textCenter="Exames" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddExam')} />
             <View style={styles.containerInputSearch}>
-                <TextInputCustom title="Search by title" value={search} security={false} icon="search" onTextChangeFunc={searchBar} />
+                <TextInputCustom title="Pesquise pelo nome" value={search} security={false} icon="search" onTextChangeFunc={searchBar} />
             </View>
 
             <View style={styles.main}>

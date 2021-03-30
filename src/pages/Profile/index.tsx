@@ -124,18 +124,18 @@ const Profile = () => {
                         <TextInput title='E-Mail' value={name} onTextChangeFunc={setName} icon='user' />
                     </View>
                     <View style={styles.containerInputText}>
-                        <TextInput title='Password' value={password} security={true} onTextChangeFunc={setPassword} icon='key' />
+                        <TextInput title='Nova senha' value={password} security={true} onTextChangeFunc={setPassword} icon='key' />
                     </View>
                     <View style={styles.containerInputText}>
-                        <TextInput title='Confirm password' value={confirmPassword} security={true} onTextChangeFunc={setConfirmPassword} icon='key' />
+                        <TextInput title='Digite a senha novamente' value={confirmPassword} security={true} onTextChangeFunc={setConfirmPassword} icon='key' />
                     </View>
                     <View style={[styles.containerInputText, { flexDirection: "row" }, styles.containerTextInput]}>
                         <Icon style={{ marginEnd: 10 }} name={"lock"} size={20} color={"#6562ff"} />
-                        <Text style={styles.textLock}>Login with touch ID    </Text>
+                        <Text style={styles.textLock}>Login com sua digital    </Text>
                         <Switch value={isSwitch} onValueChange={(value) => turnOnFingerPrint(value)} color="#6562ff" />
                     </View>
                     <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={styles.buttonCreate} onPress={editUser}>
-                        <Text style={styles.textButtonCreate}>Edit</Text>
+                        <Text style={styles.textButtonCreate}>Editar</Text>
                         <Icon style={{ marginStart: 10 }} name={"save"} size={22} color="#FFC633" />
                     </RectButton>
                     <RectButton activeOpacity={0.9} rippleColor={'#FFC633'} style={[styles.buttonCreate, { backgroundColor: '#E9585E' }]} onPress={logout_user}>

@@ -62,10 +62,10 @@ const Vaccines = () => {
 
     return (
         <View style={styles.container}>
-            <Header textCenter="Vaccines" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddVaccine')} />
+            <Header textCenter="Vacinas" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddVaccine')} />
             <LoadingModal setShow={setShowLoading} show={showLoading}/>
             <View style={styles.containerInputSearch}>
-                <TextInputCustom title="Search for title" value={search} security={false} icon="search" onTextChangeFunc={searchBar} />
+                <TextInputCustom title="Pesquise pelo nome" value={search} security={false} icon="search" onTextChangeFunc={searchBar} />
             </View>
 
             <View style={styles.main}>

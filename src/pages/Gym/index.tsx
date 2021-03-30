@@ -62,9 +62,9 @@ const Gyms = () => {
     return (
         <View style={styles.container}>
             <LoadingModal setShow={() => setShowLoading(!showLoading)} show={showLoading} />
-            <Header textCenter="Gyms" itemRight={iconRightHeader} funcItemRight={() => setShowModal(!showModal)} />
+            <Header textCenter="Treinos" itemRight={iconRightHeader} funcItemRight={() => setShowModal(!showModal)} />
             <View style={styles.containerInputSearch}>
-                <TextInputCustom title="Search for title" value={search} security={false} icon="search" onTextChangeFunc={searchBar} />
+                <TextInputCustom title="Pesquise pelo nome" value={search} security={false} icon="search" onTextChangeFunc={searchBar} />
             </View>
             <ModalAddGym show={showModal} callback={get} setShow={() => setShowModal(!showModal)} />
             <View style={styles.main}>

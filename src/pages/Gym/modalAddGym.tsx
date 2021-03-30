@@ -80,7 +80,7 @@ const ModalAddGym: React.FC<AlertInterface> = ({ show, setShow, callback }) => {
             <LoadingModal setShow={setShowLoading} show={showLoading} />
             <View style={styles.centeredView}>
                 <View style={styles.mainView}>
-                    <Text style={[styles.text, styles.title]}>New Gym</Text>
+                    <Text style={[styles.text, styles.title]}>Adicionar treino</Text>
                     <View style={styles.containerText}>
                         <TextInputCustom title="Title" value={title} onTextChangeFunc={setTitle} icon="edit-2" />
                     </View>

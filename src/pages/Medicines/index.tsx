@@ -69,10 +69,10 @@ const Medicines = () => {
     return (
         <View style={styles.container}>
 
-            <Header textCenter="Medicines" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddMedicine')} />
+            <Header textCenter="Remédios" itemRight={iconRightHeader} funcItemRight={() => navigate.navigate('AddMedicine')} />
             <LoadingModal show={showLoading} setShow={setShowLoading}/>
             <View style={styles.containerInputSearch}>
-                <TextInputCustom title="Search by title" value={search} security={false} icon="search" onTextChangeFunc={searchBar} />
+                <TextInputCustom title="Pesquise pelo nome" value={search} security={false} icon="search" onTextChangeFunc={searchBar} />
             </View>
             <View style={styles.main}>
                 <ScrollView showsVerticalScrollIndicator={false}>

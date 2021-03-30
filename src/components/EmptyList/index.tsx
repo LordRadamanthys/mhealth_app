@@ -9,7 +9,7 @@ const EmptyListComponent = () => {
         <View style={styles.container}>
             <Animatable.View animation='bounce' style={{ alignItems: 'center' }}>
                 <ImageEmptyList />
-                <Text style={styles.text}>Oops, we have nothing at the moment ...</Text>
+                <Text style={styles.text}>Ops, não encontramos nada no momento</Text>
             </Animatable.View>
         </View>
     )
@@ -21,11 +21,13 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         justifyContent: 'center',
         alignItems: 'center',
+        marginHorizontal:10
     },
 
     text: {
         color: '#D8DFFD',
         fontSize: 17,
+        textAlign:'center',
     },
 
 

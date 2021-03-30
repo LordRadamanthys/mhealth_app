@@ -61,20 +61,20 @@ const ModalAddTraining: React.FC<AlertInterface> = ({ show, setShow, id_gym, cal
             <LoadingModal setShow={() => setShowLoading(!showLoading)} show={showLoading} />
             <View style={styles.centeredView}>
                 <View style={styles.mainView}>
-                    <Text style={[styles.text, styles.title]}>New Training</Text>
+                    <Text style={[styles.text, styles.title]}>Novo exercicio</Text>
                     <View style={styles.containerText}>
-                        <TextInputCustom title="Name" value={name} onTextChangeFunc={setName} icon="edit-2" />
+                        <TextInputCustom title="Nome" value={name} onTextChangeFunc={setName} icon="edit-2" />
                     </View>
 
                     <View style={styles.containerText}>
-                        <TextInputCustom title="Number Moviments" keyboardType='number' value={numberMoviments} onTextChangeFunc={setNumberMoviments} icon="smile" />
+                        <TextInputCustom title="Numero de movimentos" keyboardType='number' value={numberMoviments} onTextChangeFunc={setNumberMoviments} icon="smile" />
                     </View>
 
                     <View style={styles.containerText}>
-                        <TextInputCustom title="Number repetitions" keyboardType='number' value={numberRepetitions} onTextChangeFunc={setNumberRepetitions} icon="smile" />
+                        <TextInputCustom title="Numero de repetições" keyboardType='number' value={numberRepetitions} onTextChangeFunc={setNumberRepetitions} icon="smile" />
                     </View>
                     <View style={styles.containerText}>
-                        <TextAreaCustom title='Description' value={description} icon='edit-2' onTextChangeFunc={setDescription} />
+                        <TextAreaCustom title='Descrição' value={description} icon='edit-2' onTextChangeFunc={setDescription} />
                     </View>
                     <View style={styles.containerBottomButtons}>
                         <TouchableOpacity

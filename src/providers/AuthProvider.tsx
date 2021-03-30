@@ -36,7 +36,7 @@ export const AuthProvider: React.FC = ({ children }) => {
             await AsyncStorage.setItem('@email', email)
             await AsyncStorage.setItem('@password', password)
         } catch (e) {
-            // saving error
+            console.log(e)
         }
     }
 

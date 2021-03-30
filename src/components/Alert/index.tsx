@@ -24,7 +24,7 @@ const ModalConfirm: React.FC<AlertInterface> = ({ show, setShow }) => {
                         <ImageDone />
                     </Animatable.View>
                     
-                    <Text style={[styles.text, styles.description]}>All done!</Text>
+                    <Text style={[styles.text, styles.description]}>Concluido</Text>
 
                     <TouchableOpacity
                         activeOpacity={0.6}

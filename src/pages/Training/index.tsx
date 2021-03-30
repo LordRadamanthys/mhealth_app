@@ -58,11 +58,11 @@ const Training = () => {
     return (
         <View style={styles.container}>
 
-            <Header textCenter="Training" itemRight={iconRightHeader} funcItemRight={showModal} />
+            <Header textCenter="Exercicios" itemRight={iconRightHeader} funcItemRight={showModal} />
             <ModalAddTraining callback={() => get()} id_gym={gym.id} setShow={setShowModalAddTraining} show={showModalAddTraining} />
             <LoadingModal setShow={() => setShowLoading(!showLoading)} show={showLoading} />
             <View style={styles.containerInputSearch}>
-                <TextInputCustom title="Search by title" value={search} security={false} icon="search" onTextChangeFunc={searchBar} />
+                <TextInputCustom title="Pesquise pelo nome" value={search} security={false} icon="search" onTextChangeFunc={searchBar} />
             </View>
             <View style={styles.main}>
                 <ScrollView style={{ marginBottom: 150 }} showsVerticalScrollIndicator={false}>
