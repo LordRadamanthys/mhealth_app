@@ -78,8 +78,8 @@ const Home = () => {
         return (
             <View style={styles.border}>
                 <RectButton activeOpacity={0.9} rippleColor={'#fff'} style={styles.recentActvities} onPress={() => goToPageItem(item)}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={{ flexDirection: 'column', marginHorizontal: 10 }}>
+                    <View style={{ flexDirection: 'row', }}>
+                        <View style={{ flexDirection: 'column', marginHorizontal: 10, maxWidth:220 }}>
                             {item.title ? <Text style={[styles.text, styles.descriptionSlide, { fontSize: 23 }]}>{item.title}</Text> : undefined}
                             {item.date ? <Text style={[styles.text, styles.descriptionSlide]}>{`Data: ${item.date}`}</Text> : <></>}
                             {item.doctors_name ? <Text style={[styles.text, styles.descriptionSlide]}>{`Doutor(a): ${item.doctors_name}`}</Text> : <></>}

@@ -28,22 +28,22 @@ const ModalAddGym: React.FC<AlertInterface> = ({ show, setShow, callback }) => {
     function getDaysWeek() {
         const textDaysWeek = []
         if (monday.select) {
-            textDaysWeek.push(monday.text)
+            textDaysWeek.push("Monday")
         }
         if (tuesday.select) {
-            textDaysWeek.push(tuesday.text)
+            textDaysWeek.push("Tuesday")
         }
         if (wednesday.select) {
-            textDaysWeek.push(wednesday.text)
+            textDaysWeek.push("Wednesday")
         }
         if (thursday.select) {
-            textDaysWeek.push(thursday.text)
+            textDaysWeek.push("Thursday")
         }
         if (friday.select) {
-            textDaysWeek.push(friday.text)
+            textDaysWeek.push("Friday")
         }
         if (saturday.select) {
-            textDaysWeek.push(saturday.text)
+            textDaysWeek.push("Saturday")
         }
 
         setSelectedDays(textDaysWeek.toString())

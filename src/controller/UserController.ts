@@ -21,23 +21,26 @@ export async function createUser(name: string, email: string, password: string, 
             type: 'image/jpg'
         })
     }
+    try {
+        await api.post('user', data, {
+            headers: {
+                'Content-Type': 'Multipart/form-data'
+            }
+        }).then(response => {
+            return 'Usuario criado'
+        }).catch(error => {
+            if (error.response.data.message) {
 
-    await api.post('user', data, {
-        headers: {
-            'Content-Type': 'Multipart/form-data'
-        }
-    }).then(response => {
-        return 'Usuario criado'
-    }).catch(error => {
-        if (error.response.data.message) {
+                throw (error.response.data.message)
+            } else {
 
-            throw (error.response.data.message)
-        } else {
+                throw ('Oops, try again later')
+            }
 
-            throw ('Oops, try again later')
-        }
-
-    })
+        })
+    }catch(e){
+        throw ('Oops, try again later')
+    }
 
 }
 

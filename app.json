@@ -10,6 +10,7 @@
       "resizeMode": "cover",
       "backgroundColor": "#1a1a1f"
     },
+    
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -17,7 +18,8 @@
       "**/*"
     ],
     "android": {
-      "useNextNotificationsApi": true
+      "useNextNotificationsApi": true,
+      
     },
     "ios": {
       "supportsTablet": true

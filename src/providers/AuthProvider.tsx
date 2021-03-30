@@ -17,8 +17,9 @@ export const AuthProvider: React.FC = ({ children }) => {
         let error = 'Network error'
         await api.post('login', data)
             .then(resp => {
+            
                 storeData(email, password)
-                setUser(resp.data)
+                setUser(resp.data as UserInterface)
             }).catch(err => {
                 try {
                     error = err.response.data.message

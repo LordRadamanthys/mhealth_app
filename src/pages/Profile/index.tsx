@@ -68,7 +68,8 @@ const Profile = () => {
         }
 
         await updateUser(user, name, password, image).then(response => {
-
+            console.log(response);
+            
         }).catch(error => {
 
             setTextSnackBar(error)
@@ -101,6 +102,8 @@ const Profile = () => {
 
 
     useEffect(() => {
+        console.log(user?.link_files);
+        
         getIsTouchId()
         setName(user?.name)
         //setName(user?.password)
