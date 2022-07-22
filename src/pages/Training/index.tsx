@@ -9,7 +9,7 @@ import EmptyListComponent from '../../components/EmptyList'
 import ExpandCard from '../../components/ExpandCard'
 import ModalAddTraining from './modalAddTraining'
 import { useRoute } from '@react-navigation/native'
-import GymsInterface from '../../interfaces/GymsInterface'
+import GymsInterface, { TrainingModel, WeekInterface } from '../../interfaces/GymsInterface'
 import { getTraining } from '../../controller/TrainingController'
 import AuthContext from '../../providers/AuthProvider'
 import TrainingInterface from '../../interfaces/TrainingInterface'
@@ -23,13 +23,16 @@ const Training = () => {
     const [showLoading, setShowLoading] = useState(false)
     const [listTraining, setListTraining] = useState([])
     const [listTrainingSearch, setListTrainingSearch] = useState([])
+    const [listWeek, setListWeek] = useState<[TrainingModel]>()
     const [search, setSearch] = useState("")
 
     function showModal() {
         setShowModalAddTraining(!showModalAddTraining)
     }
 
+    // console.log(gym)
     async function get() {
+        
         setShowLoading(true)
         await getTraining(gym, user).then(response => {
             setListTraining(response)
@@ -52,14 +55,20 @@ const Training = () => {
     }
 
     useEffect(() => {
-        get()
+        // get()
+        console.log(gym)
+        var arrTraining: [TrainingModel]
+        arrTraining = gym.week.map(t=>{
+            return t.training
+        })
+        setListWeek(arrTraining)
     }, [])
 
     return (
         <View style={styles.container}>
 
             <Header textCenter="Exercicios" itemRight={iconRightHeader} funcItemRight={showModal} />
-            <ModalAddTraining callback={() => get()} id_gym={gym.id} setShow={setShowModalAddTraining} show={showModalAddTraining} />
+            <ModalAddTraining callback={() => get()} id_gym={gym._id} setShow={setShowModalAddTraining} show={showModalAddTraining} />
             <LoadingModal setShow={() => setShowLoading(!showLoading)} show={showLoading} />
             <View style={styles.containerInputSearch}>
                 <TextInputCustom title="Pesquise pelo nome" value={search} security={false} icon="search" onTextChangeFunc={searchBar} />
@@ -67,35 +76,44 @@ const Training = () => {
             <View style={styles.main}>
                 <ScrollView style={{ marginBottom: 150 }} showsVerticalScrollIndicator={false}>
 
-                    {listTraining.length > 0 ? listTraining.map((training: TrainingInterface) => {
-                        return (
-                            <ExpandCard
-                                image='gym'
-                                title={training.name}
-                                description={training.description}
-                                key={training.id}
-                            >
-                                <View style={{ marginVertical: 10 }}>
-                                    <TextInputCustom
-                                        editable={false}
-                                        title="Number moviments"
-                                        value={`Number moviments: ${training.number_moviments}`}
-                                        onTextChangeFunc={() => { }}
-                                        icon="activity"
-                                    />
-                                </View>
-
-                                <View style={{ marginVertical: 10 }}>
-                                    <TextInputCustom editable={false}
-                                        title="Number repetitions"
-                                        value={`Number repetitions: ${training.number_repetitions}`}
-                                        onTextChangeFunc={() => { }}
-                                        icon="activity"
-                                    />
-                                </View>
-                            </ExpandCard>
-                        )
-                    }) : <EmptyListComponent />}
+                    {/* {gym.week.length > 0 ? gym.week.map((day) => { */}
+                        {
+                            listWeek != null ? listWeek.map(t=>{
+                                if(t == null){
+                                    console.log(t)
+                                    return <></>
+                                }
+                                return (
+                                    <ExpandCard
+                                        image='gym'
+                                        title={gym.name}
+                                        // description={day.description}
+                                        key={t.name_training}
+                                    >
+                                        <View style={{ marginVertical: 10 }}>
+                                            <TextInputCustom
+                                                editable={false}
+                                                title="Number moviments"
+                                                value={`Number moviments: ${t.number_moviments}`}
+                                                onTextChangeFunc={() => { }}
+                                                icon="activity"
+                                            />
+                                        </View>
+        
+                                        <View style={{ marginVertical: 10 }}>
+                                            <TextInputCustom editable={false}
+                                                title="Number repetitions"
+                                                value={`Number repetitions: ${t.number_series}`}
+                                                onTextChangeFunc={() => { }}
+                                                icon="activity"
+                                            />
+                                        </View>
+                                    </ExpandCard>
+                                )
+                            }):<EmptyListComponent />
+                        }
+                        
+                    {/* }) : <EmptyListComponent />} */}
                 </ScrollView>
             </View>
         </View>

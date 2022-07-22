@@ -15,11 +15,12 @@ export const AuthProvider: React.FC = ({ children }) => {
             password
         }
         let error = 'Network error'
-        await api.post('login', data)
+        await api.post('/user/auth', data)
             .then(resp => {
-            
+                var userResp = resp.data as UserInterface
+                userResp.token = resp.headers.token
                 storeData(email, password)
-                setUser(resp.data as UserInterface)
+                setUser(userResp)
             }).catch(err => {
                 try {
                     error = err.response.data.message

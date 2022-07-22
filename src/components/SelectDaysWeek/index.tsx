@@ -14,7 +14,7 @@ const SelectDaysWeek = ({
             <Icon style={{ marginEnd: 5 }} name={'calendar'} size={20} color="#6562ff" />
 
             <TouchableOpacity onPress={() => setMonday({ text: 'Mon', select: !monday.select })} >
-                <Text style={monday.select ? styles.textSelected : styles.text}>{monday.text}</Text>
+                <Text style={monday.select  ? styles.textSelected : styles.text}>{monday.text}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => setTuesday({ text: 'Tue', select: !tuesday.select })} >

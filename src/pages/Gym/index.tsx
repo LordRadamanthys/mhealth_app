@@ -31,10 +31,8 @@ const Gyms = () => {
         await getGyms(user).then(response=>{
             setListGyms(response)
             setListGymsSearch(response)
-            console.log("kljlkjkljkl"+response);
             return
         }).catch(error => {
-            console.log(listGyms)
             return setShowLoading(false)
         })
          
@@ -71,9 +69,15 @@ const Gyms = () => {
                 <ScrollView showsVerticalScrollIndicator={false} >
                     {listGyms.length > 0 ? listGyms.map((gym: GymsInterface) => {
                         return (
-                            <Animatable.View animation="fadeInUp" style={styles.containerMainButton} key={gym.id}>
+                            <Animatable.View animation="fadeInUp" style={styles.containerMainButton} key={gym.name}>
                                 <MainButton text={gym.name} image="gym" action={() => goToTraining(gym)} >
-                                    <Text style={{ fontFamily: 'Nunito_400Regular', color: '#fff' }}>{gym.days}</Text>
+                                    <View style={{flexDirection:'row'}}>
+                                    {gym.week.map(day=>{
+                                        return(
+                                                <Text style={{ fontFamily: 'Nunito_400Regular', color: '#fff' }}>{day.name} </Text>
+                                        )
+                                    })}
+                                    </View>
                                 </MainButton>
                             </Animatable.View>
                         )

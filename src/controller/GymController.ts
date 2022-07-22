@@ -8,12 +8,12 @@ export async function getGyms(user: UserInterface) {
 
     try {
         await api.get(`gym`, {
-            headers: { 'Authorization': 'Bearer' + user.token }
+            headers: { 'Authorization': 'Bearer ' + user.token }
         }).then(resp => {
             response = resp.data
 
         }).catch(err => {
-            error = err.message
+            throw(err.message)
         })
         
         if (response) {
@@ -32,10 +32,9 @@ export async function insertGym(data: {}, user: UserInterface) {
     let response = null
     let error = null
 
-
     await api.post(`gym`, data, {
 
-        headers: { 'Authorization': 'Bearer' + user.token }
+        headers: { 'Authorization': 'Bearer ' + user.token }
     }).then(resp => {
         response = resp.data
 

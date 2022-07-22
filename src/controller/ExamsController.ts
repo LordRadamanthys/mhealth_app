@@ -3,9 +3,11 @@ import api from "../services/api";
 
 export async function getExams(user: UserInterface) {
     let response = null
+
     let error = null
-    await api.get(`exams`, {
-        headers: { 'Authorization': 'Bearer' + user.token }
+    await api.get(`medicalAppointment`, {
+
+        headers: { 'Authorization': 'Bearer ' + user.token }
     }).then(resp => {
         response = resp.data.reverse()
 
@@ -24,9 +26,9 @@ export async function getExams(user: UserInterface) {
 export async function update(data: {}, user: UserInterface) {
     let response = null
     let error = null
-    await api.put(`exams`, data, {
+    await api.put(`medicalAppointment`, data, {
 
-        headers: { 'Authorization': 'Bearer' + user.token },
+        headers: { 'Authorization': 'Bearer ' + user.token },
 
     }).then(resp => {
         response = resp.data
@@ -47,8 +49,8 @@ export async function update(data: {}, user: UserInterface) {
 export async function deleteExamAndFiles(id_exam: number, user: UserInterface) {
     let response = null
     let error = null
-    await api.delete(`exams/${id_exam}`, {
-        headers: { 'Authorization': 'Bearer' + user.token }
+    await api.delete(`medicalAppointment/${id_exam}`, {
+        headers: { 'Authorization': 'Bearer ' + user.token }
     }).then(resp => {
         response = resp.data
     }).catch(err => {
@@ -66,9 +68,10 @@ export async function deleteExamAndFiles(id_exam: number, user: UserInterface) {
 export async function insert(data: {}, user: UserInterface) {
     let response = null
     let error = null
-    await api.post(`exams`, data, {
+    console.log(data)
+    await api.post(`medicalAppointment`, data, {
 
-        headers: { 'Authorization': 'Bearer' + user.token },
+        headers: { 'Authorization': 'Bearer ' + user.token },
 
     }).then(resp => {
         response = resp.data

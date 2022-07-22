@@ -45,20 +45,24 @@ const ModalAddGym: React.FC<AlertInterface> = ({ show, setShow, callback }) => {
         if (saturday.select) {
             textDaysWeek.push("Saturday")
         }
-
+        
         setSelectedDays(textDaysWeek.toString())
-
+        
     }
-
+    
     async function createGym() {
         setShowLoading(true)
         getDaysWeek()
+        
+        if (selectedDays.length==0){
+            setShowLoading(false)
+            return
+        }
         const data = {
             name: title,
-            days: selectedDays
+            week_name: selectedDays
         }
-        console.log(data);
-
+        
         await insertGym(data, user).then(response => {
             console.log(response);
             setShowLoading(false)

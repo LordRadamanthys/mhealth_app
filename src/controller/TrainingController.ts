@@ -33,8 +33,8 @@ export async function insertTraining(data: {}, user: UserInterface) {
     let response = null
     let error = null
 
-
-    await api.post(`training`, data, {
+    console.log(user)
+    await api.post(`gym`, data, {
         headers: { 'Authorization': 'Bearer' + user.token }
     }).then(resp => {
         response = resp.data
