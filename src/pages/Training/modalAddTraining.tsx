@@ -11,10 +11,11 @@ interface AlertInterface {
     show: boolean,
     setShow(key: boolean): void
     id_gym: number
+    day: string
     callback(): void
 }
 
-const ModalAddTraining: React.FC<AlertInterface> = ({ show, setShow, id_gym, callback }) => {
+const ModalAddTraining: React.FC<AlertInterface> = ({ show, setShow, day,id_gym, callback }) => {
     const { user } = useContext(AuthContext)
     const [name, setName] = useState('')
     const [numberMoviments, setNumberMoviments] = useState('')
@@ -27,9 +28,10 @@ const ModalAddTraining: React.FC<AlertInterface> = ({ show, setShow, id_gym, cal
         setShowLoading(true)
         const data = {
             id_gym: id_gym,
-            name: name,
-            number_moviments: numberMoviments,
-            number_repetitions: numberRepetitions,
+            name_training: name,
+            day: day,
+            number_series: numberMoviments,
+            number_moviments: numberRepetitions,
             description: description
         }
 

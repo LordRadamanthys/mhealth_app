@@ -14,6 +14,7 @@ import { getTraining } from '../../controller/TrainingController'
 import AuthContext from '../../providers/AuthProvider'
 import TrainingInterface from '../../interfaces/TrainingInterface'
 import LoadingModal from '../../components/Loading'
+import { getGyms } from '../../controller/GymController'
 
 const Training = () => {
     const { user } = useContext(AuthContext)
@@ -32,9 +33,9 @@ const Training = () => {
 
     // console.log(gym)
     async function get() {
-        
+
         setShowLoading(true)
-        await getTraining(gym, user).then(response => {
+        await getGyms(user).then(response => {
             setListTraining(response)
             setListTrainingSearch(response)
             return setShowLoading(false)
@@ -56,11 +57,14 @@ const Training = () => {
 
     useEffect(() => {
         // get()
-        console.log(gym)
+        // console.log(gym)
         var arrTraining: [TrainingModel]
-        arrTraining = gym.week.map(t=>{
+        arrTraining = gym.week.map(t => {
             return t.training
         })
+        // for (varweek in gym.week){
+
+        // }
         setListWeek(arrTraining)
     }, [])
 
@@ -68,7 +72,7 @@ const Training = () => {
         <View style={styles.container}>
 
             <Header textCenter="Exercicios" itemRight={iconRightHeader} funcItemRight={showModal} />
-            <ModalAddTraining callback={() => get()} id_gym={gym._id} setShow={setShowModalAddTraining} show={showModalAddTraining} />
+            <ModalAddTraining callback={() => {get()}} id_gym={gym._id} day={gym.week[0].name} setShow={setShowModalAddTraining} show={showModalAddTraining} />
             <LoadingModal setShow={() => setShowLoading(!showLoading)} show={showLoading} />
             <View style={styles.containerInputSearch}>
                 <TextInputCustom title="Pesquise pelo nome" value={search} security={false} icon="search" onTextChangeFunc={searchBar} />
@@ -76,44 +80,73 @@ const Training = () => {
             <View style={styles.main}>
                 <ScrollView style={{ marginBottom: 150 }} showsVerticalScrollIndicator={false}>
 
-                    {/* {gym.week.length > 0 ? gym.week.map((day) => { */}
-                        {
-                            listWeek != null ? listWeek.map(t=>{
-                                if(t == null){
-                                    console.log(t)
-                                    return <></>
-                                }
-                                return (
-                                    <ExpandCard
-                                        image='gym'
-                                        title={gym.name}
-                                        // description={day.description}
-                                        key={t.name_training}
-                                    >
-                                        <View style={{ marginVertical: 10 }}>
-                                            <TextInputCustom
-                                                editable={false}
-                                                title="Number moviments"
-                                                value={`Number moviments: ${t.number_moviments}`}
-                                                onTextChangeFunc={() => { }}
-                                                icon="activity"
-                                            />
-                                        </View>
+                    {gym.week.length > 0 ? gym.week.map((day) => {
+                        return(
+                            <>
+                            <ExpandCard
+                                            image='gym'
+                                            title={day.name}
+                                            // description={day.description}
+                                            key={gym.name}
+                                        >
+                                          
         
-                                        <View style={{ marginVertical: 10 }}>
-                                            <TextInputCustom editable={false}
-                                                title="Number repetitions"
-                                                value={`Number repetitions: ${t.number_series}`}
-                                                onTextChangeFunc={() => { }}
-                                                icon="activity"
-                                            />
-                                        </View>
-                                    </ExpandCard>
-                                )
-                            }):<EmptyListComponent />
-                        }
-                        
-                    {/* }) : <EmptyListComponent />} */}
+                                       
+                            {
+                                day.training != null ? day.training.map(t => {
+                                    if (t == null) {
+                                        return <></>
+                                    }
+        
+                                    // console.log(t)
+                                    return (
+                                      
+                                            
+                                                
+                                                   
+                                                        <>
+                                                        <View style={{ marginVertical: 10 }}>
+                                                                <TextInputCustom
+                                                                    editable={false}
+                                                                    title="exercicio"
+                                                                    value={`${t.name_training}`}
+                                                                    onTextChangeFunc={() => { }}
+                                                                    icon="check"
+                                                                />
+                                                            </View>
+        
+                                                            <View style={{ marginVertical: 10 }}>
+                                                                <TextInputCustom
+                                                                    editable={false}
+                                                                    title="Number moviments"
+                                                                    value={`Number moviments: ${t.number_moviments}`}
+                                                                    onTextChangeFunc={() => { }}
+                                                                    icon="activity"
+                                                                />
+                                                            </View>
+        
+                                                            <View style={{ marginVertical: 10 }}>
+                                                                <TextInputCustom editable={false}
+                                                                    title="Number repetitions"
+                                                                    value={`Number repetitions: ${t.number_series}`}
+                                                                    onTextChangeFunc={() => { }}
+                                                                    icon="activity"
+                                                                />
+                                                            </View>
+                                                            <Text style={{flexDirection:'row',width: '100%', textAlign:'center',paddingVertical: 10}}>-------------------------------------------------------</Text>
+                                                        </>
+                                                    
+                                               
+                                            
+        
+                                    )
+                                }) : <EmptyListComponent />
+                            }
+                             </ExpandCard>
+                            </>
+                        )
+
+                    }) : <EmptyListComponent />}
                 </ScrollView>
             </View>
         </View>
@@ -142,7 +175,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
     },
 
- 
+
     buttonText: {
         fontSize: 17,
         alignSelf: 'center',

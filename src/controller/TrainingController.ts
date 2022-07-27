@@ -33,9 +33,15 @@ export async function insertTraining(data: {}, user: UserInterface) {
     let response = null
     let error = null
 
-    console.log(user)
-    await api.post(`gym`, data, {
-        headers: { 'Authorization': 'Bearer' + user.token }
+    var obj = {
+        name_training: data.name_training,
+        number_series: Number(data.number_series),
+        number_moviments: Number(data.number_moviments),
+    }
+
+    console.log(obj)
+    await api.patch(`gym/${data.id_gym}/${data.day}`, obj, {
+        headers: { 'Authorization': 'Bearer ' + user.token }
     }).then(resp => {
         response = resp.data
     }).catch(err => {
